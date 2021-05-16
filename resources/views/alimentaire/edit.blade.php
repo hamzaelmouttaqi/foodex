@@ -13,15 +13,24 @@
               <label for="description">description</label>
               <input type="text" class="form-control" name="description" placeholder="description" value="{{ $alimentaire->description }}">
             </div>
-            <fieldset>
+          <fieldset>
             <label >Composants:</label><br>
               @foreach ($category as $category)
               <label for=""><b>{{ $category->title }}</b></label><br>
-              @foreach ($compo as $comp)
+               @foreach ($compo as $comp)
                   @if ($comp->categorie===$category->title)
-                  <input type="checkbox" name="composants[]" value="{{ $comp->nomComposant }}">{{ $comp->nomComposant }}<br>
+                  @foreach ($inter as $inters)
+                      @if ($comp->nomComposant===$inters)
+                       <input type="checkbox" name="composants[]" value="{{ $comp->nomComposant }}" checked>{{ $comp->nomComposant }}<br> 
+                      @endif
+                  @endforeach
+                  @foreach ($diff as $diffs)
+                  @if ($comp->nomComposant===$diffs)
+                  <input type="checkbox" name="composants[]" value="{{ $comp->nomComposant }}">{{ $comp->nomComposant }}<br> 
+                 @endif
+                  @endforeach
                   @endif
-              @endforeach
+              @endforeach 
           @endforeach
           </fieldset>
             <div class="custom-file">

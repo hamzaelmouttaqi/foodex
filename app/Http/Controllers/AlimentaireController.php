@@ -111,12 +111,10 @@ class AlimentaireController extends Controller
      */
     public function edit(alimentaire $alimentaire)
     {   
-        // $composants=composants::all();
-        // foreach($composants as $composants)
-        // return array($composants->nomComposant);
-        // //$comp=array_diff(,$alimentaire->composants);
-        // //return $comp;
-        return view('alimentaire.edit')->with(["alimentaire"=>$alimentaire,"compo"=>composants::all(),
+        $camp=composants::select('nomComposant')->pluck('nomComposant')->toArray();
+        $diff=array_merge(array_diff($camp,$alimentaire->composants)); 
+        $inter=array_intersect($camp,$alimentaire->composants);
+        return view('alimentaire.edit',compact('inter','diff'))->with(["alimentaire"=>$alimentaire,"compo"=>composants::all(),
         "sizes"=>Size::all(),"category"=>CategoryComposant::all()]);
     }
 
