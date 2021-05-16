@@ -8,6 +8,14 @@
               <label for="titre">titre</label>
               <input type="text" class="form-control" name="titre" placeholder="Enter titre">
             </div>
+            <div class="form-group">
+              <label for="description">Categories:</label><br>
+            </div>
+            @foreach ($cat as $cat)
+            
+                    <input type="radio" name="categorie_id" value="{{ $cat->id }}">{{ $cat->nomCat}} <br>
+                
+            @endforeach
             <div class="custom-file">
                 <input type="file" class="custom-file-input" name="image">
                 <label class="custom-file-label" for="customFile">Choose file</label>

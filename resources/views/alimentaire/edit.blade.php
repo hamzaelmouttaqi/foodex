@@ -10,6 +10,14 @@
               <input type="text" class="form-control" name="titre" placeholder="Enter titre" value="{{ $alimentaire->titre }}">
             </div>
             <div class="form-group">
+              <label for="">Categories:</label><br>
+            </div>
+            @foreach ($cat as $cat)
+            
+                    <input type="radio" name="categorie_id" value="{{ $cat->id }}">{{ $cat->nomCat}} <br>
+                
+            @endforeach
+            <div class="form-group">
               <label for="description">description</label>
               <input type="text" class="form-control" name="description" placeholder="description" value="{{ $alimentaire->description }}">
             </div>

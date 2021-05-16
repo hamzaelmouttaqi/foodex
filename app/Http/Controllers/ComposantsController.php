@@ -127,7 +127,6 @@ class ComposantsController extends Controller
             $composant->update([
                 "nomComposant"=>$nomComposant ,
                  "categorie"=>$categorie,
-                 "image"=>$filename,
                  "Category_id"=>$cat
             ]);    return redirect()->route('composants.index')->with(["succes"=>"composant modifiee avec succes"]) ;
         }

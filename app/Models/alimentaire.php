@@ -13,7 +13,7 @@ class alimentaire extends Model
     protected $casts = [
         'composants' => 'array'
     ];
-    protected $fillable = ["titre","description","image","composants"];
+    protected $fillable = ["titre","description","image","composants","categorie_id","categorie"];
     public function getRouteKeyName()
     {
         return "id";
@@ -26,5 +26,9 @@ class alimentaire extends Model
     public function sizes()
     {
         return $this->belongsToMany(Size::class, 'alimentaire_size', 'alimentaire_id', 'size_id')->withTimestamps()->withPivot(['prix']);
+    }
+    public function categorie()
+    {
+        return $this->belongsTo(categorie::class);
     }
 }

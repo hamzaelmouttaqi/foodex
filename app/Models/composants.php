@@ -19,7 +19,7 @@ class composants extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category_composants(): BelongsTo
+    public function category_composants()
     {
         return $this->belongsTo(CategoryComposant::class);
     }

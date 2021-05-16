@@ -16,4 +16,8 @@ class categorie extends Model
     {
         return "id";
     }
+    public function alimentaires()
+    {
+        return $this->hasMany(alimentaire::class,'categorie_id','id');
+    }
 }

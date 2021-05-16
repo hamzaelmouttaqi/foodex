@@ -16,6 +16,7 @@
             <thead>
               <tr>
                 <th scope="col">id</th>
+                <th scope="col">categorie</th>
                 <th scope="col">titre</th>
                 <th scope="col">image</th>
                 <th scope="col">description</th>
@@ -28,6 +29,7 @@
               @foreach ($alimentaire as $alimentaire)
                   <tr>
                     <td>{{$alimentaire ->id}}</td>
+                    <td>{{$alimentaire->categorie }}</td>
                     <td>{{ $alimentaire->titre }}</td>
                     <td ><img class="fluid" width="60" height="60" src="{{ asset('uploads/alimentaire/image/'. $alimentaire->image ) }}" alt="" class="img-thumbnail"></td>
                     <td>{{ $alimentaire->description }}</td>

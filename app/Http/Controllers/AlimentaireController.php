@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\alimentaire;
+use App\Models\categorie;
 use App\Models\composants;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -44,7 +45,8 @@ class AlimentaireController extends Controller
        
     return view('alimentaire.create')->with(["compo"=>composants::all(),
     "category"=>CategoryComposant::all(),
-    "sizes"=>Size::all()]);
+    "sizes"=>Size::all(),
+    "cat"=>categorie::all()]);
     }
 
     /**
@@ -60,7 +62,9 @@ class AlimentaireController extends Controller
         ,"composants"=>"required"]);
         //store data
         
-        $prix=$request->prix;
+        $cat=$request->categorie_id;
+        $titleCat=DB::table('categories')->select('nomCat')->where('id',$cat)->value('nomCat');
+        $categorie=$titleCat;
         $titre=$request->titre;
         $description=$request->description;
         $composants=$request->composants;
@@ -79,6 +83,8 @@ class AlimentaireController extends Controller
              "description"=>$description,
              "composants"=>$composants,
              "image"=>$filename,
+             "categorie_id"=>$cat,
+             "categorie"=>$categorie
         ]);   
         $alimentaire=alimentaire::where('id',$alimentairee->id)->get();
         foreach($alimentaire as $alimentaire){
@@ -115,7 +121,8 @@ class AlimentaireController extends Controller
         $diff=array_merge(array_diff($camp,$alimentaire->composants)); 
         $inter=array_intersect($camp,$alimentaire->composants);
         return view('alimentaire.edit',compact('inter','diff'))->with(["alimentaire"=>$alimentaire,"compo"=>composants::all(),
-        "sizes"=>Size::all(),"category"=>CategoryComposant::all()]);
+        "sizes"=>Size::all(),"category"=>CategoryComposant::all(),
+        "cat"=>categorie::all()]);
     }
 
     /**
@@ -137,6 +144,9 @@ class AlimentaireController extends Controller
             $extension =$file->getClientOriginalExtension();
             $filename = time().'.'.$extension;
             $file->move('uploads/alimentaire/image',$filename);
+            $cat=$request->categorie_id;
+            $titleCat=DB::table('categories')->select('nomCat')->where('id',$cat)->value('nomCat');
+            $categorie=$titleCat;
             $titre=$request->titre;
             $description=$request->description;
             $composants=$request->composants;
@@ -145,6 +155,8 @@ class AlimentaireController extends Controller
                 "description"=>$description,
                 "composants"=>$composants,
                 "image"=>$filename,
+                "categorie_id"=>$cat,
+                "categorie"=>$categorie
             ]);  
             
                 $sizes=collect($request->input('sizes', []))
@@ -157,6 +169,9 @@ class AlimentaireController extends Controller
             
         }
         else{
+            $cat=$request->categorie_id;
+            $titleCat=DB::table('categories')->select('nomCat')->where('id',$cat)->value('nomCat');
+            $categorie=$titleCat;
             $titre=$request->titre;
             $description=$request->description;
             $composants=$request->composants;
@@ -164,6 +179,8 @@ class AlimentaireController extends Controller
                 "titre"=>$titre ,
                 "description"=>$description,
                 "composants"=>$composants,
+                "categorie_id"=>$cat,
+                "categorie"=>$categorie
             ]);   
             
                 $sizes=collect($request->input('sizes', []))
