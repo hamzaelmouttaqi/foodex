@@ -12,9 +12,9 @@
               <label for="description">Categories:</label><br>
             </div>
             @foreach ($cat as $cat)
-            
-                    <input type="radio" name="categorie_id" value="{{ $cat->id }}">{{ $cat->nomCat}} <br>
-                
+                @if ($cat->status=='1')
+                <input type="radio" name="categorie_id" value="{{ $cat->id }}">{{ $cat->nomCat}} <br>
+                @endif    
             @endforeach
             <div class="custom-file">
                 <input type="file" class="custom-file-input" name="image">
@@ -29,7 +29,7 @@
                           <label for=""><b>{{ $category->title }}</b></label><br>
                           @foreach ($compo as $comp)
                               @if ($comp->categorie===$category->title)
-                              <input type="checkbox" name="composants[]" value="{{ $comp->nomComposant }}">{{ $comp->nomComposant }}<br>
+                              <input type="checkbox" name="composants[{{ $comp->id }}]" value="{{ $comp->id }}">{{ $comp->nomComposant }}<br>
                               @endif
                           @endforeach
                       @endforeach
@@ -50,7 +50,6 @@
                       disabled
                       data-id="{{ $sizes->id }}"
                       >
-                      <p id="demo"></p>
                     </td>
                     
                   </tr>

@@ -23,4 +23,8 @@ class composants extends Model
     {
         return $this->belongsTo(CategoryComposant::class);
     }
+    public function alimentaires()
+    {
+        return $this->belongToMany(alimentaire::class,'alimentaire_composant', 'alimentaire_id', 'composant_id');
+    }
 }

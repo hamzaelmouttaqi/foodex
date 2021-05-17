@@ -19,9 +19,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('clients', 'App\Http\Controllers\ClientController');
@@ -32,3 +29,4 @@ Route::resource('Category', 'App\Http\Controllers\CategoryComposantController');
 Route::resource('Avis', 'App\Http\Controllers\AvisController');
 Route::resource('supplement', 'App\Http\Controllers\SupplementController');
 Route::get('/changeStatus', [App\Http\Controllers\SupplementController::class, 'changeStatus'])->name('supplement.changeStatut');
+Route::resource('commande', 'App\Http\Controllers\CommandeController');

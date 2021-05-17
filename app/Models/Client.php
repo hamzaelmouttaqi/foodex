@@ -13,4 +13,9 @@ class Client extends Model
     {
         return "id";
     }
+    public function commandes()
+    {
+        return $this->hasMany(Commande::class, 'id_client', 'id');
+    }
+
 }

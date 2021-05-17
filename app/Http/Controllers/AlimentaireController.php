@@ -24,8 +24,7 @@ class AlimentaireController extends Controller
       $this->middleware('auth');}
     public function index()
     {   
-        
-      return view('alimentaire.index')->with(["alimentaire"=>alimentaire::with('sizes')->get()
+      return view('alimentaire.index')->with(["alimentaire"=>alimentaire::with('sizes','composants')->get()
       ]);
     }
 
@@ -58,16 +57,14 @@ class AlimentaireController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,["titre"=>"required|unique:alimentaires,titre"
-        ,"description"=>"required|min:5"
-        ,"composants"=>"required"]);
+        ,"description"=>"required|min:5"]);
         //store data
-        
+        $composantid=$request->composants;
         $cat=$request->categorie_id;
         $titleCat=DB::table('categories')->select('nomCat')->where('id',$cat)->value('nomCat');
         $categorie=$titleCat;
         $titre=$request->titre;
         $description=$request->description;
-        $composants=$request->composants;
         if($request->hasFile('image')){
             $file=$request->file('image');
             $extension =$file->getClientOriginalExtension();
@@ -81,7 +78,6 @@ class AlimentaireController extends Controller
              
             "titre"=>$titre ,
              "description"=>$description,
-             "composants"=>$composants,
              "image"=>$filename,
              "categorie_id"=>$cat,
              "categorie"=>$categorie
@@ -94,6 +90,7 @@ class AlimentaireController extends Controller
         });
         
          $alimentaire->sizes()->sync($sizes);
+         $alimentaire->composants()->attach($composantid);
          return redirect()->route('alimentaire.index')->with(["succes"=>"alimentaire ajoutee avec succes"]) ;
     }
     }
@@ -117,10 +114,11 @@ class AlimentaireController extends Controller
      */
     public function edit(alimentaire $alimentaire)
     {   
-        $camp=composants::select('nomComposant')->pluck('nomComposant')->toArray();
-        $diff=array_merge(array_diff($camp,$alimentaire->composants)); 
-        $inter=array_intersect($camp,$alimentaire->composants);
-        return view('alimentaire.edit',compact('inter','diff'))->with(["alimentaire"=>$alimentaire,"compo"=>composants::all(),
+        $camp=composants::select('id')->pluck('id')->toArray();
+        $comp=DB::table('alimentaire_composant')->select('composant_id')->where('alimentaire_id', $alimentaire->id )->pluck('composant_id')->toArray();
+        $diff=array_merge(array_diff($camp,$comp)); 
+        $inter=array_intersect($camp,$comp);
+        return view('alimentaire.edit',compact('diff','inter'))->with(["alimentaire"=>$alimentaire,"compo"=>composants::all(),
         "sizes"=>Size::all(),"category"=>CategoryComposant::all(),
         "cat"=>categorie::all()]);
     }
@@ -135,8 +133,7 @@ class AlimentaireController extends Controller
     public function update(Request $request, alimentaire $alimentaire)
     {
         $this->validate($request,["titre"=>"required"
-        ,"description"=>"required|min:5"
-        ,"composants"=>"required"]);
+        ,"description"=>"required|min:5"]);
         //store data
         if($request->hasFile('image')){
             //unlink(public_path(('uploads/alimentaire/image/'. $alimentaire->image)));
@@ -149,11 +146,10 @@ class AlimentaireController extends Controller
             $categorie=$titleCat;
             $titre=$request->titre;
             $description=$request->description;
-            $composants=$request->composants;
+            $composantid=$request->composants;
             $alimentaire->update([
                 "titre"=>$titre ,
                 "description"=>$description,
-                "composants"=>$composants,
                 "image"=>$filename,
                 "categorie_id"=>$cat,
                 "categorie"=>$categorie
@@ -165,6 +161,7 @@ class AlimentaireController extends Controller
                 });
                 
                  $alimentaire->sizes()->sync($sizes);
+                 $alimentaire->composants()->sync($composantid);
                  return redirect()->route('alimentaire.index')->with(["succes"=>"alimentaire modifie avec succes"]) ;
             
         }
@@ -174,11 +171,10 @@ class AlimentaireController extends Controller
             $categorie=$titleCat;
             $titre=$request->titre;
             $description=$request->description;
-            $composants=$request->composants;
+            $composantid=$request->composants;
             $alimentaire->update([
                 "titre"=>$titre ,
                 "description"=>$description,
-                "composants"=>$composants,
                 "categorie_id"=>$cat,
                 "categorie"=>$categorie
             ]);   
@@ -189,6 +185,7 @@ class AlimentaireController extends Controller
                 });
                 
                  $alimentaire->sizes()->sync($sizes);
+                 $alimentaire->composants()->sync($composantid);
                  return redirect()->route('alimentaire.index')->with(["succes"=>"alimentaire ajoutee avec succes"]) ;
                     
         }

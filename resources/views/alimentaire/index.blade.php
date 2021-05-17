@@ -34,7 +34,7 @@
                     <td ><img class="fluid" width="60" height="60" src="{{ asset('uploads/alimentaire/image/'. $alimentaire->image ) }}" alt="" class="img-thumbnail"></td>
                     <td>{{ $alimentaire->description }}</td>
                     <td>@foreach ($alimentaire->composants as $composants)
-                        <li>{{ $composants }}</li>
+                        <li>{{ $composants->nomComposant }}</li>
                     @endforeach</td>
                     <td align="left">
                       

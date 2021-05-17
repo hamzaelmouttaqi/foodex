@@ -14,10 +14,10 @@
             </div>
             @foreach ($cat as $cat)
             
-            @if ($cat->status=='1')
-            <input type="radio" name="categorie_id" value="{{ $cat->id }}">{{ $cat->nomCat}} <br>
-            @endif   
-                
+                @if ($cat->status=='1')
+                <input type="radio" name="categorie_id" value="{{ $cat->id }}">{{ $cat->nomCat}} <br>
+                @endif   
+                    
             @endforeach
             <div class="form-group">
               <label for="description">description</label>
@@ -30,13 +30,13 @@
                @foreach ($compo as $comp)
                   @if ($comp->categorie===$category->title)
                   @foreach ($inter as $inters)
-                      @if ($comp->id===$inters)
-                       <input type="checkbox" name="composants[]" value="{{ $comp->id }}" checked>{{ $comp->nomComposant }}<br> 
+                      @if ($comp->nomComposant===$inters)
+                       <input type="checkbox" name="composants[]" value="{{ $comp->nomComposant }}" checked>{{ $comp->nomComposant }}<br> 
                       @endif
                   @endforeach
                   @foreach ($diff as $diffs)
-                  @if ($comp->id===$diffs)
-                  <input type="checkbox" name="composants[]" value="{{ $comp->id }}">{{ $comp->nomComposant }}<br> 
+                  @if ($comp->nomComposant===$diffs)
+                  <input type="checkbox" name="composants[]" value="{{ $comp->nomComposant }}">{{ $comp->nomComposant }}<br> 
                  @endif
                   @endforeach
                   @endif

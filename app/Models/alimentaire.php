@@ -10,17 +10,14 @@ use App\Models\CategoryComposant;
 class alimentaire extends Model
 {
     use HasFactory;
-    protected $casts = [
-        'composants' => 'array'
-    ];
-    protected $fillable = ["titre","description","image","composants","categorie_id","categorie"];
+    protected $fillable = ["titre","description","image","categorie_id","categorie"];
     public function getRouteKeyName()
     {
         return "id";
     }
     public function composants()
     {
-        return $this->belongToMany(composants::class);
+        return $this->belongsToMany(composants::class,'alimentaire_composant', 'alimentaire_id', 'composant_id');
     }
    
     public function sizes()

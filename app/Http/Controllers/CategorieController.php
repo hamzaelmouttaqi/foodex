@@ -85,7 +85,7 @@ class CategorieController extends Controller
      */
     public function update(Request $request, categorie $categorie)
     {
-        $this->validate($request,["nomCat"=>"required|unique:categories,nomCat"
+        $this->validate($request,["nomCat"=>"required"
         ,"status"=>"required"]);
         //store data
         

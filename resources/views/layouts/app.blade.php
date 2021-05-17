@@ -33,13 +33,31 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        
                     </ul>
-
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link h5" href="{{ route('categorie.index') }}"><p><i class="fa fa-list-ul"></i>les categories</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link h5"  href="{{ route('supplement.index') }}"><p><i class="fa fa-shopping-basket"></i> les supplements</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link h5"  href="{{ route('composants.index') }}"><p><i class="fa fa-shopping-cart"></i> les composants</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link h5"  href="{{ route('alimentaire.index') }}"><p><i class="fa fa-utensils"></i> les alimentaires</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link h5"  href="{{ route('clients.index') }}"><p><i class="fa fa-users"></i> les clients</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link h5"  href="{{ route('commande.index') }}"><p><i class="fa fa-shopping-basket"></i> les commandes</p></a>
+                        </li>
+                    </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAlimentairesTable extends Migration
+class AddNomClientToCommandesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateAlimentairesTable extends Migration
      */
     public function up()
     {
-        Schema::create('alimentaires', function (Blueprint $table) {
-            $table->id();
-            $table->string('titre')->unique();
-            $table->string('description');
-            $table->mediumText('image')->nullable();
-            $table->timestamps();
+        Schema::table('commandes', function (Blueprint $table) {
+            $table->string('nom_client');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateAlimentairesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alimentaires');
+        Schema::table('commandes', function (Blueprint $table) {
+            //
+        });
     }
 }
