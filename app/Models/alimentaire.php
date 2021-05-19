@@ -28,4 +28,8 @@ class alimentaire extends Model
     {
         return $this->belongsTo(categorie::class);
     }
+    public function commandes()
+    {
+        return $this->belongsToMany(Commande::class, 'alimentaire_commande', 'alimentaire_id', 'commande_id');
+    }
 }

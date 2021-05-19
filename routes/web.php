@@ -28,5 +28,6 @@ Route::resource('composants', 'App\Http\Controllers\ComposantsController');
 Route::resource('Category', 'App\Http\Controllers\CategoryComposantController');
 Route::resource('Avis', 'App\Http\Controllers\AvisController');
 Route::resource('supplement', 'App\Http\Controllers\SupplementController');
-Route::get('/changeStatus', [App\Http\Controllers\SupplementController::class, 'changeStatus'])->name('supplement.changeStatut');
+Route::get('/changeStatus', [App\Http\Controllers\SupplementController::class, 'changeStatus'])->name('supplement.changeStatus');
 Route::resource('commande', 'App\Http\Controllers\CommandeController');
+Route::get('/changeStatut', [App\Http\Controllers\CommandeController::class, 'changeStatut'])->name('supplement.changeStatut');

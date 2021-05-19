@@ -9,8 +9,9 @@ use phpDocumentor\Reflection\Types\Boolean;
 class Commande extends Model
 {
     use HasFactory;
-    protected $fillable=['id_client','date_commande','status','montant','nom_clients'];
-    protected $casts=['status'=>'boolean'];
+    protected $fillable=['id_client','date_commande','status','montant','nom_client'];
+    protected $casts=['status'=>'boolean',
+    'alimentaire'=>'array','composantCommande'=>'array'];
     public function getRouteKeyName()
     {
         return "id";
@@ -19,5 +20,9 @@ class Commande extends Model
     {
         return $this->belongsTo(Client::class);
     }
-
+    public function alimentaires()
+    {
+        return $this->belongsToMany(alimentaire::class, 'alimentaire_commande', 'commande_id', 'alimentaire_id')->withTimestamps()->withPivot(['composantCommande','prixAlimentaire','prixSupplement',
+        'prixSize','sizeAlimentaire','supplementCommande']);
+    }
 }

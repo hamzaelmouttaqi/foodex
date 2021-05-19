@@ -91,6 +91,7 @@ class AlimentaireController extends Controller
         
          $alimentaire->sizes()->sync($sizes);
          $alimentaire->composants()->attach($composantid);
+         
          return redirect()->route('alimentaire.index')->with(["succes"=>"alimentaire ajoutee avec succes"]) ;
     }
     }
