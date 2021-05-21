@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -31,3 +31,5 @@ Route::resource('supplement', 'App\Http\Controllers\SupplementController');
 Route::get('/changeStatus', [App\Http\Controllers\SupplementController::class, 'changeStatus'])->name('supplement.changeStatus');
 Route::resource('commande', 'App\Http\Controllers\CommandeController');
 Route::get('/changeStatut', [App\Http\Controllers\CommandeController::class, 'changeStatut'])->name('supplement.changeStatut');
+Route::get('/supprimer', [App\Http\Controllers\CommandeController::class, 'supprimer'])->name('commande.supprimer');
+Route::post('/insert', [App\Http\Controllers\CommandeController::class, 'insert'])->name('commande.insert');

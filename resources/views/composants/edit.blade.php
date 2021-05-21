@@ -9,6 +9,7 @@
               <label for="nomComposant">nomComposant</label>
               <input type="text" class="form-control" name="nomComposant" placeholder="Enter nomComposant" value="{{ $composant->nomComposant }}">
             </div>
+            <div><input type="number" name="prix" value="{{ $composant->prix }}"></div>
             <div class="form-group">
               <label for="categorie">categorie</label>
               <input type="text" class="form-control" name="categorie" placeholder="categorie" value="{{ $composant->categorie }}">

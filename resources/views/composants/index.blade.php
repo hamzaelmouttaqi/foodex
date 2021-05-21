@@ -18,6 +18,7 @@
                 <th scope="col">id</th>
                 <th scope="col">Nom Composants</th>
                 <th scope="col">image</th>
+                <th scope="col">Prix</th>
                 <th scope="col">categorie</th>
                 <th scope="col">Action</th>
               </tr>
@@ -28,6 +29,7 @@
                     <td>{{$composants ->id}}</td>
                     <td>{{ $composants->nomComposant }}</td>
                     <td ><img class="fluid" width="60" height="60" src="{{ asset('uploads/composants/image/'. $composants->image ) }}" alt="" class="img-thumbnail"></td>
+                    <td><pre>{{ $composants->prix }}  DH</pre></td>
                     <td>{{ $composants->categorie }}</td>
                     <td class="d-flex flex-row justify-content-left align-items-left">  <a href="{{ route('composants.edit',$composants->id) }}" class="btn btn-warning mr-2 btn-sm">
                     <i class="fas fa-edit "></i>

@@ -43,9 +43,9 @@ class ComposantsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,["nomComposant"=>"required|unique:composants,nomComposant"
-        ,"Category_id"=>"required"]);
+        ,"Category_id"=>"required","prix"=>"required"]);
         //store data
-        
+        $prix=$request->prix;
         $nomComposant=$request->nomComposant;
         $cat=$request->Category_id;
         $titleCat=DB::table('category_composants')->select('title')->where('id',$cat)->value('title');
@@ -63,7 +63,8 @@ class ComposantsController extends Controller
             "nomComposant"=>$nomComposant ,
             "categorie"=>$categorie,
             "image"=>$filename,
-            "Category_id"=>$cat
+            "Category_id"=>$cat,
+            "prix"=>$prix
         ]);    return redirect()->route('composants.index')->with(["succes"=>"composant ajoutee avec succes"]) ;
         
     }
@@ -112,22 +113,26 @@ class ComposantsController extends Controller
             $cat=$request->Category_id;
             $titleCat=DB::table('category_composants')->select('title')->where('id',$cat)->value('title');
             $categorie=$titleCat;
+            $prix=$request->prix;
             $composant->update([
                 "nomComposant"=>$nomComposant ,
                  "categorie"=>$categorie,
                  "image"=>$filename,
-                 "Category_id"=>$cat
+                 "Category_id"=>$cat,
+                 "prix"=>$prix
             ]);    return redirect()->route('composants.index')->with(["succes"=>"composant modifiee avec succes"]) ;
         }
         else{
             $nomComposant=$request->nomComposant;
             $cat=$request->Category_id;
-            $titleCat=DB::table('categorie_composant')->select('title')->where('id',$cat)->value('title');
+            $titleCat=DB::table('category_composant')->select('title')->where('id',$cat)->value('title');
             $categorie=$titleCat;
+            $prix=$request->prix;
             $composant->update([
                 "nomComposant"=>$nomComposant ,
                  "categorie"=>$categorie,
-                 "Category_id"=>$cat
+                 "Category_id"=>$cat,
+                 "prix"=>$prix
             ]);    return redirect()->route('composants.index')->with(["succes"=>"composant modifiee avec succes"]) ;
         }
         

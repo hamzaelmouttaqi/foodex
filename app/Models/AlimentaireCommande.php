@@ -16,4 +16,8 @@ class AlimentaireCommande extends Model
         'composantCommande' => 'array', 
         'supplementCommande'=>'array'
     ];
+    public function getRouteKeyName()
+    {
+        return "id";
+    }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class composants extends Model
 {
     use HasFactory;
-    protected $fillable=["nomComposant","image","categorie","Category_id"];
+    protected $fillable=["nomComposant","image","categorie","Category_id","prix"];
     public function getRouteKeyName()
     {
         return "id";

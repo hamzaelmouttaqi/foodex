@@ -18,6 +18,7 @@ class CreateComposantsTable extends Migration
             $table->string('nomComposant');
             $table->bigInteger('Category_id')->unsigned();
             $table->mediumText('image');
+            $table->decimal('prix',6,2);
             $table->string('categorie');
             $table->timestamps();
             $table->foreign('Category_id')->references('id')->on('category_composants')->onDelete('cascade');

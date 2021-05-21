@@ -8,6 +8,7 @@
               <label for="nomComposant">nom de Composant</label>
               <input type="text" class="form-control" name="nomComposant" placeholder="Enter nomComposant">
             </div>
+            <div><input type="number" name="prix"></div><br>
             <div class="custom-file">
                 <input type="file" class="custom-file-input" name="image">
                 <label class="custom-file-label" for="customFile">Choose file</label>

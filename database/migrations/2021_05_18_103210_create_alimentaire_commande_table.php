@@ -20,9 +20,10 @@ class CreateAlimentaireCommandeTable extends Migration
             $table->json('composantCommande');
             $table->string('sizeAlimentaire');
             $table->decimal('prixSize',6,2);
-            $table->json('supplementCommande');
-            $table->decimal('prixSupplement',6,2);
+            $table->json('supplementCommande')->nullable();
+            $table->decimal('prixSupplement',6,2)->nullable();
             $table->decimal('prixAlimentaire');
+            $table->integer('quantite');
             $table->foreign('alimentaire_id')->references('id')->on('alimentaires')->onDelete('cascade');
             $table->foreign('commande_id')->references('id')->on('commandes')->onDelete('cascade');
             $table->timestamps();
