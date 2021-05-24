@@ -56,7 +56,20 @@
                             <a class="nav-link h5"  href="{{ route('clients.index') }}"><p><i class="fa fa-users"></i> les clients</p></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link h5"  href="{{ route('commande.index') }}"><p><i class="fa fa-shopping-basket"></i> les commandes</p></a>
+                            <div class="dropdown">
+                                <a class="nav-link h5 dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-shopping-basket"></i>Commande
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item"  href="{{ route('commande.index') }}"><p><i class="fa fa-shopping-basket"></i>tous</p></a></li>
+                                    <li><a class="dropdown-item"  href="{{ route('complete') }}"><p><i class="fa fa-shopping-basket"></i> completes</p></a></li>
+                                    <li><a class="dropdown-item"  href="{{ route('noncomplete') }}"><p><i class="fa fa-shopping-basket"></i> non completes</p></a></li>
+                                </ul>
+                              </div>
+                           
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link h5"  href="{{ route('livreur.index') }}"><p><i class="fa fa-users"></i> livreurs</p></a>
                         </li>
                     </ul>
                     <!-- Right Side Of Navbar -->

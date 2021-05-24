@@ -21,6 +21,7 @@
                 <th scope="col">date commande</th>
                 <th scope="col">montant</th>
                 <th scope="col">elements</th>
+                <th scope="col">Livreur</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -82,6 +83,7 @@
                       </table>
                       @endforeach
                   </td>
+                  <td>  {{DB::table('livreurs')->select('nom')->where('id',$commande->id_livreur)->value('nom')}}</td>
                     <td class="d-flex flex-row justify-content-left align-items-left "><a href="{{ route('commande.edit',$commande->id) }}" class="btn btn-warning mr-2 mt-2 btn-sm">
                     <i class="fas fa-edit "></i>
                     </a>

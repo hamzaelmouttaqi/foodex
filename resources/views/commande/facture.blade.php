@@ -45,12 +45,9 @@
                             <tr>
                             @foreach ($commande as $comm)
                             <td align="center"><b>{{  $comm->nom_client }}</b><br>
-                            
-                            
-
-                                {{-- {{ $commande->clients->adresse }}<br>
-
-                                {{ $commande->clients->tele }} --}}
+                             
+                                {{ DB::table('clients')->select('adresse')->where('id',$comm->id_client)->value('adresse') }}<br>
+                                {{ DB::table('clients')->select('tele')->where('id',$comm->id_client)->value('tele') }}
                             </td>
 
                             </tr>
@@ -124,9 +121,13 @@
 
                             <td align="left"><nobr></nobr></td>
 
-                            <td align="left" colspan="3"><nobr>Impôt</nobr></td>
+                            <td align="left" colspan="3"><nobr>Livraison</nobr></td>
+                            @php
+                                             $code_postal=DB::table('clients')->select('code_postal')->where('id',$comm->id_client)->value('code_postal');
+                                             $prix=DB::table('livraisons')->select('prix')->where('code_postal',$code_postal)->value('prix') ;
+                            @endphp
 
-                            <td align="right"><nobr> 0 €</nobr></td>
+                            <td align="right"><nobr>{{ $prix }}DH</nobr></td>
 
                             </tr>
                             <tr>
@@ -135,7 +136,7 @@
 
                             <td align="left" colspan="3"><nobr>Frais de service</nobr></td>
 
-                            <td align="right"><nobr> 2.9 €</nobr></td>
+                            <td align="right"><nobr> 0 DH</nobr></td>
 
                             </tr>
 
@@ -145,7 +146,7 @@
 
                             <td align="left" colspan="3"><nobr>Remise</nobr></td>
 
-                            <td align="right"><nobr>  0 €</nobr></td>
+                            <td align="right"><nobr>  0 DH</nobr></td>
 
                             </tr>
 
@@ -161,7 +162,7 @@
 
                             <td align="left" colspan="3"><nobr><strong>SOMME FINALE</strong></nobr></td>
 
-                            <td align="right"><nobr><strong> 42.8 €</strong></nobr></td>
+                            <td align="right"><nobr><strong> {{ $comm->montant + $prix }}</strong></nobr></td>
 
                             </tr>
 

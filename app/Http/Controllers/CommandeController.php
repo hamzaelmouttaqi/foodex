@@ -8,6 +8,7 @@ use App\Models\categorie;
 use App\Models\Client;
 use App\Models\Commande;
 use App\Models\composants;
+use App\Models\Livreur;
 use App\Models\Supplement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,15 @@ class CommandeController extends Controller
     public function __construct()
     {
       $this->middleware('auth');}
+    
+    public function complete()
+    {
+        return view('commande.commande-complete')->with(["commandes"=>Commande::with('clients')->where('status',0)->get()]);
+    }
+    public function noncomplete()
+    {
+        return view('commande.commande-noncomplete')->with(["commandes"=>Commande::with('clients')->where('status',1)->get()]);
+    }
     public function index()
     {   
         
@@ -39,7 +49,8 @@ class CommandeController extends Controller
         return view('commande.create')->with(["clients"=>Client::all(),"alimentaires"=>alimentaire::with('sizes','composants')->get(),
         "supplements"=>Supplement::all(),
         "categorie"=>categorie::all(),
-        "compos"=>composants::all()]);
+        "compos"=>composants::all(),
+        ]);
     }
 
     /**
@@ -50,8 +61,7 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,["id_client"=>"required"
-        ]);
+        $this->validate($request,["id_client"=>"required"]);
         
        
         $id_client=$request->id_client;
@@ -62,8 +72,6 @@ class CommandeController extends Controller
         $commandee=Commande::create([
             'id_client'=>$id_client,
             'nom_client'=>$nom_client,
-            
-            
          ]);
          
          $commande=Commande::where('id',$commandee->id)->first() ;
@@ -105,6 +113,9 @@ class CommandeController extends Controller
                 $total=$total+ $alim->pivot->prixAlimentaire;
              }
              DB::table('commandes')->where('id',$commandee->id)->update(['montant'=>$total]);
+             $code_postal=DB::table('clients')->select('code_postal')->where('id',$commande->id_client)->value('code_postal');
+             $livreur=DB::table('livreurs')->select('id')->where('code_postal',$code_postal)->where('status',1)->inRandomOrder()->value('id');
+             DB::table('commandes')->where('id',$commandee->id)->update(['id_livreur'=>$livreur]);
            
         // // $composantCommande=$request->composantCommande;
         // // $camp=(json_encode(array_values($composantCommande)));

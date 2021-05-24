@@ -206,7 +206,7 @@
           $("#nomcat").on('change',function(){
            // $("#Modal").modal('show')
             $('.data').hide()
-            $("."+$(this).val()).fadeIn(700)
+            $("."+$(this).val()).fadeIn("slow")
           });
        })
        $(function() {
