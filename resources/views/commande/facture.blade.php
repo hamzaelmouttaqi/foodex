@@ -1,6 +1,6 @@
-@extends('layouts.app')
-
+@extends('layouts.app' ,['activePage' => 'Commandelist', 'titlePage' => __('commande list')])
 @section('content')
+<div class="content">
 <div class="row">
 
     <div class="col-sm-12">
@@ -209,20 +209,23 @@
 
         </div>
         @endforeach
-
-
-
-
+    
+    
+    
+    
+        </div>
+    
     </div>
-
+    
+    </div>
 </div>
-
 </div>
 @endsection
+
 @section('scripts')
     @parent
     <script>
-         function printDiv(divName) {
+        function printDiv(divName) {
 
         var printContents = document.getElementById(divName).innerHTML;
 
@@ -235,6 +238,6 @@
         window.print();
 
         document.body.innerHTML = originalContents;
-}
+    }
     </script>
 @endsection

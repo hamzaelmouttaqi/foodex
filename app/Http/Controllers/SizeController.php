@@ -18,7 +18,7 @@ class SizeController extends Controller
     }
     public function index()
     {
-        //
+        return view('size.index')->with(['size'=>Size::all()]);
     }
 
     /**
