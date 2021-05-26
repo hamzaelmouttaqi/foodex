@@ -88,9 +88,58 @@
                               @endforeach
                             </select>
                            
+                            <div class="row">
+                              @foreach ($alimentaires as $alimentaire)
+                              
+                              <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="{{ $alimentaire->categorie }} data" style="display: none"> 
+                                <div class="card">
+                                  
+                                    <img class="card-img-top" width='400' height='250' src="{{ asset('uploads/alimentaire/image/'. $alimentaire->image ) }}" alt="card_img">
+                                  
+                                  <div class="card-body ">
+                                    <div class="card-title">
+                                      <table>
+                                          <tr style="font-weight: 900">
+                                              <td width='300px' style="text-transform: uppercase">
+                                                  <b>{{ $alimentaire->titre }}</b>
+                                              </td>
+                                              <td bgcolor="#ff9800" style="border-radius: 50%;width: 50px;color: black;font-weight: 900" align="center">
+                                                 {{ $alimentaire->categorie }}
+                                              </td>
+                                          </tr>
+                                      </table>
+                                    </div>
+                                    <div class="card-text">
+                                    <table style="width: 400px">
+                                    
+                                      <tr align="left">
+                                        <td width="150px">
+                                          <input type="checkbox"  data-id="{{ $alimentaire->id }}" name="ali[]" value=" {{ $alimentaire->id }}" >
+                                        </td>
+                                        <td>
+                                          @foreach ($alimentaire->sizes as $size)
+                                            <input type="radio" name="sizes_{{ $alimentaire->id }}" value="{{ $size->pivot->prix }}|{{ $size->title }}">{{ $size->title }} <br>
+                                          @endforeach
+                                        </td>
+                                        <td>
+                                          
+                                        QTE: <input type="number" min="1" value="1" class='form-control'name="quantite_{{ $alimentaire->id }}" style="width: 50px">
+                                        </td>
+                                      </tr>
+                                    </table>
+                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              </div>
+                              
+                              @endforeach
+                            </div>
                           
                               
-                            <div class="card-deck">
+                            {{-- <div class="card-deck">
                               @foreach ($alimentaires as $alimentaire)
                               <div class="{{ $alimentaire->categorie }} data" style="display: none"> 
                                   <div class="card">
@@ -152,7 +201,7 @@
                               </div>
                               
                               @endforeach
-                            </div>       
+                            </div>        --}}
                             <br>
                             <button type="submit" class="btn btn-primary">Ajouter</button> 
                         </form>

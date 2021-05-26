@@ -30,25 +30,26 @@
                       </thead>
                       <tbody>
                         @foreach ($alimentaire as $alimentaire)
-                            <tr style="text-align: center">
+                            <tr style="text-align: center" valign='top'>
                                 <td>{{$alimentaire->id }}</td>
                                 <td>{{$alimentaire->titre }}</td>
                                 <td>{{$alimentaire->categorie }}</td>
-                                <td  ><img src="{{ asset('uploads/alimentaire/image/'. $alimentaire->image ) }}" style="height: 60px; width: 60px" alt="" class="fluid"></td>
-                                <td>{{$alimentaire->description }}</td>
+                                <td  ><img width="200" height="200" src="{{ asset('uploads/alimentaire/image/'. $alimentaire->image ) }}" alt="" class="img-thumbnail"></td>
+                                @php
+                                    $desc=substr( $alimentaire->description ,0,100)
+                                @endphp
+                                <td width='400'>{{ $desc }}...</td>
                                 
-                                <td>
+                                <td width='200'>
                                   @foreach ($alimentaire->composants as $composant)
                                     <li>{{ $composant->nomComposant }}</li>
                                   @endforeach
                                 </td>
                                 </td>
-                                <td>
-                                  
+                                <td width='150'>
                                     @foreach ($alimentaire->sizes as $size)
                                       <li>{{ $size->title }} : {{ $size->pivot->prix}}</li>
-                                    @endforeach
-                                  
+                                    @endforeach                                 
                                 </td>
                                 <td class="d-flex flex-row justify-content-center align-items-center">
                                   <a href="{{route('alimentaire.edit' ,$alimentaire->id)}}" class="btn btn-warning m-2 btn-sm">

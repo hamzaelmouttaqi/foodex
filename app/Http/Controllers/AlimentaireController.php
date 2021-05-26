@@ -207,4 +207,8 @@ class AlimentaireController extends Controller
             
 
     }
+    public function catalogue()
+    {
+        return view('alimentaire.catalogue')->with(["alimentaires"=>alimentaire::with('sizes','composants')->get()]);
+    }
 }

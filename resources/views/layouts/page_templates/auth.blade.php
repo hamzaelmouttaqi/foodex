@@ -7,6 +7,7 @@
           @include('layouts.alerts')
       </div>
     </div>
+    
       
     @yield('content')
     @include('layouts.footers.auth')

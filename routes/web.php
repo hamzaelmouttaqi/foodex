@@ -37,6 +37,7 @@ Route::get('/supprimer', [App\Http\Controllers\CommandeController::class, 'suppr
 Route::post('/insert', [App\Http\Controllers\CommandeController::class, 'insert'])->name('commande.insert');
 Route::get('/complete',[App\Http\Controllers\CommandeController::class, 'complete'])->name('complete');
 Route::get('/non-complete',[App\Http\Controllers\CommandeController::class, 'noncomplete'])->name('noncomplete');
+Route::get('/catalogue',[App\Http\Controllers\AlimentaireController::class, 'catalogue'])->name('alimentaire.catalogue');
 
 
 Auth::routes();

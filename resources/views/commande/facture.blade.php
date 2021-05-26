@@ -1,27 +1,22 @@
 @extends('layouts.app' ,['activePage' => 'Commandelist', 'titlePage' => __('commande list')])
 @section('content')
 <div class="content">
-<div class="row">
-
-    <div class="col-sm-12">
-
-        <div class="panel panel-bd">
-
-        <div class="panel-footer text-right">
-
-                <a  class="btn btn-info" onclick="printDiv('printableArea')" title="Print"><span class="fa fa-print"></span>
-
-                </a>
+    <div class="row">
+        <div class="col-md-3">
 
         </div>
-
-        <div id="printableArea" style="position: absolute;left:25%;right:25%">
-
-                <div class="panel-body">
-
+        <div class="col-md-5">
+            <div class="card" >
+                <div class="card-header card-header-warning">
+                    <h4 class="card-title "> <b>Facture</b> <a style="float: right" class="btn btn-light" onclick="printDiv('printableArea')" title="Print"><span class="fa fa-print"></span>
+            
+                    </a></h4>
+                        
+                </div>
+                <div class="card-body" id="printableArea">
                     <div class="table-responsive m-b-20">
 
-                        <table border="0">
+                        <table border="0" class="d-flex justify-content-center">
 
                         <tr>
 
@@ -207,19 +202,21 @@
 
                         </div>
 
-        </div>
+        
         @endforeach
+            </div>                
     
     
     
+         </div>
     
+    
+    
+   
         </div>
-    
     </div>
-    
-    </div>
-</div>
-</div>
+
+
 @endsection
 
 @section('scripts')

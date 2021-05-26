@@ -3145,11 +3145,18 @@ fieldset:disabled a.btn {
   background-image: none;
   border-color: #ffeb3b;
 }
-
-.btn-outline-warning:hover {
-  color: #212529;
-  background-color: #ffeb3b;
+a.btn.btn-outline-warning {
+  color: #ffeb3b;
+  border: 2px solid;
+  background-color: transparent;
+  background-image: none;
   border-color: #ffeb3b;
+}
+
+a.btn.btn-outline-warning:hover {
+  color: #ffffff;
+  background-color: #ffbf0e;
+  border-color: #ffbf0e;
 }
 
 .btn-outline-warning:focus,
@@ -14790,9 +14797,12 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .sidebar[data-color="orange"] li.active>a {
-  background-color: #ff9800;
+  background-color: #ffffff;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4);
+  color: #ff9800;
+  font-weight: bold;
 }
+
 
 .sidebar[data-color="danger"] li.active>a {
   background-color: #f44336;

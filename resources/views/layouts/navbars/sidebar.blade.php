@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="orange" data-background-color="white" data-image="{{ asset('material') }}/img/sidebar-1.jpg">
+<div class="sidebar" data-color="orange" data-background-color="white" >
   <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -34,7 +34,7 @@
               </a>
             </li>
             <li class="nav-item{{ $activePage == 'Menucatalogue' ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('alimentaire.index') }}">
+              <a class="nav-link" href="{{ route('alimentaire.catalogue') }}">
                 <i class="material-icons">apps</i>
                 <span class="sidebar-normal"> {{ __('Menu catalogue') }} </span>
               </a>
@@ -149,6 +149,26 @@
                 <span class="sidebar-normal">{{ __('Supplements') }} </span>
               </a>
             </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item {{ ($activePage == 'Livreur' ) ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#livraison" aria-expanded="false">
+          <i class="material-icons">moped</i>
+
+          <p>{{ __('Livraisons') }}
+            <b class="caret"></b>
+          </p>
+        </a>
+        <div class="panel-collapse collapse {{ $activePage == 'Livreur' ? 'show' : 'in' }}" id="livraison">
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'Livreur' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('livreur.index') }}">
+                <i class="material-icons">perm_identity</i>
+                <span class="sidebar-normal">{{ __('Livreur') }} </span>
+              </a>
+            </li>
+            
           </ul>
         </div>
       </li>

@@ -7,11 +7,16 @@
 @endif
 
 @if (session()->has("succes"))
-    <div class="alert alert-success alert-dismissible fade show">
+    {{-- <div class="alert alert-success alert-dismissible fade show">
         <strong>{{ session()->get("succes") }}</strong>
         <button type="button" data-dismiss="alert" class="close"> 
             <span>&times;</span>
         </button>
-    </div>
+    </div> --}}
+    <script>
+        swal("Success","{!! Session::get('succes') !!}",'success',{
+            button:"OK",
+        });
+    </script>
 @endif
 

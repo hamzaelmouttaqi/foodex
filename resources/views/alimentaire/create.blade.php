@@ -19,7 +19,7 @@
                               <input type="text" class="form-control" name="titre" placeholder="Enter titre">
                             </div>
                             <div class="form-group">
-                              <label for="description">Categories:</label><br>
+                              <label for="categorie">Categories:</label><br>
                             </div>
                             @foreach ($cat as $cat)
                                 @if ($cat->status=='1')
@@ -30,20 +30,44 @@
                                 <input type="file" class="custom-file-input" name="image">
                                 <label class="custom-file-label" for="customFile">Choose file</label>
                               </div>
-                            <div class="form-group">
-                              <label for="description">description</label>
-                              <input type="text" class="form-control" name="description" placeholder="description">
+                            <div class="input-group">
+                              <label for="description"><strong>DESCRIPTION</strong></label>
+                              <textarea type="text" class="form-control" name="description" placeholder="description"></textarea>
                             </div>
-                                <fieldset>
+                                
+                                  <table class="table" >
+                                    <tr>
+                                      
                                       @foreach ($category as $category)
+                                      <td>
+                                      <table height="300px">
+                                        <tr height='50px'>
+                                          <th valign='top'><label for=""><b>{{ $category->title }}</b></label></th>
+                                        </tr>
+                                        <tr>
+                                          <td valign='top'>
+                                          @foreach ($compo as $comp)
+                                          @if ($comp->categorie===$category->title)
+                                          <input type="checkbox" name="composants[{{ $comp->id }}]" value="{{ $comp->id }}">{{ $comp->nomComposant }}<br>
+                                          @endif
+                                         @endforeach
+                                          </td>
+                                        </tr>
+                                      </table>
+                                      </td>
+                                      @endforeach
+                                      </td>
+                                    </tr>
+                                  </table>
+                                      {{-- @foreach ($category as $category)
                                           <label for=""><b>{{ $category->title }}</b></label><br>
                                           @foreach ($compo as $comp)
                                               @if ($comp->categorie===$category->title)
                                               <input type="checkbox" name="composants[{{ $comp->id }}]" value="{{ $comp->id }}">{{ $comp->nomComposant }}<br>
                                               @endif
                                           @endforeach
-                                      @endforeach
-                                </fieldset>
+                                      @endforeach --}}
+                                
                                 <label for=""><b>sizes:</b></label>
                                 <table>
                                   @foreach ($sizes as $sizes)

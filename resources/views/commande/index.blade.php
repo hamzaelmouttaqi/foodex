@@ -3,8 +3,7 @@
 @section('content')
 <div class="content ">
     <div class="row">
-      
-      <div class="col-md-16">
+      <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title "> <b>Commandes</b> <a href="{{ route('commande.create') }}" class="btn btn-light" style="float: right">
