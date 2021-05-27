@@ -24,7 +24,7 @@ class AlimentaireController extends Controller
       $this->middleware('auth');}
     public function index()
     {   
-      return view('alimentaire.index')->with(["alimentaire"=>alimentaire::with('sizes','composants')->get()
+      return view('alimentaire.index')->with(["alimentaires"=>alimentaire::with('sizes','composants')->paginate(10)
       ]);
     }
 
@@ -57,7 +57,10 @@ class AlimentaireController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,["titre"=>"required|unique:alimentaires,titre"
-        ,"description"=>"required|min:5"]);
+        ,"description"=>"required",
+        "composants"=>"required",
+        "categorie_id"=>"required",
+        "image"=>"required"]);
         //store data
         $composantid=$request->composants;
         $cat=$request->categorie_id;

@@ -21,7 +21,7 @@ class ComposantsController extends Controller
 
     public function index()
     {
-        return view('composants.index')->with(["composants"=>composants::paginate(25)]);
+        return view('composants.index')->with(["composant"=>composants::paginate(10)]);
     }
 
     /**
@@ -43,7 +43,8 @@ class ComposantsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,["nomComposant"=>"required|unique:composants,nomComposant"
-        ,"Category_id"=>"required","prix"=>"required"]);
+        ,"Category_id"=>"required","prix"=>"required",
+        "image"=>'required']);
         //store data
         $prix=$request->prix;
         $nomComposant=$request->nomComposant;

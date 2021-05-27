@@ -3,23 +3,23 @@
     <nav class="float-left">
       <ul>
         <li>
-          <a href="https://www.creative-tim.com">
-              {{ __('Creative Tim') }}
+          <a href="#">
+              {{ __('FOODEX') }}
           </a>
         </li>
         <li>
-          <a href="https://creative-tim.com/presentation">
-              {{ __('About Us') }}
+          <a href="#">
+              {{ __('FOODEX') }}
           </a>
         </li>
         <li>
-          <a href="http://blog.creative-tim.com">
-              {{ __('Blog') }}
+          <a href="#">
+              {{ __('FOODEX') }}
           </a>
         </li>
         <li>
-          <a href="https://www.creative-tim.com/license">
-              {{ __('Licenses') }}
+          <a href="#">
+              {{ __('FOODEX') }}
           </a>
         </li>
       </ul>

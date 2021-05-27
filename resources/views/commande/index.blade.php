@@ -108,6 +108,9 @@
                     @endforeach
       
                   </tbody>
+                  <tfoot>
+                    <td  align="right">{{ $commandes->links() }}</td>
+                  </tfoot>
               </table>
           
             </div>

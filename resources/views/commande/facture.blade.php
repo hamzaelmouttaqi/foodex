@@ -58,6 +58,8 @@
                         <table width="100%">
 
                             <tr align="center">
+                            
+                            <th></th>
 
                             <th>Quntité</th> 
 
@@ -72,38 +74,43 @@
                             </tr>
                             @foreach ($comm->alimentaires as $alim)
                             <tr>
+                                <td></td>
                                 <td align="center">x{{ $alim->pivot->quantite }}</td>
                                 <td>{{ $alim->titre }}</td>
                                 <td align="center">{{ $alim->pivot->sizeAlimentaire }}</td>
-                                <td>{{ $alim->pivot->prixAlimentaire }}</td>
+                                <td  align="center">{{ $alim->pivot->prixSize*$alim->pivot->quantite }} DH</td>
                             </tr>
-                            <tr>
-                                <td colspan="2" align="right">
+                            <tr>    
+                                <td></td>
+                                <td></td>
+                                <td  align="left">
                                 @foreach (json_decode($alim->pivot->supplementCommande) as $supp)
             
-                                        <li style="list-style-type: none">
-                                            {{ $supp }}
+                                        <li style="list-style-type: none;">
+                                            +{{ $supp }}
                                         </li>
                                     
                                 @endforeach
                                 </td>
-                                    <td colspan="2" align="right">{{ $alim->pivot->prixSupplement }} DH</td>
+                                <td></td>
+                                    <td align="center">{{ $alim->pivot->prixSupplement }} DH</td>
                             </tr>
                             @endforeach
                             <tr>
 
-                                <td colspan="3" style="border-top:#333 1px solid;"><nobr></nobr></td>
+                                <td colspan="5" style="border-top:#333 1px solid;"><nobr></nobr></td>
 
                             </tr>  
 
                             <tr>
+                                <td></td>
 
                                 <td align="left"><nobr></nobr></td>
 
-                                <td align="left"><nobr>Total</nobr></td>
+                                <td align="center" style="text-transform: uppercase"><nobr>Total</nobr></td>
 
-                                <td align="right"><nobr> {{ $comm->montant }}</nobr></td>
-
+                                <td align="center"><nobr> {{ $comm->montant }} DH</nobr></td>
+                                <td></td>
                             </tr>
 
                             <tr>
@@ -157,7 +164,7 @@
 
                             <td align="left" colspan="3"><nobr><strong>SOMME FINALE</strong></nobr></td>
 
-                            <td align="right"><nobr><strong> {{ $comm->montant + $prix }}</strong></nobr></td>
+                            <td align="right"><nobr>{{ $comm->montant + $prix }} DH</nobr></td>
 
                             </tr>
 

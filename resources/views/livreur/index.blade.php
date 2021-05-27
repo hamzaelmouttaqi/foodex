@@ -56,6 +56,9 @@
                 @endforeach
       
               </tbody>
+              <tfoot>
+              <td  align="right">{{ $livreurs->links() }}</td>
+              </tfoot>
             </table>
           </div>
         </div>

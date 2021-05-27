@@ -15,9 +15,9 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                  <table class="table">
+                  <table class="table w-100 "  >
                       <thead>
-                        <tr style="text-align: center">
+                        <tr style="text-align: left">
                           <th scope="col">id</th>
                           <th scope="col">Titre</th>
                           <th scope="col">Categorie</th>
@@ -28,9 +28,9 @@
                           <th>Action</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        @foreach ($alimentaire as $alimentaire)
-                            <tr style="text-align: center" valign='top'>
+                      <tbody >
+                        @foreach ($alimentaires as $alimentaire)
+                            <tr style="text-align: left" valign='top'>
                                 <td>{{$alimentaire->id }}</td>
                                 <td>{{$alimentaire->titre }}</td>
                                 <td>{{$alimentaire->categorie }}</td>
@@ -38,7 +38,7 @@
                                 @php
                                     $desc=substr( $alimentaire->description ,0,100)
                                 @endphp
-                                <td width='400'>{{ $desc }}...</td>
+                                <td width='300' height='100'>{{ $desc }}...</td>
                                 
                                 <td width='200'>
                                   @foreach ($alimentaire->composants as $composant)
@@ -70,6 +70,9 @@
                         @endforeach
               
                       </tbody>
+                      <tfoot>
+                        <td  align="right">{{ $alimentaires->links() }}</td>
+                      </tfoot>
                     </table>
                   
                 

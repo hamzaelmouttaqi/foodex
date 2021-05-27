@@ -21,7 +21,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        return view("clients.index")->with(["clients"=>Client::paginate(25)]) ;
+        return view("clients.index")->with(["client"=>Client::paginate(10)]) ;
     }
 
     /**
@@ -42,8 +42,8 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {    //validation
-        $this->validate($request,["nom"=>"required","Prenom"=>"required","email"=>"required","tele"=>"required",
-        "date_de_naissance"=>"required","code_postal"=>"required","adresse"=>"required"]);
+        $this->validate($request,["nom"=>"required","Prenom"=>"required","email"=>"required|email","tele"=>"required",
+        "date_de_naissance"=>"required|date","code_postal"=>"required|numeric","adresse"=>"required"]);
         //store data
         $nom=$request->nom;
         $prenom=$request->Prenom;

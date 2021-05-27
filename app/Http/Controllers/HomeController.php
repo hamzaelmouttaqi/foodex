@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\alimentaire;
+use App\Models\Client;
+use App\Models\Commande;
+
 class HomeController extends Controller
 {
     /**
@@ -20,7 +24,12 @@ class HomeController extends Controller
      * @return \Illuminate\View\View
      */
     public function index()
-    {
-        return view('dashboard');
+    {   
+        
+        return view('dashboard')->with(['alimentaires'=>alimentaire::count('id'),
+        'clients'=>Client::count('id'),
+        'commandes'=>Commande::count('id'),
+        'montant'=>Commande::sum('montant'),
+        ]);
     }
 }

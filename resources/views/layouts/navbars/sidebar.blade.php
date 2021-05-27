@@ -5,7 +5,7 @@
       Tip 2: you can also add an image using data-image tag
   -->
   <div class="logo">
-    <a href="#" class="simple-text logo-normal">
+    <a href="{{ route('home') }}" class="simple-text logo-normal">
       {{ __('FOODEX') }}
     </a>
   </div>
@@ -126,12 +126,6 @@
                     <a class="nav-link" href="{{ route('categorie.index') }}">
                       <span class="sidebar-mini">-</span>
                       <span class="sidebar-normal"> {{ __('Categorie Alimentaire') }} </span>
-                    </a>
-                  </li>
-                  <li class="nav-item{{ $activePage == 'size' ? ' active' : '' }}">
-                    <a class="nav-link" href="#">
-                      <span class="sidebar-mini">-</span>
-                      <span class="sidebar-normal"> {{ __('Size') }} </span>
                     </a>
                   </li>
                 </ul>

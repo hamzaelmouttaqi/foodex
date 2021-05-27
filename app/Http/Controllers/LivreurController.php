@@ -15,7 +15,7 @@ class LivreurController extends Controller
      */
     public function index()
     {
-        return view('livreur.index')->with(['livreurs'=>Livreur::all()]);
+        return view('livreur.index')->with(['livreurs'=>Livreur::paginate(6)]);
     }
 
     /**
@@ -37,7 +37,7 @@ class LivreurController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,["nom"=>"required"
-        ,"status"=>"required" , "code_postal"=>"required"]);
+        ,"status"=>"required" , "code_postal"=>"required|numeric"]);
         //store data
         
         $nom=$request->nom;

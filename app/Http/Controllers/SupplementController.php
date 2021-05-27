@@ -20,7 +20,7 @@ class SupplementController extends Controller
       $this->middleware('auth');}
     public function index()
     {
-        return view('supplement.index')->with(["supplement"=>Supplement::paginate(25)]);
+        return view('supplement.index')->with(["supplements"=>Supplement::paginate(10)]);
     }
 
     /**
@@ -42,7 +42,7 @@ class SupplementController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,["titre"=>"required|unique:supplements,titre","prix"=>"required"]);
+        $this->validate($request,["titre"=>"required|unique:supplements,titre","prix"=>"required","catsupp"=>"required"]);
 
         $titre=$request->titre;
         $catsupp=$request->categorie_id;

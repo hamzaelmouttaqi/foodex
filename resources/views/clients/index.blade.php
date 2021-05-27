@@ -27,7 +27,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($clients as $clients)
+                  @foreach ($client as $clients)
                       <tr style="text-align: center">
                         <td>{{$clients->id}}</td>
                         <td>{{ $clients->nom }}</td>
@@ -51,12 +51,23 @@
                         </td>
                       </tr>
                   @endforeach
+                  <tr>
+                    
+                  </tr>
                 </tbody>
+                <tfoot>
+                  <td></td><td></td><td></td><td></td>
+                  <td></td><td></td><td></td><td></td>
+                <td  align="right">{{ $client->links() }}</td>
+                </tfoot>
               </table> 
             </div>
           </div>
+          
         </div>
-      </div>
         
+      </div>
+      
     </div>
+    
 @endsection

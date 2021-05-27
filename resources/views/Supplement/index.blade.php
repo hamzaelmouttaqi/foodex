@@ -23,7 +23,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($supplement as $supplement)
+              @foreach ($supplements as $supplement)
                   <tr style="text-align: center">
                       <td>{{$supplement->id }}</td>
                       <td><b>{{$supplement->titre }}</b></td>
@@ -56,6 +56,9 @@
               @endforeach
     
             </tbody>
+            <tfoot>
+              <td  align="right">{{ $supplements->links() }}</td>
+              </tfoot>
           </table>
       </div>
     </div>

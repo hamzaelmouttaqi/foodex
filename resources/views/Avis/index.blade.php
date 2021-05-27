@@ -5,9 +5,8 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title "> <b>Clients</b> <a href="{{ route('clients.create') }}" class="btn btn-info" style="float: right">
-              <i class="material-icons">add</i></a></h4>
-            <p class="card-category"> liste des clients</p>
+            <h4 class="card-title "> <b>Avis</b> </h4>
+            <p class="card-category"> liste des avis</p>
             
           </div>
           <div class="card-body">

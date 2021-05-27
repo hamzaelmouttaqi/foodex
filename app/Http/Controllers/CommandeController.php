@@ -35,7 +35,7 @@ class CommandeController extends Controller
     public function index()
     {   
         
-        return view('commande.index')->with(["commandes"=>Commande::with('clients')->get()]);
+        return view('commande.index')->with(["commandes"=>Commande::with('clients')->paginate(10)]);
     }
 
     /**
@@ -103,9 +103,9 @@ class CommandeController extends Controller
                  $qtAlimentaire=$request->input('quantite_'.$alim);
                  //->map(function($alimentaire){ return ['composantCommande' => $alimentaire]});
                   $commande->alimentaires()->attach($alim, ['composantCommande' => $compAlim,
-                  'prixSize'=>$value1,'sizeAlimentaire'=>$value2,
+                  'prixSize'=>$value1+$pri,'sizeAlimentaire'=>$value2,
                   'supplementCommande'=>$supplement,
-                  'prixSupplement'=>$prixSupplement,'prixAlimentaire'=>($value1+$prixSupplement+$pri)*$qtAlimentaire
+                  'prixSupplement'=>$prixSupplement,'prixAlimentaire'=>$prixSupplement+($pri+$value1)*$qtAlimentaire
                   ,'quantite'=>$qtAlimentaire]);
              }
              $total=0;
@@ -170,7 +170,7 @@ class CommandeController extends Controller
         $id_client=$request->id_client;
         $nom=DB::table('clients')->select('nom')->where('id',$id_client)->value('nom');
         $Prenom=DB::table('clients')->select('Prenom')->where('id',$id_client)->value('Prenom');
-        $nom_client=$nom.' '.$Prenom;  
+         
          $alimentaire=$request->ali;
         if($commande !== null) { 
              foreach($alimentaire as $alim){

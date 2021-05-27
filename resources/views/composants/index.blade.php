@@ -23,7 +23,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($composants as $composants)
+              @foreach ($composant as $composants)
                   <tr style="text-align: center">
                     <td>{{$composants ->id}}</td>
                     <td><strong>{{ $composants->nomComposant }}</strong></td>
@@ -45,6 +45,9 @@
                   </tr>
               @endforeach
             </tbody>
+            <tfoot>
+              <td  align="right">{{ $composant->links() }}</td>
+              </tfoot>
           </table>
       </div>
         </div>
