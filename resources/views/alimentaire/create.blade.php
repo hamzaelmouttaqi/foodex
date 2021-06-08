@@ -90,19 +90,20 @@
                                   
                                   @foreach ($category as $category)
                                   <td>
-                                  <table height="300px">
-                                    <tr height='50px'>
-                                      <th valign='top'><label for=""><b>{{ $category->title }}</b></label></th>
-                                    </tr>
-                                    <tr>
-                                      <td valign='top'>
-                                      @foreach ($compo as $comp)
-                                      @if ($comp->categorie===$category->title)
-                                      <input type="checkbox" name="composants[{{ $comp->id }}]" value="{{ $comp->id }}"> {{ $comp->nomComposant }}<br>
-                                      @endif
-                                     @endforeach
-                                      </td>
-                                    </tr>
+                                  <table height="300px" class="row">
+                                   
+                                        <tr height='50px'  class="col-md-3">
+                                          <th valign='top'><label for=""><b>{{ $category->title }}</b></label></th>
+                                        </tr>
+                                        <tr>
+                                          <td valign='top'>
+                                          @foreach ($compo as $comp)
+                                          @if ($comp->categorie===$category->title)
+                                          <input type="checkbox" name="composants[{{ $comp->id }}]" value="{{ $comp->id }}"> {{ $comp->nomComposant }}<br>
+                                          @endif
+                                         @endforeach
+                                          </td>
+                                        </tr>
                                   </table>
                                   </td>
                                   @endforeach

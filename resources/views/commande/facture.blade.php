@@ -28,11 +28,11 @@
 
                             <tr>
 
-                                    <td align="center" style="border-bottom:2px #333 solid;"><span style="font-size: 17pt; font-weight:bold;">FOODEX</span><br>
+                                    <td align="center" style="border-bottom:2px #333 solid;"><span style="font-size: 17pt; font-weight:bold;text-transform:uppercase">{{ $parametre->titre }}</span><br>
 
-                                    Adresse<br>
+                                    {{ $parametre->adresse }}<br>
 
-                                    0666666666
+                                    {{ $parametre->tele }}
                                     </td>
 
                             </tr>
@@ -200,7 +200,7 @@
 
                         <tr>
 
-                        <td>Alimenté par:  www.foodex.com</td>
+                        <td>Alimenté par: {{ $parametre->titre }}</td>
 
                         </tr>
 

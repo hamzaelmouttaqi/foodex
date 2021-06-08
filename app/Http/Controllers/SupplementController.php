@@ -20,7 +20,7 @@ class SupplementController extends Controller
       $this->middleware('auth');}
     public function index()
     {
-        return view('supplement.index')->with(["supplements"=>Supplement::paginate(10)]);
+        return view('Supplement.index')->with(["supplements"=>Supplement::paginate(10)]);
     }
 
     /**
@@ -30,7 +30,7 @@ class SupplementController extends Controller
      */
     public function create()
     {
-        return view('supplement.create')->with(["catsupp"=>CategorieSupplement::all()]);
+        return view('Supplement.create')->with(["catsupp"=>CategorieSupplement::all()]);
 
     }
 
@@ -57,7 +57,7 @@ class SupplementController extends Controller
             "categorie_id"=>$catsupp,
             "status"=>$status
         ]); 
-        return redirect()->route('supplement.index')->with(["succes"=>"supplement ajoutee avec succes"]) ;
+        return redirect()->route('Supplement.index')->with(["succes"=>"supplement ajoutee avec succes"]) ;
     }
 
     /**
@@ -79,7 +79,7 @@ class SupplementController extends Controller
      */
     public function edit(Supplement $supplement)
     {
-        return view('supplement.edit')->with(["supplement"=>$supplement,"catsupp"=>CategorieSupplement::all()]);
+        return view('Supplement.edit')->with(["supplement"=>$supplement,"catsupp"=>CategorieSupplement::all()]);
     }
 
     /**
@@ -103,7 +103,7 @@ class SupplementController extends Controller
             "prix"=>$prix,
             "categorie_id"=>$catsupp,
         ]);  
-          return redirect()->route('supplement.index')->with(["succes"=>"supplement modifie avec succes"]) ;
+          return redirect()->route('Supplement.index')->with(["succes"=>"supplement modifie avec succes"]) ;
     }
 
     /**
@@ -115,7 +115,7 @@ class SupplementController extends Controller
     public function destroy(Supplement $supplement)
     {
         $supplement->delete();
-        return redirect()->route('supplement.index')->with(["succes"=>"supplement supprimé avec succes"]) ;
+        return redirect()->route('Supplement.index')->with(["succes"=>"supplement supprimé avec succes"]) ;
     }
     public function changeStatus(Request $request)
 

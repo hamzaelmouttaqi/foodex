@@ -29,16 +29,17 @@ Route::resource('Category', 'App\Http\Controllers\CategoryComposantController');
 Route::resource('Avis', 'App\Http\Controllers\AvisController');
 Route::resource('supplement', 'App\Http\Controllers\SupplementController');
 Route::resource('livreur', 'App\Http\Controllers\LivreurController');
+Route::resource('livraison', 'App\Http\Controllers\LivraisonController');
 Route::get('/changeStatusLivreur', [App\Http\Controllers\LivreurController::class, 'changeStatusLivreur'])->name('livreur.changeStatusLivreur');
 Route::get('/changeStatus', [App\Http\Controllers\SupplementController::class, 'changeStatus'])->name('supplement.changeStatus');
 Route::resource('commande', 'App\Http\Controllers\CommandeController');
-Route::get('/changeStatut', [App\Http\Controllers\CommandeController::class, 'changeStatut'])->name('supplement.changeStatut');
+Route::get('/changeStatut', [App\Http\Controllers\CommandeController::class, 'changeStatut'])->name('commande.changeStatut');
 Route::get('/supprimer', [App\Http\Controllers\CommandeController::class, 'supprimer'])->name('commande.supprimer');
 Route::post('/insert', [App\Http\Controllers\CommandeController::class, 'insert'])->name('commande.insert');
 Route::get('/complete',[App\Http\Controllers\CommandeController::class, 'complete'])->name('complete');
 Route::get('/non-complete',[App\Http\Controllers\CommandeController::class, 'noncomplete'])->name('noncomplete');
 Route::get('/catalogue',[App\Http\Controllers\AlimentaireController::class, 'catalogue'])->name('alimentaire.catalogue');
-
+Route::resource('parametre', 'App\Http\Controllers\ParametreController');
 
 Auth::routes();
 

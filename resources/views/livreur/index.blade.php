@@ -80,7 +80,7 @@
         $.ajax({
             type: "GET",
             dataType: "json",
-            url: '/changeStatusLivreur',
+            url: '{{route("livreur.changeStatusLivreur")}}',
             data: {'status': status, 'id': id},
             success: function(data){
               console.log(data.success)

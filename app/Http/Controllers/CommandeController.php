@@ -9,6 +9,7 @@ use App\Models\Client;
 use App\Models\Commande;
 use App\Models\composants;
 use App\Models\Livreur;
+use App\Models\Parametre;
 use App\Models\Supplement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -115,7 +116,15 @@ class CommandeController extends Controller
              DB::table('commandes')->where('id',$commandee->id)->update(['montant'=>$total]);
              $code_postal=DB::table('clients')->select('code_postal')->where('id',$commande->id_client)->value('code_postal');
              $livreur=DB::table('livreurs')->select('id')->where('code_postal',$code_postal)->where('status',1)->inRandomOrder()->value('id');
+             
              DB::table('commandes')->where('id',$commandee->id)->update(['id_livreur'=>$livreur]);
+             $number=DB::table('commandes')->select('id')->where('id_livreur',$livreur)->count();
+             if($number>4){
+                DB::table('livreurs')->where('id',$livreur)->update(['status'=>0]);
+             }
+
+             
+
            
         // // $composantCommande=$request->composantCommande;
         // // $camp=(json_encode(array_values($composantCommande)));
@@ -140,7 +149,7 @@ class CommandeController extends Controller
      */
     public function show(Commande $commande)
     {
-        return view('commande.facture')->with(['commande'=>Commande::with('clients','alimentaires')->where('id',$commande->id)->get()]);
+        return view('commande.facture')->with(['commande'=>Commande::with('clients','alimentaires')->where('id',$commande->id)->get(),'parametre'=>Parametre::find(1)]);
     }
 
     /**

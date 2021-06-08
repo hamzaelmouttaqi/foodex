@@ -85,7 +85,7 @@
   
               dataType: "json",
   
-              url: '/changeStatus',
+              url: '{{route("supplement.changeStatus")}}',
   
               data: {'status': status, 'id': id},
   

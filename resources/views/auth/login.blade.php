@@ -4,14 +4,14 @@
 <div class="container" style="height: auto;">
   <div class="row align-items-center">
     <div class="col-md-9 ml-auto mr-auto mb-3 text-center">
-      <h3>{{ __('Log in to see how you can speed up your web development with out of the box CRUD for #User Management and more.') }} </h3>
+      <h3>{{ __('Login To Manage Your Restaurant') }} </h3>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
       <form class="form" method="POST" action="{{ route('login') }}">
         @csrf
 
         <div class="card card-login card-hidden mb-3">
-          <div class="card-header card-header-primary text-center">
+          <div class="card-header card-header-danger text-center">
             <h4 class="card-title"><strong>{{ __('Login') }}</strong></h4>
             <div class="social-line">
               <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
@@ -26,7 +26,7 @@
             </div>
           </div>
           <div class="card-body">
-            <p class="card-description text-center">{{ __('Or Sign in with ') }} <strong>admin@material.com</strong> {{ __(' and the password ') }}<strong>secret</strong> </p>
+            <p class="card-description text-center">{{__('Sign in with ') }}</p>
             <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -67,7 +67,7 @@
             </div>
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Lets Go') }}</button>
+            <button type="submit" class="btn btn-danger btn-link btn-lg">{{ __('Lets Go') }}</button>
           </div>
         </div>
       </form>

@@ -4,7 +4,6 @@
     <div class="content">
         <div class="row">
             <div class="col-md-2">
-
             </div>
             <div class="col-md-8">
                 <div class="card">
@@ -15,84 +14,149 @@
                         <form action="{{ route("commande.update",$commande->id) }}" method="post" enctype="multipart/form-data">
                             @csrf 
                             @method("PUT")
-                            <select name="id_client">
+                           
+                            <select name="id_client" class="form-control w-50" aria-placeholder="Nom Client">
                                 <option value="{{$commande->nom_client}}" >{{$commande->nom_client}}</option>
-                                {{--@foreach ($client as $client)
-                                    <option name="id_client" value="{{$client->id}}">{{$client->nom.' '.$client->prenom }}</option>
-                                @endforeach--}}
-                            </select>
+                              </select>
                             
                             
                             <br><br>
                 
-                            <select name="categorie[]" id="nomcat" }>
-                                <option  value="" disabled selected>Categorie</option>
+                            <select name="categorie" id="nomcat" class="form-control" style="width: 500px" >
+                                <option value="" disabled selected>Choose your categorie</option>
                                 @foreach ($categorie as $categorie)
-                                    @if ($categorie->status == '1')
-                                    <option value="{{$categorie->nomCat}}" >{{$categorie->nomCat}}</option>
-                                    @endif
-                                @endforeach 
-                            </select>
-                            <div class="card-group">
-                                @foreach ($alimentaires as $alimentaire)
-                                <div class="{{$alimentaire->categorie_nom}} data" data-id="alim"  style="display: none">
-                                    <div class="card">
-                                        <img  src="{{ asset('uploads/alimentaire/image/'. $alimentaire->image ) }}" height="60" width="60" class="fluid mx-auto justify-content-center" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{$alimentaire->titre}}</h5>
-                                            <p class="card-text">{{$alimentaire->description}}</p>
-                                            @php
-                                                $cmp1=DB::table('composants')->select('id')->pluck('id')->toArray();
-                                                $cmp2=DB::table('alimentaire_composant')->select('composant_id')->where('alimentaire_id',$alimentaire->id)->pluck('composant_id')->toArray();
-                                                $diff=array_merge(array_diff($cmp1,$cmp2));
-                                                $inter=array_intersect($cmp1,$cmp2);
-                                                
-                                            @endphp
-                                            {{--@foreach ($compo as $comp)--}}
-                                            <fieldset>
-                                                <label>Composants:</label><br> 
-                                                @foreach ($compos as $comp)
-                                                @foreach ((array)$inter as $inters)
-                                                    @if ($comp->id === $inters)
-                                                    <input type="checkbox" name="alimentaire_{{$alimentaire->id}}[]" value="{{$comp->nomComposant}}" checked placeholder="composantCommande">{{ $comp->nomComposant}}<br>
-                                                    @endif
-                                                @endforeach
-                                                @endforeach
-                                            </fieldset><br>
-                                            <fieldset>
-                                                <label>Ingredients payant:</label><br>
-                                                @foreach ($compos as $comp) 
-                                                @foreach ((array)$diff as $diffs)
-                                                    @if ($comp->id === $diffs)
-                                                    <input type="checkbox" name="ingredient_{{$alimentaire->id}}[]" value="{{$comp->nomComposant}}" placeholder="composantCommande">{{ $comp->nomComposant}} : {{ $comp->prix}} DH
-                                                    <input type="number" min="1" max="5" value="1" name="quantite_{{$alimentaire->id}}_{{$comp->nomComposant}}" id="">
-                                                    <br>
-                                                    @endif
-                                                @endforeach
-                                                @endforeach
-                                            </fieldset><br>
-                                            {{--@endforeach--}}
-                                            <fieldset>
-                                                <label>Sizes:</label><br>
-                                                @foreach ($alimentaire->sizes as $size)
-                                                    <input class="size-enable" type="radio" name="size_{{ $alimentaire->id }}" data-id="{{ $size->id }}" value="{{$size->pivot->prix}},{{$size->title}}">{{$size->title}}
-                                                @endforeach 
-                                            </fieldset>
-                                            <fieldset>
-                                                <label>Supplements:</label><br>
-                                                @foreach ($supplements as $supplement)
-                                                    <input type="checkbox" name="supplement_{{$alimentaire->id}}[]" value="{{$supplement->titre}}" >{{ $supplement->titre}}<pre> : {{$supplement->prix}}</pre><br>
-                                                @endforeach
-                                            </fieldset>
-                                            <fieldset>
-                                                <br><input  type="checkbox" data-id="{{$alimentaire->id}}"  name="ali[]" value="{{$alimentaire->id}}"> 
-                                                <input type="number" min="1"  value="1" name="quantite_{{$alimentaire->id}}" >
-                                            </fieldset> 
-                                        </div>                      
-                                    </div>
-                                </div>
+                                @if ($categorie->status=='1')
+                                <option value="{{ $categorie->nomCat }}">{{ $categorie->nomCat}}</option>
+                                @endif
                                 @endforeach
-                            </div>
+                              </select>
+                             
+                              <div class="row">
+                                @foreach ($alimentaires as $alimentaire)
+                                
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <div class="{{ $alimentaire->categorie }} data" style="display: none"> 
+                                  <div class="card">
+                                    
+                                      <img class="card-img-top" width='400' height='250' src="{{ asset('uploads/alimentaire/image/'. $alimentaire->image ) }}" alt="card_img">
+                                    
+                                    <div class="card-body ">
+                                      <div class="card-title">
+                                        <table>
+                                            <tr style="font-weight: 900">
+                                                <td width='300px' style="text-transform: uppercase;color: black;">
+                                                    <h4><strong>{{ $alimentaire->titre }}</strong></h4>
+                                                </td>
+                                                <td bgcolor="#ff9800" style="border-radius: 50%;width: 50px;color: black;font-weight: 900" align="center">
+                                                   {{ $alimentaire->categorie }}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                      </div>
+                                      <div class="card-text">
+                                      <table style="width: 400px">
+                                      
+                                        <tr align="left">
+                                          <td width="150px">
+                                            <input type="checkbox" class='alimcomp'  data-id="{{ $alimentaire->id }}" name="ali[]" value=" {{ $alimentaire->id }}" >
+                                          </td>
+                                          <td>
+                                            @foreach ($alimentaire->sizes as $size)
+                                              <input type="radio" name="sizes_{{ $alimentaire->id }}" value="{{ $size->pivot->prix }}|{{ $size->title }}">{{ $size->title }}-{{ $size->pivot->prix }}DH <br>
+                                            @endforeach
+                                          </td>
+                                          <td>
+                                            
+                                          QTE: <input type="number" min="1" value="1" class='form-control'name="quantite_{{ $alimentaire->id }}" style="width: 50px">
+                                          </td>
+                                        </tr>
+                                      </table>
+                                      <div id='add_{{ $alimentaire->id }}' style="display: none">
+                                      @php
+                                    
+                                        $camp=DB::table('composants')->select('id')->pluck('id')->toArray();
+                                        $comp=DB::table('alimentaire_composant')->select('composant_id')->where('alimentaire_id', $alimentaire->id )->pluck('composant_id')->toArray();
+                                        $diff=array_merge(array_diff($camp,$comp)); 
+                                        $inter=array_merge(array_intersect($camp,$comp));
+                                     
+                                        
+                                    @endphp
+                                            {{-- COMPOSANTS --}}
+                                    <div>
+                                    <a class="compo btn" data-id="{{ $alimentaire->id }}" 
+                                      style="background-color: #ffff;box-shadow: none;color: black;font-weight: 900"
+                                      for="composants">Composants</a>
+                                      <div id="com_{{ $alimentaire->id }}" style="display: none">
+                                      @foreach ($compos as $compo)
+                                                                
+                                            @foreach ((array)$inter as $inters)
+                                              @if ($compo->id==$inters)
+                                              <input type="checkbox" name="alimentaire_{{ $alimentaire->id }}[]" value="{{ $compo->nomComposant }}" checked> {{ $compo->nomComposant }}<br>
+                                              @endif                       
+                                          @endforeach                 
+                                          
+                                          @endforeach  
+                                      </div>
+                                    </div>
+                                          {{-- COMPOSANTS PAYANTS --}}
+                                    <div>
+                                     <a class="composant btn" data-id="{{ $alimentaire->id }}" style="color: black;font-weight: 900;
+                                     background-color: #ffff;box-shadow: none"
+                                       for="composants" >Composants Payants</a>
+                                      <div id="comp_{{ $alimentaire->id }}" style="display: none">
+                                        <table width="100%">
+                                          @foreach ($compos as $compo)
+                                            <tr>
+                                              <td>
+                                                <input type="checkbox" name="ingredient_{{ $alimentaire->id }}[]" value="{{ $compo->nomComposant }}" >
+                                              </td>
+                                              <td>
+                                                {{ $compo->nomComposant }}
+                                              </td>
+                                              <td>
+                                                {{ $compo->prix }} DH
+                                              </td>
+                                              <td>
+                                                <input type="number" min="1" max="5" value="1" name="quantite_{{ $alimentaire->id }}_{{ $compo->nomComposant }}">
+                                              </td>
+                                            </tr>
+                                      @endforeach
+                                        </table>
+                                      
+                                    </div>
+                                  </div>
+                                          {{-- SUPPLEMENTS --}}
+                                      <a class="supplement btn" data-id="{{ $alimentaire->id }}" style="background-color: #ffff;box-shadow: none;
+                                        color: black;font-weight: 900" for="supplement"><b>Supplements</b></a>
+                                      <div id="supp_{{ $alimentaire->id }}" style="display: none">
+                                        <table width="100%">
+                                          @foreach ($supplements as $supp)
+                                          <tr>
+                                            <td>
+                                              <input type="checkbox" name="supplement_{{ $alimentaire->id }}[]" 
+                                              value="{{ $supp->titre }}">
+                                            </td>
+                                            <td>
+                                              {{ $supp->titre }} 
+                                            </td>
+                                            <td>
+                                              {{ $supp->prix }} DH
+                                            </td>
+                                          
+                                          @endforeach
+                                        </tr>
+                                        </table>
+                                       
+                                      </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                </div>
+                                
+                                @endforeach
+                              </div>
                             
                             <br><button type="submit" class="btn btn-primary">Modifier commande</button>
                         </form>
@@ -215,5 +279,31 @@
     })
       
     })
+    
+    $(document).ready(function(){
+          $(".alimcomp").on('click',function(){
+            let id = $(this).attr('data-id')
+            $("#add_"+id).toggle(700);
+          }).change();
+       })
+       $(document).ready(function(){
+          $(".supplement").on('click',function(){
+            let id = $(this).attr('data-id')
+            $("#supp_"+id).toggle(700);
+          });
+       })
+       $(document).ready(function(){
+          $(".composant").on('click',function(){
+            let id = $(this).attr('data-id')
+            $("#comp_"+id).toggle(900);
+          });
+         
+       })
+       $(document).ready(function(){
+          $(".compo").on('click',function(){
+            let id = $(this).attr('data-id')
+            $("#com_"+id).toggle(700);
+          });
+       })
     </script>
 @endsection

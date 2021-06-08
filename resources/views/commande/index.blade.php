@@ -124,6 +124,7 @@
 
 
 @section('scripts')
+@parent
 <script>
   $(function() {
       $('.toggle-class').on('click',function() {
@@ -138,7 +139,7 @@
   
               dataType: "json",
   
-              url: '/changeStatut',
+              url: '{{route("commande.changeStatut")}}',
   
               data: {'status': status, 'id': id},
   

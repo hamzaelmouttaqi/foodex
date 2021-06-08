@@ -17,38 +17,10 @@
             <p>{{ __('Dashboard') }}</p>
         </a>
       </li>
-      <li class="nav-item {{ ($activePage == 'Menulist' || $activePage == 'Menucatalogue' || $activePage == 'Menumanage' || $activePage == 'Menuadd') ? ' active' : '' }}">
-        <a class="nav-link" data-toggle="collapse" href="#laravelExample" aria-expanded="false">
-          <i class="material-icons">menu</i>
-
-          <p>{{ __('Menu') }}
-            <b class="caret"></b>
-          </p>
-        </a>
-        <div class="panel-collapse collapse {{ ($activePage == 'Menulist' || $activePage == 'Menucatalogue' || $activePage == 'Menumanage' || $activePage == 'Menuadd') ? 'show' : 'in' }}" id="laravelExample">
-          <ul class="nav">
-            <li class="nav-item{{ $activePage == 'Menulist' ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('alimentaire.index') }}">
-                <i class="material-icons">format_list_bulleted</i>
-                <span class="sidebar-normal">{{ __('Menu list') }} </span>
-              </a>
-            </li>
-            <li class="nav-item{{ $activePage == 'Menucatalogue' ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('alimentaire.catalogue') }}">
-                <i class="material-icons">apps</i>
-                <span class="sidebar-normal"> {{ __('Menu catalogue') }} </span>
-              </a>
-            </li>
-            
-            <li class="nav-item{{ $activePage == 'Menuadd' ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('alimentaire.create') }}">
-                <i class="material-icons">add</i>
-                <span class="sidebar-normal"> {{ __('Ajouter alimentaire') }} </span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
+      
+     
+      
+      
 
       <li class="nav-item {{ ($activePage == 'Commandelist' || $activePage == 'Commandeadd' ) ? ' active' : '' }}">
         <a class="nav-link" data-toggle="collapse" href="#commande" aria-expanded="false">
@@ -87,13 +59,17 @@
            <ul class="nav">
             <li class="nav-item{{ $activePage == 'client-liste' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('clients.index') }}">
-                <span class="sidebar-mini"> UP </span>
+                <i class="material-icons">
+                  groups
+                </i>
                 <span class="sidebar-normal">{{ __('Clients liste') }} </span>
               </a>
             </li>
             <li class="nav-item{{ $activePage == 'Avis' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('Avis.index') }}">
-                <span class="sidebar-mini"> UM </span>
+                <i class="material-icons">
+                  rate_review
+                </i>
                 <span class="sidebar-normal"> {{ __('Avis') }} </span>
               </a>
             </li>
@@ -126,6 +102,25 @@
                     <a class="nav-link" href="{{ route('categorie.index') }}">
                       <span class="sidebar-mini">-</span>
                       <span class="sidebar-normal"> {{ __('Categorie Alimentaire') }} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item{{ $activePage == 'Menulist' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ route('alimentaire.index') }}">
+                      <i class="material-icons">format_list_bulleted</i>
+                      <span class="sidebar-normal">{{ __('Menu list') }} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item{{ $activePage == 'Menucatalogue' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ route('alimentaire.catalogue') }}">
+                      <i class="material-icons">apps</i>
+                      <span class="sidebar-normal"> {{ __('Menu catalogue') }} </span>
+                    </a>
+                  </li>
+                  
+                  <li class="nav-item{{ $activePage == 'Menuadd' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ route('alimentaire.create') }}">
+                      <i class="material-icons">add</i>
+                      <span class="sidebar-normal"> {{ __('Ajouter alimentaire') }} </span>
                     </a>
                   </li>
                 </ul>
@@ -162,9 +157,25 @@
                 <span class="sidebar-normal">{{ __('Livreur') }} </span>
               </a>
             </li>
-            
+            <li class="nav-item{{ $activePage == 'Livraison' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('livraison.index') }}">
+                <i class="material-icons">add_location</i>
+                <span class="sidebar-normal">{{ __('Livraison') }} </span>
+              </a>
+            </li>
           </ul>
         </div>
+      </li>
+      <li class="nav-item {{ ($activePage == 'Parametre' ) ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('parametre.index') }}" >
+          <i class="material-icons">
+            manage_accounts
+          </i>
+
+          <p>{{ __('Parametre') }}
+            
+          </p>
+        </a>
       </li>
     </ul>
   </div>

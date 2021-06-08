@@ -96,6 +96,7 @@ class LivreurController extends Controller
         $livreur->delete();
         return redirect()->route('livreur.index')->with(["succes"=>"livreur supprime avec succes"]) ;
     }
+    
     public function changeStatusLivreur(Request $request)
     {
         $liv = Livreur::find($request->id);
