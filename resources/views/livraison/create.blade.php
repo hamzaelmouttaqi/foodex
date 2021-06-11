@@ -23,7 +23,7 @@
                             <input type="number" class="form-control" name="code_postal" placeholder="Enter code postal">
                         </div> <br>
                         <div class="form-group">
-                            <label for="code_postal" style="color: black"><strong>Prix</strong></label>
+                            <label for="prix" style="color: black"><strong>Prix</strong></label>
                             <input type="number" class="form-control" name="prix" placeholder="0Dhs">
                         </div><br>
                         <button type="submit" class="btn btn-primary">Ajouter</button>

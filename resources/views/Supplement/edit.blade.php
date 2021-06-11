@@ -29,6 +29,10 @@
               @foreach ($catsupp as $catsupp)
                   <input type="radio" name="categorie_id" value="{{ $catsupp->id }}">{{ $catsupp->title }}<br>
                   @endforeach
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" name="image" value="{{ $supplement->image}}">
+              <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
             <button type="submit" class="btn btn-primary">Modifier</button>  
           </form>
         </div>

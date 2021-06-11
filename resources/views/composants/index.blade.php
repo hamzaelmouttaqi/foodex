@@ -6,8 +6,10 @@
         <div class="card">
           <div class="card-header card-header-primary">
             
-              <h4 class="card-title "> <b>Composants</b> <a href="{{ route('composants.create') }}" class="btn btn-info" style="float: right">
-                <i class="material-icons">add</i></a></h4>
+              <h4 class="card-title "> <b>Composants</b> 
+                <a href="{{ route('composants.create') }}" class="btn btn-info" style="float: right">
+                <i class="material-icons">add</i></a>
+              </h4>
               <p class="card-category"> liste des composants</p>
           </div>
         <div class="card-body">

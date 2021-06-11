@@ -40,41 +40,48 @@
                               <button class="btn btn-success">completé</button> 
                               @endif
                             </td>
-                            <td>
-                              @foreach ($commande->alimentaires as $alim)
-                                  
-                                  <table class="table table-borderless">
-                                    <tr>
-                                      <td width=80>{{$alim->titre}}</td>
-                                      <td width=80>({{$alim->pivot->sizeAlimentaire}}) </td> 
-                                      <td width=80>Qte : {{$alim->pivot->quantite}}</td>
-                                        
-                                          <td>
-                                            <table class="{{$commande->id}}{{$alim->id}}" style="display: none" >
-                                              <tr>
-                                                <td width=120>
-                                                  @foreach (json_decode($alim->pivot->composantCommande) as $comp)
-                                                  <i class="fa fa-minus" aria-hidden="true"></i> {{$comp}}<br>
-                                                  @endforeach
-                                                </td>
-                                                <td width=85>
-                                                  @foreach (json_decode($alim->pivot->supplementCommande) as $sup)
-                                                  <i class="fa fa-plus fa-sm" aria-hidden="true"></i> {{$sup}} <br>
-                                                  @endforeach
-                                                </td>
-                                              </tr>
-                                            </table>
-                                            
-                                          </td>
+                            
+                              <td>
+                                @foreach ($commande->alimentaires as $alim)
+                                    
+                                    <table class="table" border="0" border-collapse="collapse" >
+                                      <tr>
+                                        <td width=80>{{$alim->titre}}</td>
+                                        <td width=80>({{$alim->pivot->sizeAlimentaire}}) </td> 
+                                        <td width=80>Qte : {{$alim->pivot->quantite}}</td>
                                           
-                                          <td><button type="button" class="sh alim{{$commande->id}}{{$alim->id}}" data-id="{{$commande->id}}{{$alim->id}}">+</button></td>
-                                          <td><button type="button" class="ssh aalim{{$commande->id}}{{$alim->id}}" data-id="{{$commande->id}}{{$alim->id}}" style="display: none">-</button></td>
-                                    </tr>
-                                  </table>
-                              
-                          @endforeach
+                                            <td>
+                                              <table class="{{$commande->id}}{{$alim->id}}" style="display: none" >
+                                                <tr>
+                                                  <th scope="col">Composants</th>
+                                                  <th scope="col">Supplement</th>
+                                                </tr>
+                                                <tr>
+                                                  <td width=120>
+                                                    @foreach (json_decode($alim->pivot->composantCommande) as $comp)
+                                                     <li>{{$comp}}</li>
+                                                    @endforeach
+                                                  </td>
+                                                  <td width=85>
+                                                    @foreach (json_decode($alim->pivot->supplementCommande) as $sup)
+                                                    <li>{{$sup}}</li>
+                                                    @endforeach
+                                                  </td>
+                                                </tr>
+                                              </table>
+                                              
+                                            </td>
+                                            
+                                            <td><button type="button" class="sh alim{{$commande->id}}{{$alim->id}}" style="border-radius: 25px" data-id="{{$commande->id}}{{$alim->id}}">+</button></td>
+                                            <td><button type="button" class="ssh aalim{{$commande->id}}{{$alim->id}}"  data-id="{{$commande->id}}{{$alim->id}}" style="display: none ; border-radius: 25px">-</button></td>
+                                      </tr>
+                                    </table>
+                                
+                            @endforeach
+                            
+                          </td>
                           
-                        </td>
+                        
                         <td>{{$commande->created_at}}</td>
                         
                         

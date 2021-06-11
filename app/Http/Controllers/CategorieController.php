@@ -110,4 +110,14 @@ class CategorieController extends Controller
         return redirect()->route('categorie.index')->with(["succes"=>"categorie supprime avec succes"]) ;
 
     }
+    public function changeStatuss(Request $request)
+
+    {
+
+        $categorie = categorie::find($request->id);
+        $categorie->status = $request->status;
+        $categorie->save();
+        return response()->json(['success'=>'Status change successfully.']);
+
+    }
 }

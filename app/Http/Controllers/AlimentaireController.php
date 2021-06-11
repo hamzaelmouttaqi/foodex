@@ -21,7 +21,9 @@ class AlimentaireController extends Controller
      */
     public function __construct()
     {
-      $this->middleware('auth');}
+      $this->middleware('auth');
+    }
+
     public function index()
     {   
       return view('alimentaire.index')->with(["alimentaires"=>alimentaire::with('sizes','composants')->paginate(10)
@@ -35,6 +37,7 @@ class AlimentaireController extends Controller
      */
     public function create()
     {   
+        
         /*$id=DB::table('category_composants')->select('id')->get();
         foreach($id as $id){
         $category.($id->id)=CategoryComposant::find($id->id)->getcom;
@@ -55,7 +58,7 @@ class AlimentaireController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $this->validate($request,["titre"=>"required|unique:alimentaires,titre"
         ,"description"=>"required",
         "composants"=>"required",
@@ -85,15 +88,15 @@ class AlimentaireController extends Controller
              "categorie_id"=>$cat,
              "categorie"=>$categorie
         ]);   
-        $alimentaire=alimentaire::where('id',$alimentairee->id)->get();
-        foreach($alimentaire as $alimentaire){
-        $sizes=collect($request->input('sizes', []))
-        ->map(function($sizes){
-            return ['prix'=>$sizes];
-        });
+        $alimentaires=alimentaire::where('id',$alimentairee->id)->get();
+        foreach($alimentaires as $alimentaire){
+            $sizes=collect($request->input('size', []))
+            ->map(function($sizes){
+                return ['prix'=>$sizes];
+            });
         
-         $alimentaire->sizes()->sync($sizes);
-         $alimentaire->composants()->attach($composantid);
+            $alimentaire->sizes()->sync($sizes);
+            $alimentaire->composants()->sync($composantid);
          
          return redirect()->route('alimentaire.index')->with(["succes"=>"alimentaire ajoutee avec succes"]) ;
     }

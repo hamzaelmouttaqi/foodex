@@ -8,9 +8,11 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header" >
-              <h4 class="card-title"><h2 style="font-weight: 900;color:black">Catalogue<a href="{{ route('alimentaire.create') }}" class="btn btn-outline-warning" style="float: right">
-                <i style="font-size:20px " class="material-icons md-48">add</i></a></h2>
-                
+              <h4 class="card-title"><h2 style="font-weight: 900;color:black">Catalogue
+                @if (Auth::user()->hasRole('administrator'))
+                <a href="{{ route('alimentaire.create') }}" class="btn btn-outline-warning" style="float: right">
+                  <i style="font-size:20px " class="material-icons md-48">add</i></a></h2>
+                @endif
               </h4>
               <p class="card-category"> catalogue des alimentaires</p>
             </div>

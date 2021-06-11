@@ -42,7 +42,7 @@ class SupplementController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,["titre"=>"required|unique:supplements,titre","prix"=>"required","catsupp"=>"required"]);
+        $this->validate($request,["titre"=>"required|unique:supplements,titre","prix"=>"required","categorie_id"=>"required"]);
 
         $titre=$request->titre;
         $catsupp=$request->categorie_id;
@@ -50,14 +50,23 @@ class SupplementController extends Controller
         $status=$request->status;
         $titleCat=DB::table('categorie_supplements')->select('title')->where('id',$catsupp)->value('title');
         $categorie=$titleCat;
+        if($request->hasFile('image')){
+            $file=$request->file('image');
+            $extension =$file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $file->move('uploads/supplement',$filename);
+        }else{
+            $filename='';
+        }
         Supplement::create([
             "titre"=>$titre ,
             "categorie"=>$categorie,
             "prix"=>$prix,
             "categorie_id"=>$catsupp,
+            "image"=>$filename,
             "status"=>$status
         ]); 
-        return redirect()->route('Supplement.index')->with(["succes"=>"supplement ajoutee avec succes"]) ;
+        return redirect()->route('supplement.index')->with(["succes"=>"supplement ajoutee avec succes"]) ;
     }
 
     /**
@@ -90,8 +99,27 @@ class SupplementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Supplement $supplement)
-    {
-        $this->validate($request,["titre"=>"required","prix"=>"required"]);
+    {     if($request->hasFile('image')){
+            unlink(public_path(('uploads/supplement/'. $supplement->image)));
+            $file=$request->file('image');
+            $extension =$file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $file->move('uploads/supplement',$filename);
+            $titre=$request->titre;
+            $catsupp=$request->categorie_id;
+            $prix=$request->prix;
+            $titleCat=DB::table('categorie_supplements')->select('title')->where('id',$catsupp)->value('title');
+            $categorie=$titleCat;
+            $supplement->update([
+                "titre"=>$titre ,
+                "categorie"=>$categorie,
+                "prix"=>$prix,
+                "categorie_id"=>$catsupp,
+                "image"=>$filename
+            ]);  
+        return redirect()->route('supplement.index')->with(["succes"=>"supplement modifie avec succes"]) ;
+    }
+    else{
         $titre=$request->titre;
         $catsupp=$request->categorie_id;
         $prix=$request->prix;
@@ -102,8 +130,10 @@ class SupplementController extends Controller
             "categorie"=>$categorie,
             "prix"=>$prix,
             "categorie_id"=>$catsupp,
+            
         ]);  
-          return redirect()->route('Supplement.index')->with(["succes"=>"supplement modifie avec succes"]) ;
+      return redirect()->route('supplement.index')->with(["succes"=>"supplement modifie avec succes"]) ;
+    }
     }
 
     /**
@@ -115,7 +145,7 @@ class SupplementController extends Controller
     public function destroy(Supplement $supplement)
     {
         $supplement->delete();
-        return redirect()->route('Supplement.index')->with(["succes"=>"supplement supprimé avec succes"]) ;
+        return redirect()->route('supplement.index')->with(["succes"=>"supplement supprimé avec succes"]) ;
     }
     public function changeStatus(Request $request)
 

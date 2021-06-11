@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,13 +21,10 @@ Route::get('/', function () {
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::resource('clients', 'App\Http\Controllers\ClientController');
 Route::resource('alimentaire', 'App\Http\Controllers\AlimentaireController');
 Route::resource('categorie', 'App\Http\Controllers\CategorieController');
-Route::resource('composants', 'App\Http\Controllers\ComposantsController');
-Route::resource('Category', 'App\Http\Controllers\CategoryComposantController');
-Route::resource('Avis', 'App\Http\Controllers\AvisController');
-Route::resource('supplement', 'App\Http\Controllers\SupplementController');
 Route::resource('livreur', 'App\Http\Controllers\LivreurController');
 Route::resource('livraison', 'App\Http\Controllers\LivraisonController');
 Route::get('/changeStatusLivreur', [App\Http\Controllers\LivreurController::class, 'changeStatusLivreur'])->name('livreur.changeStatusLivreur');
@@ -35,11 +32,40 @@ Route::get('/changeStatus', [App\Http\Controllers\SupplementController::class, '
 Route::resource('commande', 'App\Http\Controllers\CommandeController');
 Route::get('/changeStatut', [App\Http\Controllers\CommandeController::class, 'changeStatut'])->name('commande.changeStatut');
 Route::get('/supprimer', [App\Http\Controllers\CommandeController::class, 'supprimer'])->name('commande.supprimer');
-Route::post('/insert', [App\Http\Controllers\CommandeController::class, 'insert'])->name('commande.insert');
+Route::post('/insertCommande', [App\Http\Controllers\CommandeController::class, 'insert'])->name('commande.insert');
+Route::post('/insert', [App\Http\Controllers\FournisseurController::class, 'insert'])->name('fournisseur.insert');
 Route::get('/complete',[App\Http\Controllers\CommandeController::class, 'complete'])->name('complete');
 Route::get('/non-complete',[App\Http\Controllers\CommandeController::class, 'noncomplete'])->name('noncomplete');
 Route::get('/catalogue',[App\Http\Controllers\AlimentaireController::class, 'catalogue'])->name('alimentaire.catalogue');
-Route::resource('parametre', 'App\Http\Controllers\ParametreController');
+Route::get('/changeStatuss', [App\Http\Controllers\CategorieController::class, 'changeStatuss'])->name('categorie.changeStatuss');
+
+
+Route::group(['middleware' => ['auth','role:administrator']], function () {
+	Route::resource('composants', 'App\Http\Controllers\ComposantsController');
+	Route::resource('Category', 'App\Http\Controllers\CategoryComposantController');
+	Route::resource('Avis', 'App\Http\Controllers\AvisController');
+	Route::resource('supplement', 'App\Http\Controllers\SupplementController');
+	Route::resource('produit', 'App\Http\Controllers\ProduitController');
+	Route::resource('fournisseur', 'App\Http\Controllers\FournisseurController');
+	Route::resource('achat', 'App\Http\Controllers\AchatController');
+	Route::resource('parametre', 'App\Http\Controllers\ParametreController');
+	Route::get('/alimentaire/create', [App\Http\Controllers\AlimentaireController::class, 'create'])->name('alimentaire.create');
+	Route::get('/alimentaire/{alimentaire}/edit', [App\Http\Controllers\AlimentaireController::class, 'edit'])->name('alimentaire.edit');
+	Route::get('/alimentaire/{alimentaire}/destroy', [App\Http\Controllers\AlimentaireController::class, 'destroy'])->name('alimentaire.destroy');
+	Route::get('/livreur/create', [App\Http\Controllers\LivreurController::class, 'create'])->name('livreur.create');
+	Route::get('/livreur/{livreur}/destroy', [App\Http\Controllers\LivreurController::class, 'destroy'])->name('livreur.destroy');
+	Route::get('/livraison/create', [App\Http\Controllers\LivraisonController::class, 'create'])->name('livraison.create');
+	Route::get('/livraison/{livraison}/destroy', [App\Http\Controllers\LivraisonController::class, 'destroy'])->name('livraison.destroy');
+	Route::get('/livraison/{livraison}/edit', [App\Http\Controllers\LivraisonController::class, 'edit'])->name('livraison.edit');
+	Route::get('/catagorie/create', [App\Http\Controllers\AlimentaireController::class, 'create'])->name('categorie.create');
+	Route::get('/categorie/{categorie}/edit', [App\Http\Controllers\AlimentaireController::class, 'edit'])->name('categorie.edit');
+	Route::get('/categorie/{categorie}/destroy', [App\Http\Controllers\AlimentaireController::class, 'destroy'])->name('categorie.destroy');
+	Route::resource('employe','App\Http\Controllers\UserController');
+});
+
+
+
+
 
 Auth::routes();
 

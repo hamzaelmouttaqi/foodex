@@ -91,8 +91,8 @@ class ParametreController extends Controller
            ]); 
         }
         
-        if($request->hasFile('logo'))
-            {   unlink(public_path(('uploads/parametres/logo/'. $parametre->logo)));
+        if($request->hasFile('logo')){
+               unlink(public_path(('uploads/parametres/logo/'. $parametre->logo)));
                 $file=$request->file('logo');
                 $extension=$file->getClientOriginalExtension();
                 $filename = time().'.'.$extension;

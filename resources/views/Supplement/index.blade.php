@@ -16,9 +16,11 @@
             <thead>
               <tr style="text-align: center">
                 <th scope="col">id</th>
+                <th scope="col">image</th>
                 <th scope="col">Nom Supplement</th>
                 <th scope="col">Prix</th>
                 <th scope="col">Status</th>
+
                 <th>Action</th>
               </tr>
             </thead>
@@ -26,6 +28,7 @@
               @foreach ($supplements as $supplement)
                   <tr style="text-align: center">
                       <td>{{$supplement->id }}</td>
+                      <td  style="height: 10%; width: 10%"><img src="{{ asset('uploads/supplement/'. $supplement->image ) }}" alt="" class="img-thumbnail"></td>
                       <td><b>{{$supplement->titre }}</b></td>
                       <td>{{$supplement->prix }} DH</td>
                       <td>

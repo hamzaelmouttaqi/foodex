@@ -16,6 +16,7 @@ class CreateCategorieSupplementsTable extends Migration
         Schema::create('categorie_supplements', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
+            
             $table->timestamps();
         });
     }

@@ -6,8 +6,11 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title "> <b>Ville</b> <a href="{{ route('livraison.create') }}" class="btn btn-light" style="float: right">
+            <h4 class="card-title "> <b>Ville</b>
+              @if (Auth::user()->hasRole('administrator'))
+               <a href="{{ route('livraison.create') }}" class="btn btn-light" style="float: right">
               <i class="material-icons">add</i></a>
+              @endif
             </h4>
             <p class="card-category"> liste des Villes</p>
           </div>
@@ -19,7 +22,9 @@
                   <th scope="col">Nom Ville</th>
                   <th scope="col">Code Postal</th>
                   <th scope="col">Prix livraison</th>
+                  @if (Auth::user()->hasRole('administrator'))
                   <th scope="col">action</th>
+                  @endif
                 </tr>
               </thead>
               <tbody>
@@ -29,7 +34,7 @@
                         <td>{{$livraison->code_postal }}</td>
                         <td>{{$livraison->prix }} DHs</td>
                         
-                         
+                        @if (Auth::user()->hasRole('administrator'))
                         <td class="d-flex flex-row justify-content-center align-items-center">
                           <a href="{{route('livraison.edit' ,$livraison->code_postal)}}" class="btn btn-warning m-2 btn-sm">
                               <i class="fas fa-edit "></i>
@@ -44,7 +49,7 @@
                           </form>
       
                         </td>
-                          
+                          @endif
                     </tr>
                 @endforeach
       

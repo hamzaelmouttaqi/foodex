@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'register', 'titlePage' => __('Material Dashboard')])
 
 @section('content')
-<div class="container" style="height: auto;">
+<div class="content">
   <div class="row align-items-center">
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
       <form class="form" method="POST" action="{{ route('register') }}">
@@ -9,7 +9,7 @@
 
         <div class="card card-login card-hidden mb-3">
           <div class="card-header card-header-danger text-center">
-            <h4 class="card-title"><strong>{{ __('Register') }}</strong></h4>
+            <h4 class="card-title"><strong>{{ __('AJOUTER UN EMPLOYEE') }}</strong></h4>
             <div class="social-line">
               <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
                 <i class="fa fa-facebook-square"></i>
@@ -84,18 +84,26 @@
                 </div>
               @endif
             </div>
-            <div class="form-check mr-auto ml-3 mt-3">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="policy" name="policy" {{ old('policy', 1) ? 'checked' : '' }} >
-                <span class="form-check-sign">
-                  <span class="check"></span>
-                </span>
-                {{ __('I agree with the ') }} <a href="#">{{ __('Privacy Policy') }}</a>
-              </label>
+            {{-- SELECT ROLE --}}
+            <div class="mt-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                      <i class="material-icons">work</i>
+                  </span>
+                </div>
+                <select name="role_id" class="form-control">
+                  <option value="" disabled selected >{{ __('Fontionnalite...') }}</option>
+                  @foreach ($roles as $role)
+                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                  @endforeach
+                 </select>
+              </div>
             </div>
+           
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-danger btn-link btn-lg">{{ __('Create account') }}</button>
+            <button type="submit" class="btn btn-danger btn-link btn-lg">{{ __('Ajouter Employe') }}</button>
           </div>
         </div>
       </form>

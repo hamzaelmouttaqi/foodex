@@ -6,8 +6,11 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title "> <b>Livreurs</b> <a href="{{ route('livreur.create') }}" class="btn btn-light" style="float: right">
+            <h4 class="card-title "> <b>Livreurs</b>
+              @if (Auth::user()->hasRole('administrator'))
+              <a href="{{ route('livreur.create') }}" class="btn btn-light" style="float: right">
               <i class="material-icons">add</i></a>
+              @endif
             </h4>
             <p class="card-category"> liste des livreurs</p>
           </div>
@@ -20,7 +23,9 @@
                   <th scope="col">Nom Livreur</th>
                   <th scope="col">Code Postal</th>
                   <th scope="col">Status</th>
+                  @if (Auth::user()->hasRole('administrator'))
                   <th scope="col">action</th>
+                  @endif
                 </tr>
               </thead>
               <tbody>
@@ -36,7 +41,7 @@
                             data-offstyle="danger" data-toggle="toggle"
                              data-on="Active" data-off="InActive" {{ $livreur->status ? 'checked' : '' }}>
                         </td>
-                         
+                        @if (Auth::user()->hasRole('administrator'))
                         <td class="d-flex flex-row justify-content-center align-items-center">
                           {{-- <a href="{{route('livreur.edit' ,$livreur->id)}}" class="btn btn-warning m-2 btn-sm">
                               <i class="fas fa-edit "></i>
@@ -51,6 +56,7 @@
                           </form>
       
                         </td>
+                        @endif
                           
                     </tr>
                 @endforeach

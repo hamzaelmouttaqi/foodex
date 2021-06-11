@@ -9,7 +9,7 @@ class Livraison extends Model
 {
     use HasFactory;
     protected $primaryKey = 'code_postal';
-    protected $fillable =["ville","prix"];
+    protected $fillable =["ville","prix","code_postal"];
     public function getRouteKeyName()
     {
         return "code_postal";

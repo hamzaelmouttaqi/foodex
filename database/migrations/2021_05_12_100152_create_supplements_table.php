@@ -18,6 +18,7 @@ class CreateSupplementsTable extends Migration
             $table->string('titre');
             $table->bigInteger('categorie_id')->unsigned();
             $table->double('prix');
+            $table->mediumText('image');
             $table->boolean('status')->default(true);
             $table->foreign('categorie_id')->references('id')->on('categorie_supplements')->onDelete('cascade');
             $table->timestamps();

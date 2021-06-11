@@ -13,7 +13,7 @@
             
           </div>
         <div class="card-body">
-        <form action="{{ route("supplement.store") }}" method="post" >
+        <form action="{{ route("supplement.store") }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
               <label for="titre"><b>Nom de supplement</b> </label>
@@ -32,6 +32,10 @@
                   @endforeach
     
                 </fieldset>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" name="image">
+                  <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
             <button type="submit" class="btn btn-primary">Ajouter</button>
           </form>
         </div>

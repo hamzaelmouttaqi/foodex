@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Supplement extends Model
 {
     use HasFactory;
-    protected $fillable=['titre','prix','status','categorie_id','categorie'];
+    protected $fillable=['titre','prix','status','categorie_id','categorie','image'];
     protected $casts = [
         'status' => 'boolean'
      ];
