@@ -19,6 +19,6 @@ class Achat extends Model
         return $this->belongsTo(Fournisseur::class);
     }
     public function produits(){
-        return $this->belongsToMany(Fournisseur::class ,'achat_produit','achats_id','produits_id')->withPivot(['prix','quantite'])->withTimestamps();;
+        return $this->belongsToMany(Produit::class ,'achat_produit','achats_id','produits_id')->withPivot(['prix','quantite'])->withTimestamps();;
     }
 }

@@ -58,9 +58,7 @@
                         <td>{{$achat->created_at}}</td>
                         <td>{{$achat->prix_total }} dh</td>
                         <td class="d-flex flex-row justify-content-center align-items-center">
-                          <a href="{{route('achat.edit' ,$achat->id)}}" class="btn btn-warning m-1 btn-sm">
-                            <i class="material-icons">edit</i>
-                          </a>
+                          
                           <form id="{{$achat->id}}" action={{ route('achat.destroy',$achat->id) }} method="post">
                               @csrf
                               @method("DELETE") 

@@ -38,30 +38,55 @@ class AchatController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,["fournisseurId"=>"required"]);
+            $fournisseur_id=$request->fournisseurId;
+            
+             $achat=Achat::create([
+                 "fournisseur_id"=>$fournisseur_id 
+             ]);
+            
+
+            $produits_id=array_keys($request->quantite);
+            $achat=Achat::where('id',$achat->id)->first();
+            $prixTotal = 0 ;
+            foreach($produits_id as $prod){   
+                $quantite = $request->input('quantite', []);
+                $quantite = $quantite[$prod];
+                $prix = DB::table('fournisseur_produit')->select('prix_unitaire')->where('fournisseur_id',$fournisseur_id)
+                ->where('produit_id',$prod)->value('prix_unitaire');
+                $prix = $prix * $quantite;
+                $achat->produits()->attach($prod, ['quantite' =>$quantite ,'prix' => $prix ]);
+                $prixTotal = $prixTotal + $prix ;
+            }
+            DB::table('achats')->where('id',$achat->id)->update(['prix_total'=>$prixTotal]);
+            return redirect()->route('achat.index')->with(["succes"=>"achat ajoutee avec succes"]) ;
+    }
+//     public function store(Request $request)
+//     {
         
-        $this->validate($request,[
-        "id_fournisseur"=>"required",
-    ]);
-        $id_fournisseur=$request->id_fournisseur;
-        $achat=Achat::create([
-            "fournisseur_id"=>$id_fournisseur 
-        ]);
-        $produits_id=array_keys($request->produit);
-        $achats=Achat::where('id',$achat->id)->get();
-        $prix_unitaire=DB::table('fournisseur_produit')->select('prix_unitaire')->where('fournisseur_id',$id_fournisseur)
-        ->whereIn('produit_id',$produits_id)->pluck('prix_unitaire');
-        foreach($achats as $achat){
-            $produits=collect($request->input('produit', []))
-            ->map(function($produits){
-                return ['quantite'=>$produits];
-            });
+//         $this->validate($request,[
+//         "id_fournisseur"=>"required",
+//     ]);
+//         $id_fournisseur=$request->id_fournisseur;
+//         $achat=Achat::create([
+//             "fournisseur_id"=>$id_fournisseur 
+//         ]);
+//         $produits_id=array_keys($request->produit);
+//         $achats=Achat::where('id',$achat->id)->get();
+//         $prix_unitaire=DB::table('fournisseur_produit')->select('prix_unitaire')->where('fournisseur_id',$id_fournisseur)
+//         ->whereIn('produit_id',$produits_id)->pluck('prix_unitaire');
+//         foreach($achats as $achat){
+//             $produits=collect($request->input('produit', []))
+//             ->map(function($produits){
+//                 return ['quantite'=>$produits];
+//             });
             
         
-            $achats->produits()->sync($produits);
+//             $achats->produits()->sync($produits);
 
-        return redirect()->route('fournisseur.index')->with(["succes"=>"fournisseur ajoutee avec succes"]) ;
+//         return redirect()->route('fournisseur.index')->with(["succes"=>"fournisseur ajoutee avec succes"]) ;
 
-}}
+// }}
 
     /**
      * Display the specified resource.
@@ -71,7 +96,7 @@ class AchatController extends Controller
      */
     public function show(Achat $achat)
     {
-        //
+        return view('achat.facture')->with(['achat'=>Achat::with('fournisseur','produits')->where('id',$achat->id)->get()]);
     }
 
     /**
@@ -105,6 +130,7 @@ class AchatController extends Controller
      */
     public function destroy(Achat $achat)
     {
-        //
+        $achat->delete();
+        return redirect()->route('achat.index')->with(["succes"=>"achat supprimme avec succes"]) ;
     }
 }

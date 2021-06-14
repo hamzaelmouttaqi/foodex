@@ -83,7 +83,7 @@
                               <option value="" disabled selected>Choose your categorie</option>
                               @foreach ($categorie as $categorie)
                               @if ($categorie->status=='1')
-                              <option value="{{ $categorie->nomCat }}">{{ $categorie->nomCat}}</option>
+                              <option value="{{ $categorie->nomCat }}" data-id="{{ $categorie->nomCat }}">{{ $categorie->nomCat}}</option>
                               @endif
                               @endforeach
                             </select>
@@ -92,7 +92,7 @@
                               @foreach ($alimentaires as $alimentaire)
                               
                               <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="{{ $alimentaire->categorie }} data" style="display: none"> 
+                                <div class="{{ $alimentaire->categorie }} data" style="display: none;"> 
                                 <div class="card">
                                   
                                     <img class="card-img-top" width='400' height='250' src="{{ asset('uploads/alimentaire/image/'. $alimentaire->image ) }}" alt="card_img">
@@ -295,8 +295,10 @@
     <script>
         $(document).ready(function(){
           $("#nomcat").on('change',function(){
-            $(".data").hide();
-            $("." + $(this).val()).fadeIn(700);
+            let id = $(this).attr('data-id')
+            $(".data").hide()
+            $("." + $(this).val()).fadeIn(700)
+            
           }).change();
        })
    

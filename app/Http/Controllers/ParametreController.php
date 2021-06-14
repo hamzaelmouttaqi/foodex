@@ -78,6 +78,7 @@ class ParametreController extends Controller
         $nom_magasin=$request->nom_magasin;
         $adresse=$request->adresse;
         $tele=$request->tele;
+        $email=$request->email;
        
         //store data
         if($request->hasFile('icon')){
@@ -106,6 +107,7 @@ class ParametreController extends Controller
              "nom_magasin"=>$nom_magasin,
              "adresse"=>$adresse,
              "tele"=>$tele,
+             "email"=>$email
              
         ]); 
 
