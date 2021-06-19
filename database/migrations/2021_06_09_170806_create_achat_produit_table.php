@@ -18,7 +18,7 @@ class CreateAchatProduitTable extends Migration
             $table->bigInteger('achats_id')->unsigned();
             $table->bigInteger('produits_id')->unsigned();
             $table->integer('quantite');
-            $table->decimal('prix', 8, 4);
+            $table->decimal('prix', 8, 2)->nullable();
             $table->foreign('achats_id')->references('id')->on('achats')->onDelete('cascade');
             $table->foreign('produits_id')->references('produit_id')->on('fournisseur_produit')->onDelete('cascade');
             $table->timestamps();

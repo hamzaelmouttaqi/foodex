@@ -82,7 +82,9 @@ class ParametreController extends Controller
        
         //store data
         if($request->hasFile('icon')){
+            if($parametre->icon!=''){
             unlink(public_path(('uploads/parametres/icon/'. $parametre->icon)));
+            }
             $file=$request->file('icon');
             $extension =$file->getClientOriginalExtension();
             $filename = time().'.'.$extension;
@@ -93,7 +95,9 @@ class ParametreController extends Controller
         }
         
         if($request->hasFile('logo')){
+            if($parametre->logo!=''){
                unlink(public_path(('uploads/parametres/logo/'. $parametre->logo)));
+            }
                 $file=$request->file('logo');
                 $extension=$file->getClientOriginalExtension();
                 $filename = time().'.'.$extension;

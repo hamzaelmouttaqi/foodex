@@ -16,7 +16,7 @@ class CreateAchatsTable extends Migration
         Schema::create('achats', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('fournisseur_id')->unsigned();
-            $table->decimal('prix_total',8,4);
+            $table->decimal('prix_total',8,2)->nullable();
             $table->foreign('fournisseur_id')->references('id')->on('fournisseurs')->onDelete('cascade');
             $table->timestamps();
         });

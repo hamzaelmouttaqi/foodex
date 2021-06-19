@@ -17,7 +17,7 @@ class CreateFournisseurProduitTable extends Migration
             $table->id();
             $table->bigInteger('fournisseur_id')->unsigned();
             $table->bigInteger('produit_id')->unsigned();
-            $table->decimal('prix_unitaire',6,2);
+            $table->decimal('prix_unitaire',6,2)->nullable();
             $table->foreign('fournisseur_id')->references('id')->on('fournisseurs')->onDelete('cascade');
             $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
             $table->timestamps();

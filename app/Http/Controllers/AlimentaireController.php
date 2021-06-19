@@ -206,8 +206,8 @@ class AlimentaireController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(alimentaire $alimentaire)
-    {  //if(!empty($alimentaire->image)){
-        //unlink(public_path(('uploads/alimentaire/image/'. $alimentaire->image)));}
+    {  if(!empty($alimentaire->image)){
+        unlink(public_path(('uploads/alimentaire/image/'. $alimentaire->image)));}
         $alimentaire->delete();
         return redirect()->route('alimentaire.index')->with(["succes"=>"alimentaire ajoutee avec succes"]) ;
             

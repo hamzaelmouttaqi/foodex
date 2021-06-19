@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('font.front');
 });
+Route::get('/menu', function () {
+    return view('font.menu');
+})->name('menu');
 
 
 
@@ -51,15 +54,15 @@ Route::group(['middleware' => ['auth','role:administrator']], function () {
 	Route::resource('parametre', 'App\Http\Controllers\ParametreController');
 	Route::get('/alimentaire/create', [App\Http\Controllers\AlimentaireController::class, 'create'])->name('alimentaire.create');
 	Route::get('/alimentaire/{alimentaire}/edit', [App\Http\Controllers\AlimentaireController::class, 'edit'])->name('alimentaire.edit');
-	Route::get('/alimentaire/{alimentaire}/destroy', [App\Http\Controllers\AlimentaireController::class, 'destroy'])->name('alimentaire.destroy');
+	Route::delete('/alimentaire/{alimentaire}/destroy', [App\Http\Controllers\AlimentaireController::class, 'destroy'])->name('alimentaire.destroy');
 	Route::get('/livreur/create', [App\Http\Controllers\LivreurController::class, 'create'])->name('livreur.create');
-	Route::get('/livreur/{livreur}/destroy', [App\Http\Controllers\LivreurController::class, 'destroy'])->name('livreur.destroy');
+	Route::delete('/livreur/{livreur}/destroy', [App\Http\Controllers\LivreurController::class, 'destroy'])->name('livreur.destroy');
 	Route::get('/livraison/create', [App\Http\Controllers\LivraisonController::class, 'create'])->name('livraison.create');
-	Route::get('/livraison/{livraison}/destroy', [App\Http\Controllers\LivraisonController::class, 'destroy'])->name('livraison.destroy');
+	Route::delete('/livraison/{livraison}/destroy', [App\Http\Controllers\LivraisonController::class, 'destroy'])->name('livraison.destroy');
 	Route::get('/livraison/{livraison}/edit', [App\Http\Controllers\LivraisonController::class, 'edit'])->name('livraison.edit');
-	Route::get('/catagorie/create', [App\Http\Controllers\AlimentaireController::class, 'create'])->name('categorie.create');
-	Route::get('/categorie/{categorie}/edit', [App\Http\Controllers\AlimentaireController::class, 'edit'])->name('categorie.edit');
-	Route::get('/categorie/{categorie}/destroy', [App\Http\Controllers\AlimentaireController::class, 'destroy'])->name('categorie.destroy');
+	Route::get('/catagorie/create', [App\Http\Controllers\CategorieController::class, 'create'])->name('categorie.create');
+	Route::get('/categorie/{categorie}/edit', [App\Http\Controllers\CategorieController::class, 'edit'])->name('categorie.edit');
+	Route::delete('/categorie/{categorie}/destroy', [App\Http\Controllers\CategorieController::class, 'destroy'])->name('categorie.destroy');
 	Route::resource('employe','App\Http\Controllers\UserController');
 });
 
