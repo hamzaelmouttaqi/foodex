@@ -19,16 +19,17 @@
     {{-- MODEL --}}
     <div class="row">
         <div class="col-md-12">
+            @foreach ($alimentaires as $alimentaire)
           <form action="" method="POST" class="form-vertical">
             @csrf
-            <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal fade" id="ali_{{ $alimentaire->id }}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                   <div class="modal-body">
                     <table width=100% border="0" style="font-family: 'Lora', serif;">
                         <tr width=100%>
                             <th colspan="2" style="padding-left: 20px;padding-bottom:20px">
-                               <h4>BURGER</h4>
+                               <h4 style="text-transform: uppercase">{{ $alimentaire->titre }}</h4>
                             </th>
                             <td align=right valign=top>
                                    <i class="fas fa-times-circle fa-lg" style="cursor: pointer" data-bs-dismiss="modal" 
@@ -43,45 +44,22 @@
                                 </h4>
                             </td>
                         </tr>
-                        <tr height=30px>
-                           <td align="center" style="padding-left: 50px;">
-                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                           </td>
-                            <td style="padding-left: 50px;">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    Default radio
-                                </label>
-                            </td>
-                            <td>
-                                30 DH
-                            </td>
-                        </tr>
-                        <tr height=30px>
-                            <td align="center" style="padding-left: 50px;">
-                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            </td>
-                             <td style="padding-left: 50px;">
-                                 <label class="form-check-label" for="flexRadioDefault1">
-                                     Default radio
-                                 </label>
-                             </td>
-                             <td>
-                                 30 DH
-                             </td>
-                         </tr>
-                         <tr height=30px>
-                            <td align="center" style="padding-left: 50px;">
-                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            </td>
-                             <td style="padding-left: 50px;">
-                                 <label class="form-check-label" for="flexRadioDefault1">
-                                     Default radio
-                                 </label>
-                             </td>
-                             <td>
-                                 30 DH
-                             </td>
-                         </tr>
+                        @foreach ($alimentaire->sizes as $size)
+                            <tr height=30px>
+                                <td align="center" style="padding-left: 50px;">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                </td>
+                                <td style="padding-left: 50px;">
+                                    <label class="form-check-label" style="text-transform: uppercase"
+                                     for="flexRadioDefault1">
+                                        {{ $size->title }}
+                                    </label>
+                                </td>
+                                <td>
+                                    {{ $size->pivot->prix }} DH
+                                </td>
+                            </tr>
+                        @endforeach
                          <tr >
                             <td colspan="3" class="titre" style="padding-left: 50px;padding-top:20px">
                                 <h4>
@@ -90,94 +68,40 @@
                             </td>
                         </tr>
                         <tr height=20px></tr>
+                        @php
+                                  
+                            $camp=DB::table('composants')->select('id')->pluck('id')->toArray();
+                            $comp=DB::table('alimentaire_composant')->select('composant_id')->where('alimentaire_id', $alimentaire->id )->pluck('composant_id')->toArray();
+                            $diff=array_merge(array_diff($camp,$comp)); 
+                            $inter=array_merge(array_intersect($camp,$comp));
+                        
+                                      
+                         @endphp
                         <tr>
                             <td colspan="3" style="padding-left: 70px;">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="checkbox checkbox-success">
-                                            <p class="title "> 
-                                                <input type="checkbox" role="1.50" title="Sauce Chili Thai" 
-                                                name="addons" value="43" id="addons_43" checked>
-                                                <label for="addons_43">Sauce Chili Tha</label>i
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="checkbox checkbox-success">
-                                            <p class="title "> 
-                                                <input type="checkbox" role="1.50" title="Sauce Chili Thai" 
-                                                name="addons" value="43" id="addons_43" checked>
-                                                <label for="addons_43">Sauce Chili Tha</label>i
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="checkbox checkbox-success">
-                                            <p class="title "> 
-                                                <input type="checkbox" role="1.50" title="Sauce Chili Thai" 
-                                                name="addons" value="43" id="addons_43" checked>
-                                                <label for="addons_43">Sauce Chili Tha</label>i
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="checkbox checkbox-success">
-                                            <p class="title "> 
-                                                <input type="checkbox" role="1.50" title="Sauce Chili Thai" 
-                                                name="addons" value="43" id="addons_43" checked>
-                                                <label for="addons_43">Sauce Chili Tha</label>i
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="checkbox checkbox-success">
-                                            <p class="title "> 
-                                                <input type="checkbox" role="1.50" title="Sauce Chili Thai" 
-                                                name="addons" value="43" id="addons_43" checked>
-                                                <label for="addons_43">Sauce Chili Tha</label>i
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="checkbox checkbox-success">
-                                            <p class="title "> 
-                                                <input type="checkbox" role="1.50" title="Sauce Chili Thai" 
-                                                name="addons" value="43" id="addons_43" checked>
-                                                <label for="addons_43">Sauce Chili Tha</label>i
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="checkbox checkbox-success">
-                                            <p class="title "> 
-                                                <input type="checkbox" role="1.50" title="Sauce Chili Thai" 
-                                                name="addons" value="43" id="addons_43" checked>
-                                                <label for="addons_43">Sauce Chili Tha</label>i
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="checkbox checkbox-success">
-                                            <p class="title "> 
-                                                <input type="checkbox" role="1.50" title="Sauce Chili Thai" 
-                                                name="addons" value="43" id="addons_43" checked>
-                                                <label for="addons_43">Sauce Chili Tha</label>i
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="checkbox checkbox-success">
-                                            <p class="title "> 
-                                                <input type="checkbox" role="1.50" title="Sauce Chili Thai" 
-                                                name="addons" value="43" id="addons_43" checked>
-                                                <label for="addons_43">Sauce Chili Tha</label>i
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
                                 
-                            
+                                 <div class="row">
+                                    @foreach ($compos as $compo) 
+                                          @foreach ((array)$inter as $inters)
+                                                @if ($compo->id==$inters)
+                                                <div class="col-md-4">
+                                                    <input type="checkbox"
+                                                     name="alimentaire_{{ $alimentaire->id }}[]"
+                                                      value="{{ $compo->nomComposant }}" checked> 
+                                                      <label style="margin-left:20px;
+                                                      margin-bottom:20px;
+                                                      text-transform: uppercase">
+                                                        {{ $compo->nomComposant }}
+                                                      </label>
+                                                      
+                                                </div>
+                                                @endif  
+                                                                     
+                                        @endforeach                 
+                                        
+                                     @endforeach  
+                                 </div>
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="3" class="titre" style="padding-left: 50px;padding-bottom:30px">
@@ -192,54 +116,63 @@
                                 data-bs-toggle="collapse" href="#ajoute" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                                     <i class="fas fa-plus"></i>ADD YOUR FAVOURITE SUPPLEMENT AND COMPOSANTS
                                 </a>
-                                <div class="collapse multi-collapse" id="ajoute">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <a class="composant btn" data-id="" 
-                                            style="color: black;font-weight: 900;
-                                            background-color: #ffff;box-shadow: none"
-                                              for="composants" >Composants Payants</a>
-                                             <div id="comp_" style="display: none">
-                                               <table width="100%">
-                                                   <tr align=center>
-                                                     <td>
-                                                       <input type="checkbox" name="ingredient_[]" value="" >
-                                                     </td>
-                                                     <td>
-                                                       Titre
-                                                     </td>
-                                                     <td>
-                                                       20 DH
-                                                     </td>
-                                                     <td>
-                                                       <input type="number" min="1" max="5" value="1" name="quantite_">
-                                                     </td>
-                                                   </tr>
-                                               </table>   
-                                           </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <a class="supplement btn" data-id="" style="background-color: #ffff;box-shadow: none;
-                                                color: black;font-weight: 900" for="supplement"><b>Supplements</b></a>
-                                              <div id="supp_" style="display: none">
-                                                <table width="100%" >
-                                                  <tr align=right>
-                                                    <td>
-                                                      <input type="checkbox" name="supplement_[]" 
-                                                      value="">
-                                                    </td>
-                                                    <td>
-                                                      titre
-                                                    </td>
-                                                    <td>
-                                                      20 DH
-                                                    </td>  
-                                                 </tr>
-                                                </table>
-                                              </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            </td>
+                        </tr>
+                        <tr width=100% class="collapse multi-collapse" id="ajoute">
+                            <td style="padding-left:50px" >     
+                                <a class="composant btn" data-id="{{ $alimentaire->id }}"
+                                 style="color: black;font-weight: 900;
+                                    background-color: #ffff;box-shadow: none"
+                                      for="composants" >Composants Payants</a>
+                                    
+                                    <div id="com_{{ $alimentaire->id }}" style="display: none">
+                                    <table width="100%">
+                                        @foreach ($compos as $compo)
+                                        <tr align=center>
+                                            <td>
+                                            <input type="checkbox" name="ingredient_{{ $alimentaire->id }}[]"
+                                             value="{{ $compo->nomComposant }}" >
+                                            </td>
+                                            <td>
+                                                {{ $compo->nomComposant }}
+                                              </td>
+                                              <td>
+                                                {{ $compo->prix }} DH
+                                              </td>
+                                              <td>
+                                                <input type="number" min="1" max="5" value="1" name="quantite_{{ $alimentaire->id }}_{{ $compo->nomComposant }}">
+                                              </td>
+                                        </tr>
+                                        @endforeach
+                                    </table>   
+                                    </div>          
+                            </td>  
+                            <td align="center" colspan="2">        
+                            
+                                <a class="supplement btn" data-id="{{ $alimentaire->id }}" style="background-color: #ffff;box-shadow: none;
+                                    color: black;font-weight: 900" for="supplement"><b>Supplements</b></a>
+                                  <div id="supp_{{ $alimentaire->id }}" style="display: none">
+                                    <table width="100%">
+                                      @foreach ($supplements as $supp)
+                                      <tr>
+                                        <td>
+                                          <input type="checkbox" name="supplement_{{ $alimentaire->id }}[]" 
+                                          value="{{ $supp->titre }}">
+                                        </td>
+                                        <td>
+                                          {{ $supp->titre }} 
+                                        </td>
+                                        <td>
+                                          {{ $supp->prix }} DH
+                                        </td>
+                                      
+                                      @endforeach
+                                    </tr>
+                                    </table>
+                                   
+                                  </div>
+                                        
+                                    
                             </td>
                         </tr>
                         <tr height=20px></tr>
@@ -251,9 +184,9 @@
                             </td>
                             <td align="center" style="padding-top: 30px">
                                 <fieldset>
-                                    <input type="button" value="-" class="decrease" />
-                                    <input type="text" id="three-max" value="0" />
-                                    <input type="button" value="+" class="increase" />
+                                    <input type="button" data-id="{{ $alimentaire->id }}" value="-" class="decrease" />
+                                    <input type="text" class="quantite_{{ $alimentaire->id }}" value="0" />
+                                    <input type="button" data-id="{{ $alimentaire->id }}" value="+" class="increase" />
                                 </fieldset>
                             </td>
                         </tr>
@@ -263,10 +196,8 @@
                                     <i class="fas fa-plus"></i>
                                     ADD TO MY ORDER
                                 </a>
-                            </td>
-                           
-                        </tr>
-                        
+                            </td>            
+                        </tr>      
                     </table>
                     
                   </div>
@@ -274,6 +205,7 @@
               </div>
             </div>
           </form>
+          @endforeach
         </div>
     </div>
 
@@ -282,11 +214,11 @@
         <a href="#" class="logo"><img src="{{ asset('img/foodex_noir.png') }}" alt=""></a>
         <!-- <div id="menu-bar" class="fas fa-bars"></div> -->
         <nav class="navbar">
-            <a href="#home">HOME</a>
-            <a href="#about">ABOUT</a>
-            <a href="#menu">MENU</a>
-            <a href="#review">REVIEW</a>
-            <a href="#contact">CONTACT</a>
+            <a href="/#home">HOME</a>
+            <a href="/#about">ABOUT</a>
+            <a href="/#menu">MENU</a>
+            <a href="/#review">REVIEW</a>
+            <a href="/#contact">CONTACT</a>
         </nav>
         <div class="left">
             <a href="#"><i class="material-icons">shopping_bag</i></a>
@@ -300,30 +232,17 @@
                     <h4>Products</h4>
                     <nav class="productNav">
                         <ul>
-                            <li class="nav-item">
-                                <div class="lien" id="pizza">
-                                    <div class="car" style="display: none !important;"></div>
-                                    <a  href="#Pizza">Pizza</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <div class="lien"  id="burger">
-                                    <div class="car" style="display: none !important;"></div>
-                                    <a href="#burger">Burger</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <div class="lien" id="sushi">
-                                    <div class="car" style="display: none !important;"></div>
-                                    <a href="#sushi">Sushi</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <div class="lien" id="salade">
-                                    <div class="car" style="display: none !important;"></div>
-                                    <a href="#salade">Salade</a>
-                                </div>
-                            </li>
+                            @foreach ($categories as $categorie)
+                                <li class="nav-item">
+                                    <div class="lien" id="{{ $categorie->nomCat }}">
+                                        <div class="car" style="display: none !important;"></div>
+                                        <a  href="#{{ $categorie->nomCat }}" 
+                                            style="text-transform: uppercase;">{{ $categorie->nomCat }}</a>
+                                    </div>
+                                </li>
+                            @endforeach
+                            
+                            
                         </ul>
                     </nav>
                 </div>
@@ -334,146 +253,32 @@
                     font-size:50px">MENU</h1>
                     <h6 style="margin-bottom: 40px">Our Food Is Made With Love</h6>
                     <div class="row">
+                        @foreach ($alimentaires as $alimentaire)
                         <div class="col-md-4" style="margin-bottom: 20px">
                             <table border="0" width=200px height=300px >
                                 <tr valign='top' height=180px>
                                     <td colspan="2" align="center">
-                                       <img src="{{ asset('img/burger3.jpeg') }}"  width="180px" alt="" style="border-radius: 10px;
+                                       <img src="{{ asset('uploads/alimentaire/image/'.$alimentaire->image) }}"
+                                         width="180px" alt="" style="border-radius: 10px;
                                        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> 
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="center">
-                                        <b>Burger</b>
-                                    </td>
-                                    <td align="center">
-                                        <b>30dh</b>
+                                    <td colspan="2" style="text-transform: uppercase" align="center">
+                                        <b>{{ $alimentaire->titre }}</b>
                                     </td>
                                 </tr>
                                 <tr valign='top'>
                                     <td align="center" colspan="2">
                                         
-                                        <button data-bs-target="#Modal" data-bs-toggle="modal" 
+                                        <button data-bs-target="#ali_{{ $alimentaire->id }}" data-bs-toggle="modal" 
                                         class="btn btn-outline-primary">Add To Card</button>
                                     </td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-md-4" style="margin-bottom: 20px">
-                            <table border="0" width=200px height=300px >
-                                <tr valign='top' height=180px>
-                                    <td colspan="2" align="center">
-                                       <img src="{{ asset('img/burger3.jpeg') }}"  width="180px" alt="" style="border-radius: 10px;
-                                       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center">
-                                        <b>Burger</b>
-                                    </td>
-                                    <td align="center">
-                                        <b>30dh</b>
-                                    </td>
-                                </tr>
-                                <tr valign='top'>
-                                    <td align="center" colspan="2">
-                                        <button class="btn btn-outline-primary">Add To Card</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-4" style="margin-bottom: 20px">
-                            <table border="0" width=200px height=300px >
-                                <tr valign='top' height=180px>
-                                    <td colspan="2" align="center">
-                                       <img src="{{ asset('img/burger3.jpeg') }}"  width="180px" alt="" style="border-radius: 10px;
-                                       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center">
-                                        <b>Burger</b>
-                                    </td>
-                                    <td align="center">
-                                        <b>30dh</b>
-                                    </td>
-                                </tr>
-                                <tr valign='top'>
-                                    <td align="center" colspan="2">
-                                        <button class="btn btn-outline-primary">Add To Card</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-4" style="margin-bottom: 20px">
-                            <table border="0" width=200px height=300px >
-                                <tr valign='top' height=180px>
-                                    <td colspan="2" align="center">
-                                       <img src="{{ asset('img/burger3.jpeg') }}"  width="180px" alt="" style="border-radius: 10px;
-                                       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center">
-                                        <b>Burger</b>
-                                    </td>
-                                    <td align="center">
-                                        <b>30dh</b>
-                                    </td>
-                                </tr>
-                                <tr valign='top'>
-                                    <td align="center" colspan="2">
-                                        <button class="btn btn-outline-primary">Add To Card</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-4" style="margin-bottom: 20px">
-                            <table border="0" width=200px height=300px >
-                                <tr valign='top' height=180px>
-                                    <td colspan="2" align="center">
-                                       <img src="{{ asset('img/burger3.jpeg') }}"  width="180px" alt="" style="border-radius: 10px;
-                                       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center">
-                                        <b>Burger</b>
-                                    </td>
-                                    <td align="center">
-                                        <b>30dh</b>
-                                    </td>
-                                </tr>
-                                <tr valign='top'>
-                                    <td align="center" colspan="2">
-                                        <button class="btn btn-outline-primary">Add To Card</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-4" style="margin-bottom: 20px">
-                            <table border="0" width=200px height=300px >
-                                <tr valign='top' height=180px>
-                                    <td colspan="2" align="center">
-                                       <img src="{{ asset('img/burger3.jpeg') }}"  width="180px" alt="" style="border-radius: 10px;
-                                       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center">
-                                        <b>Burger</b>
-                                    </td>
-                                    <td align="center">
-                                        <b>30dh</b>
-                                    </td>
-                                </tr>
-                                <tr valign='top'>
-                                    <td align="center" colspan="2">
-                                        <button class="btn btn-outline-primary">Add To Card</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                        
+                        @endforeach
                         
                         
                         

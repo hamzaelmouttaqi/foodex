@@ -26,36 +26,32 @@ $(function () {
       
     });
   });
-$(document).ready(function(){
-    $(".composant").on('click',function(){
-      $("#comp_").toggle(900);
+  $(document).ready(function(){
+    $(".supplement").on('click',function(){
+      let id = $(this).attr('data-id')
+      $("#supp_"+id).toggle(700);
     });
-   
+ })
+ $(document).ready(function(){
+    $(".composant").on('click',function(){
+      let id = $(this).attr('data-id')
+      $("#com_"+id).toggle(700);
+    });
  })
 $(document).ready(function(){
-  $(".supplement").on('click',function(){
-    let id = $(this).attr('data-id')
-    $("#supp_"+id).toggle(700);
-  });
-})
-$(function () {
-
-  set_($('#three-max'), 10); 
-  function set_(_this, max) {
-    var block = _this.parent();
-
-    block.find(".increase").click(function () {
-        var currentVal = parseInt(_this.val());
-        if (currentVal != NaN && (currentVal + 1) <= max) {
-            _this.val(currentVal + 1);
+    $(".increase").on('click',function() {
+        let id = $(this).attr('data-id');
+        var currentVal = parseInt($('.quantite_'+id).val());
+        if (currentVal != NaN && (currentVal + 1) <= 10) {
+          $('.quantite_'+id).val(currentVal + 1);
         }
     });
-
-    block.find(".decrease").click(function () {
-        var currentVal = parseInt(_this.val());
+      $(".decrease").on('click',function() {
+        let id = $(this).attr('data-id');
+        var currentVal = parseInt($('.quantite_'+id).val());
         if (currentVal != NaN && currentVal != 0) {
-            _this.val(currentVal - 1);
+          $('.quantite_'+id).val(currentVal - 1);
         }
     });
-}
+
 });

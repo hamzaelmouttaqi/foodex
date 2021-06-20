@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('font.front');
 });
-Route::get('/menu', function () {
-    return view('font.menu');
-})->name('menu');
+
+
+Route::resource('menu','App\Http\Controllers\Menu');
 
 
 

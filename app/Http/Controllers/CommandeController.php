@@ -48,7 +48,9 @@ class CommandeController extends Controller
     {   
         
         // $alimentaire=alimentaire::select('*')->
-        return view('commande.create')->with(["clients"=>Client::all(),"alimentaires"=>alimentaire::with('sizes','composants')->orderBy('categorie')->get(),
+        return view('commande.create')->with(["clients"=>Client::all(),
+        "alimentaires"=>alimentaire::with('sizes',
+        'composants')->orderBy('categorie')->get(),
         "supplements"=>Supplement::all(),
         "categorie"=>categorie::all(),
         "compos"=>composants::all(),

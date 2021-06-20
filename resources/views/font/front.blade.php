@@ -243,7 +243,7 @@
                         </center>
                     </div>
                 </div>
-                <div style="margin-top: 50px"><center><a href="{{ route('menu') }}" class="btn btn-dark" style="border-radius: 20px;width:300px">View All Menu</a></center></div>
+                <div style="margin-top: 50px"><center><a href="{{ route('menu.index') }}" class="btn btn-dark" style="border-radius: 20px;width:300px">View All Menu</a></center></div>
             </div>
         </div>
         {{-- ABOUT --}}
