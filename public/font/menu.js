@@ -38,20 +38,21 @@ $(function () {
       $("#com_"+id).toggle(700);
     });
  })
-$(document).ready(function(){
-    $(".increase").on('click',function() {
-        let id = $(this).attr('data-id');
-        var currentVal = parseInt($('.quantite_'+id).val());
-        if (currentVal != NaN && (currentVal + 1) <= 10) {
-          $('.quantite_'+id).val(currentVal + 1);
-        }
-    });
-      $(".decrease").on('click',function() {
-        let id = $(this).attr('data-id');
-        var currentVal = parseInt($('.quantite_'+id).val());
-        if (currentVal != NaN && currentVal != 0) {
-          $('.quantite_'+id).val(currentVal - 1);
-        }
-    });
+// $(document).ready(function(){
+//     $(".increase").on('click',function() {
+//         let id = $(this).attr('data-id');
+//         var currentVal = parseInt($('.quantite_'+id).attr('wire:model'));
+//         if (currentVal != NaN && (currentVal + 1) <= 10) {
+//           $('.quantite_'+id).attr('wire:model',currentVal + 1);
+//         }
+//     });
+//       $(".decrease").on('click',function() {
+//         let id = $(this).attr('data-id');
+//         var currentVal = parseInt($('.quantite_'+id).attr('wire:model'));
+//         alert(currentVal)
+//         if (currentVal != NaN && currentVal != 0) {
+//           $('.quantite_'+id).attr('wire:model',currentVal - 1);
+//         }
+//     });
 
-});
+// });

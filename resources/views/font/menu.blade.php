@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
@@ -13,202 +14,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
     <title>FOODEX</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    @livewireStyles
 </head>
 <body>
     {{-- MODEL --}}
-    <div class="row">
-        <div class="col-md-12">
-            @foreach ($alimentaires as $alimentaire)
-          <form action="" method="POST" class="form-vertical">
-            @csrf
-            <div class="modal fade" id="ali_{{ $alimentaire->id }}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-body">
-                    <table width=100% border="0" style="font-family: 'Lora', serif;">
-                        <tr width=100%>
-                            <th colspan="2" style="padding-left: 20px;padding-bottom:20px">
-                               <h4 style="text-transform: uppercase">{{ $alimentaire->titre }}</h4>
-                            </th>
-                            <td align=right valign=top>
-                                   <i class="fas fa-times-circle fa-lg" style="cursor: pointer" data-bs-dismiss="modal" 
-                                   aria-label="Close">
-                                    </i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="titre" style="padding-left: 50px;padding-bottom:10px">
-                                <h4>
-                                    Size :
-                                </h4>
-                            </td>
-                        </tr>
-                        @foreach ($alimentaire->sizes as $size)
-                            <tr height=30px>
-                                <td align="center" style="padding-left: 50px;">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                </td>
-                                <td style="padding-left: 50px;">
-                                    <label class="form-check-label" style="text-transform: uppercase"
-                                     for="flexRadioDefault1">
-                                        {{ $size->title }}
-                                    </label>
-                                </td>
-                                <td>
-                                    {{ $size->pivot->prix }} DH
-                                </td>
-                            </tr>
-                        @endforeach
-                         <tr >
-                            <td colspan="3" class="titre" style="padding-left: 50px;padding-top:20px">
-                                <h4>
-                                    COMPOSANTS : 
-                                </h4>
-                            </td>
-                        </tr>
-                        <tr height=20px></tr>
-                        @php
-                                  
-                            $camp=DB::table('composants')->select('id')->pluck('id')->toArray();
-                            $comp=DB::table('alimentaire_composant')->select('composant_id')->where('alimentaire_id', $alimentaire->id )->pluck('composant_id')->toArray();
-                            $diff=array_merge(array_diff($camp,$comp)); 
-                            $inter=array_merge(array_intersect($camp,$comp));
-                        
-                                      
-                         @endphp
-                        <tr>
-                            <td colspan="3" style="padding-left: 70px;">
-                                
-                                 <div class="row">
-                                    @foreach ($compos as $compo) 
-                                          @foreach ((array)$inter as $inters)
-                                                @if ($compo->id==$inters)
-                                                <div class="col-md-4">
-                                                    <input type="checkbox"
-                                                     name="alimentaire_{{ $alimentaire->id }}[]"
-                                                      value="{{ $compo->nomComposant }}" checked> 
-                                                      <label style="margin-left:20px;
-                                                      margin-bottom:20px;
-                                                      text-transform: uppercase">
-                                                        {{ $compo->nomComposant }}
-                                                      </label>
-                                                      
-                                                </div>
-                                                @endif  
-                                                                     
-                                        @endforeach                 
-                                        
-                                     @endforeach  
-                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="titre" style="padding-left: 50px;padding-bottom:30px">
-                                <h6>
-                                    SPECIAL REQUEST ? 
-                                </h6>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" align="center">
-                                <a style="text-decoration: none; color:rgb(255, 136, 0)" 
-                                data-bs-toggle="collapse" href="#ajoute" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
-                                    <i class="fas fa-plus"></i>ADD YOUR FAVOURITE SUPPLEMENT AND COMPOSANTS
-                                </a>
-                            </td>
-                        </tr>
-                        <tr width=100% class="collapse multi-collapse" id="ajoute">
-                            <td style="padding-left:50px" >     
-                                <a class="composant btn" data-id="{{ $alimentaire->id }}"
-                                 style="color: black;font-weight: 900;
-                                    background-color: #ffff;box-shadow: none"
-                                      for="composants" >Composants Payants</a>
-                                    
-                                    <div id="com_{{ $alimentaire->id }}" style="display: none">
-                                    <table width="100%">
-                                        @foreach ($compos as $compo)
-                                        <tr align=center>
-                                            <td>
-                                            <input type="checkbox" name="ingredient_{{ $alimentaire->id }}[]"
-                                             value="{{ $compo->nomComposant }}" >
-                                            </td>
-                                            <td>
-                                                {{ $compo->nomComposant }}
-                                              </td>
-                                              <td>
-                                                {{ $compo->prix }} DH
-                                              </td>
-                                              <td>
-                                                <input type="number" min="1" max="5" value="1" name="quantite_{{ $alimentaire->id }}_{{ $compo->nomComposant }}">
-                                              </td>
-                                        </tr>
-                                        @endforeach
-                                    </table>   
-                                    </div>          
-                            </td>  
-                            <td align="center" colspan="2">        
-                            
-                                <a class="supplement btn" data-id="{{ $alimentaire->id }}" style="background-color: #ffff;box-shadow: none;
-                                    color: black;font-weight: 900" for="supplement"><b>Supplements</b></a>
-                                  <div id="supp_{{ $alimentaire->id }}" style="display: none">
-                                    <table width="100%">
-                                      @foreach ($supplements as $supp)
-                                      <tr>
-                                        <td>
-                                          <input type="checkbox" name="supplement_{{ $alimentaire->id }}[]" 
-                                          value="{{ $supp->titre }}">
-                                        </td>
-                                        <td>
-                                          {{ $supp->titre }} 
-                                        </td>
-                                        <td>
-                                          {{ $supp->prix }} DH
-                                        </td>
-                                      
-                                      @endforeach
-                                    </tr>
-                                    </table>
-                                   
-                                  </div>
-                                        
-                                    
-                            </td>
-                        </tr>
-                        <tr height=20px></tr>
-                        <tr height=20px >
-                            <td colspan="2" class="titre" style="padding-left: 90px">
-                                <h5>
-                                    QUANTITE
-                                </h5>
-                            </td>
-                            <td align="center" style="padding-top: 30px">
-                                <fieldset>
-                                    <input type="button" data-id="{{ $alimentaire->id }}" value="-" class="decrease" />
-                                    <input type="text" class="quantite_{{ $alimentaire->id }}" value="0" />
-                                    <input type="button" data-id="{{ $alimentaire->id }}" value="+" class="increase" />
-                                </fieldset>
-                            </td>
-                        </tr>
-                        <tr height=40px>
-                            <td colspan="3" align=center>
-                                <a href="" class="btn btn-warning">
-                                    <i class="fas fa-plus"></i>
-                                    ADD TO MY ORDER
-                                </a>
-                            </td>            
-                        </tr>      
-                    </table>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-          @endforeach
-        </div>
-    </div>
-
+    
+    @livewire('alimentaire-table')
     {{-- FIN MODEL --}}
     <header class="head">
         <a href="#" class="logo"><img src="{{ asset('img/foodex_noir.png') }}" alt=""></a>
@@ -221,10 +34,11 @@
             <a href="/#contact">CONTACT</a>
         </nav>
         <div class="left">
-            <a href="#"><i class="material-icons">shopping_bag</i></a>
+            @livewire('cart-counter')
             <a href="#"><i class="material-icons">search</i></a>
         </div>
     </header>
+    @livewire('message')
     <div class="content">
         <div class="row">
             <div class="col-md-3">
@@ -271,7 +85,8 @@
                                 <tr valign='top'>
                                     <td align="center" colspan="2">
                                         
-                                        <button data-bs-target="#ali_{{ $alimentaire->id }}" data-bs-toggle="modal" 
+                                        <button data-bs-target="#ali_{{ $alimentaire->id }}" 
+                                            data-bs-toggle="modal" 
                                         class="btn btn-outline-primary">Add To Card</button>
                                     </td>
                                 </tr>
@@ -279,40 +94,13 @@
                         </div>
                         
                         @endforeach
-                        
-                        
-                        
-                        
-                        
-                        
+                
                     </div>
                 </center>
             </div>
         
         <div class="col-md-3">
-        <div class="order">
-            <table class="tab1">
-                <tr>
-                    <td align="left" style="color: white; font-size: 30px ;">My order</td>
-                    <td align="right" style="font-size: 12px;">(O items)</td>
-                </tr>
-                <tr height=250px>
-                    <td colspan="2" align="center" valign="center"><i class="material-icons-outlined" 
-                        style="font-size: 120px;">shopping_bag</i></td>
-                </tr>
-                
-                <tr style="border-bottom: 1px black;">
-                    <td colspan="2" valign="top" style="text-align: center; font-size: small;">Browse our menu and start adding items to your order</td>
-                </tr>
-                
-                <tr style="height: 100px;">
-                    <td colspan="2" align="center">
-                        <button class="btn btn-primary">Order Now</button>
-                    </td>
-                </tr>
-                
-            </table>
-        </div>
+            @livewire('cart-alimentaire')
         </div>
     </div>
     </div>
@@ -368,9 +156,18 @@
                 COPYRIGHT © FOODEX 2021. ALL RIGHT RESERVED
             </div>
         </div>
-</footer>
+    </footer>
+@livewireScripts 
+<script>
+    window.addEventListener('closeModal', event => {
+        $('.modal').modal('hide');
+    })
+    window.addEventListener('afficher_meassage', event => {
+        swal("Success","{!! Session::get('succes') !!}",'success',{
+            button:"OK",
+        }); 
+    })
     
-        
-    
+</script>
 </body>
 </html>

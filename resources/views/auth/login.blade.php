@@ -7,6 +7,9 @@
       <h3>{{ __('Login To Manage Your Restaurant') }} </h3>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+      @if(Session::has('message'))
+      <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+      @endif
       <form class="form" method="POST" action="{{ route('login') }}">
         @csrf
 
