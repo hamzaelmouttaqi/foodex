@@ -37,6 +37,30 @@
             @livewire('cart-counter')
             <a href="#"><i class="material-icons">search</i></a>
         </div>
+        @auth()
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            <div class='logout' style='float:right;margin-right:-80px'>
+              
+                <a style="text-decoration: none;color:black" href="{{ route('logout') }}" class="material-icons" onclick="event.preventDefault();document.getElementById('logout-form').submit();">logout</a>
+                <span class="tooltiptext">Logout</span>
+            </div>
+            <div class="profil"> 
+                <a style="text-decoration: none;color:black" href="{{ route('profile.edit') }}" class="material-icons">account_circle</a>
+                <span class="tooltiptextprofil">Profil</span>
+            </div>
+        @endauth
+        @guest
+        <div class='login'  style='float:right;'>
+            <a style="text-decoration: none;color:black" href="{{ route('login') }}" class="material-icons">login</a>
+            <span class="tooltiptextlogin">Login</span>
+            
+        </div>
+       
+        @endguest
+       
+       
     </header>
     @livewire('message')
     <div class="content">
@@ -164,6 +188,17 @@
     })
     window.addEventListener('afficher_meassage', event => {
         swal("Success","{!! Session::get('succes') !!}",'success',{
+            button:"OK",
+        }); 
+    })
+    window.addEventListener('swal:modal', event => {
+        // swal({
+        //     title: event.detail.title,
+        //     text: event.detail.text,
+        //     icon: 'info',
+
+        // }); 
+        swal("Votre ordre est vide",'','info',{
             button:"OK",
         }); 
     })

@@ -8,6 +8,8 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use function PHPSTORM_META\type;
+
 class CartAlimentaire extends Component
 {   
     protected $listeners =['cart_updated' =>'render'];
@@ -23,22 +25,23 @@ class CartAlimentaire extends Component
        $this->emit('cart_updated');
        $this->emit('total_updated');
     }
-    public function PasserCommande($id)
+    public function PasserCommande()
     {   
         if(Auth::check()){
-
         $total=0;
         $carts=Cart::content();
+        $cart_count=$carts->count();
+        if($cart_count!=0)
+        {
         $commandee=Commande::create([
-            'id_client'=>'1',
-            'nom_client'=>'hamza',
+            'id_client'=>Auth::user()->id_client,
+            'nom_client'=> Auth::user()->name ,
         ]);
         $commande=Commande::where('id',$commandee->id)->first() ;
         
         foreach($carts as $row){
             
             $supplement=collect(array_values($row->options['supplementCommande']));
-            
             $commande->alimentaires()->attach($row->id, [
             'composantCommande' => $row->options['composants'],
             'quantite'=>$row->qty,
@@ -65,7 +68,14 @@ class CartAlimentaire extends Component
              }
              session()->flash('message', 'order successfully traited.');
              $this->dispatchBrowserEvent('afficher_meassage');
-             
+            }
+            else{
+                $this->dispatchBrowserEvent('swal:modal',[
+                    'type'=>'info',
+                    'title'=>'votre ordre est vide',
+                    'text'=>''
+                ]);
+            }
     }
     else{
         session()->flash('message', 'identifier Vous Pour passer la commande');

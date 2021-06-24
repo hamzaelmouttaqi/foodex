@@ -193,6 +193,11 @@ header .left .material-icons{
     margin-left: 0.5rem;
     color:white;
 }
+header .left a label{
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    color:white;
+}
 
 /* .content img{
     position: fixed;
@@ -414,3 +419,57 @@ header .left .material-icons{
     color: blanchedalmond;
     opacity: 55%;
 } 
+.tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    top: 70px;
+    z-index: 1;
+  }
+  
+  .logout:hover .tooltiptext {
+    visibility: visible;
+  }
+.tooltiptextlogin {
+visibility: hidden;
+width: 120px;
+background-color: black;
+color: #fff;
+text-align: center;
+border-radius: 6px;
+padding: 5px 0;
+
+/* Position the tooltip */
+position: absolute;
+top: 70px;
+z-index: 1;
+}
+
+.login:hover .tooltiptextlogin {
+visibility: visible;
+}
+.tooltiptextprofil {
+visibility: hidden;
+width: 120px;
+background-color: black;
+color: #fff;
+text-align: center;
+border-radius: 6px;
+padding: 5px 0;
+
+/* Position the tooltip */
+position: absolute;
+top: 70px;
+z-index: 1;
+}
+
+.profil:hover .tooltiptextprofil {
+visibility: visible;
+}

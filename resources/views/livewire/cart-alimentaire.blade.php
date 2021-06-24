@@ -70,7 +70,7 @@
         <tr >
 
             <td colspan="5" align="center">
-                <button class="btn btn-primary" wire:click="PasserCommande('{{ Auth::id() }}')">Order Now</button>
+                <button class="btn btn-primary" wire:click="PasserCommande()">Order Now</button>
             </td>
         </tr>
     </table>

@@ -21,9 +21,9 @@ return [
             'users' => 'c,r,u,d',
             'profile' => 'r,u'
         ],
-        // 'client' => [
-        //     'commande' => 'c',
-        // ],
+        'client' => [
+            'commande' => 'c',
+        ],
        
     ],
 

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -36,10 +38,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Get a validator for an incoming registration request.
@@ -50,7 +52,6 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -63,12 +64,43 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
+
+    {      
+        if(($data['nom'])){
+          $nom=$data['nom'];
+            $prenom=$data['prenom'];
+            $email=$data['email'];
+            $tele=$data['tele'];
+            $date_de_naissance=$data['date_naissance'];
+            $code_postal=$data['code_postal'];
+            $adresse=$data['adresse'];
+        $client=Client::create([
+            "nom"=>$nom ,
+            "Prenom"=>$prenom,
+            "email"=>$email,
+            "tele"=>$tele,
+            "date_de_naissance"=>$date_de_naissance,
+            "code_postal"=>$code_postal,
+            "adresse"=>$adresse,
+        ]);
+        $id_client=Client::latest()->first()->id;
+        $user=User::create([
+            'id_client'=>$id_client,
+            'name' => $data['nom'].' '.$data['prenom'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    else{
+        $user=User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            
+        ]);
+    }
+        
+        return ($user);
         // Auth::login($user=User::create([
         //     'name' => $data['name'],
         //     'email' => $data['email'],

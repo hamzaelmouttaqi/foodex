@@ -7,9 +7,6 @@
       <h3>{{ __('Login To Manage Your Restaurant') }} </h3>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
-      @if(Session::has('message'))
-      <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-      @endif
       <form class="form" method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -77,12 +74,16 @@
       <div class="row">
         <div class="col-6">
             @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}" class="text-light">
+                <a href="{{ route('password.request') }}" class="btn btn-danger">
                     <small>{{ __('Forgot password?') }}</small>
                 </a>
             @endif
         </div>
-        
+        <div class="col-6 text-right">
+          <a href="{{ route('register') }}" class="btn btn-danger" style="width:150px">
+              <small><b>{{ __('Create new account') }}</b></small>
+          </a>
+      </div>
       </div>
     </div>
   </div>

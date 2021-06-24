@@ -18,6 +18,7 @@
     <script src="{{ asset("font/style.js") }}"></script>
     <script src="{{ asset('owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js" integrity="sha512-ZKNVEa7gi0Dz4Rq9jXcySgcPiK+5f01CqW+ZoKLLKr9VMXuCsw3RjWiv8ZpIOa0hxO79np7Ec8DDWALM0bDOaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @livewireStyles
 </head>
 <body>
     <div class="social">
@@ -77,11 +78,33 @@
                         <a href="#menu">MENU</a>
                         <a href="#review">REVIEW</a>
                         <a href="#contact">CONTACT</a>
+                        
                     </nav>
                     <div class="left">
-                        <a href="#"><i class="material-icons">shopping_bag</i></a>
+                        @livewire('cart-counter')
                         <a href="#"><i class="material-icons">search</i></a>
                     </div>
+                    @auth()
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            <div class='logout' style='float:right;margin-right:-80px'>
+              
+                <a style="text-decoration: none;color:white" href="{{ route('logout') }}" class="material-icons" onclick="event.preventDefault();document.getElementById('logout-form').submit();">logout</a>
+                <span class="tooltiptext">Logout</span>
+            </div>
+            <div class="profil"> 
+                <a style="text-decoration: none;color:white" href="{{ route('profile.edit') }}" class="material-icons">account_circle</a>
+                <span class="tooltiptextprofil">Profil</span>
+            </div>
+        @endauth
+        @guest
+        <div class='login'  style='float:right;'>
+            <a style="text-decoration: none;color:white" href="{{ route('login') }}" class="material-icons">login</a>
+            <span class="tooltiptextlogin">Login</span>
+        </div>
+        
+        @endguest
                 </header>
             <!-- <img src="sushis.jpg" alt=""> -->
         </div>
@@ -506,6 +529,6 @@
             </div>
         </div>
 </footer>
-   
+   @livewireScripts
 </body>
 </html>

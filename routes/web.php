@@ -23,16 +23,19 @@ Route::resource('menu','App\Http\Controllers\Menu');
 
 
 
+Route::group(['middleware' => ['auth','role:administrator,employee']], function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::resource('clients', 'App\Http\Controllers\ClientController');
 Route::resource('alimentaire', 'App\Http\Controllers\AlimentaireController');
 Route::resource('categorie', 'App\Http\Controllers\CategorieController');
 Route::resource('livreur', 'App\Http\Controllers\LivreurController');
 Route::resource('livraison', 'App\Http\Controllers\LivraisonController');
+Route::resource('commande', 'App\Http\Controllers\CommandeController');
+// Route::get('/commande/{commande}/edit', [App\Http\Controllers\CommandeController::class, 'edit'])->name('commande.edit');
+// Route::get('/commande/{commande}', [App\Http\Controllers\CommandeController::class, 'show'])->name('commande.show');
+// Route::delete('/commande/{commande}/destroy', [App\Http\Controllers\CommandeController::class, 'destroy'])->name('commande.destroy');
 Route::get('/changeStatusLivreur', [App\Http\Controllers\LivreurController::class, 'changeStatusLivreur'])->name('livreur.changeStatusLivreur');
 Route::get('/changeStatus', [App\Http\Controllers\SupplementController::class, 'changeStatus'])->name('supplement.changeStatus');
-Route::resource('commande', 'App\Http\Controllers\CommandeController');
 Route::get('/changeStatut', [App\Http\Controllers\CommandeController::class, 'changeStatut'])->name('commande.changeStatut');
 Route::get('/supprimer', [App\Http\Controllers\CommandeController::class, 'supprimer'])->name('commande.supprimer');
 Route::post('/insertCommande', [App\Http\Controllers\CommandeController::class, 'insert'])->name('commande.insert');
@@ -41,7 +44,7 @@ Route::get('/complete',[App\Http\Controllers\CommandeController::class, 'complet
 Route::get('/non-complete',[App\Http\Controllers\CommandeController::class, 'noncomplete'])->name('noncomplete');
 Route::get('/catalogue',[App\Http\Controllers\AlimentaireController::class, 'catalogue'])->name('alimentaire.catalogue');
 Route::get('/changeStatuss', [App\Http\Controllers\CategorieController::class, 'changeStatuss'])->name('categorie.changeStatuss');
-
+});
 
 Route::group(['middleware' => ['auth','role:administrator']], function () {
 	Route::resource('composants', 'App\Http\Controllers\ComposantsController');
@@ -72,7 +75,6 @@ Route::group(['middleware' => ['auth','role:administrator']], function () {
 
 Auth::routes();
 
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('table-list', function () {

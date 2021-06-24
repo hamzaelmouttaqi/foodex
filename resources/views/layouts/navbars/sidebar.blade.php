@@ -1,3 +1,18 @@
+@if (Auth::user()->hasRole('client'))
+<div class="sidebar" data-color="orange" data-background-color="white" >
+  <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+  <div class="logo">
+    <a href="/" class="simple-text logo-normal">
+      {{ __('FOODEX') }}
+    </a>
+  </div>
+  
+</div>
+@else
 <div class="sidebar" data-color="orange" data-background-color="white" >
   <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -299,3 +314,8 @@
     </ul>
   </div>
 </div>
+
+@endif
+
+
+

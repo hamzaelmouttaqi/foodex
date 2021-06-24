@@ -18,7 +18,11 @@ class UserController extends Controller
      */
     public function index(User $model)
     {
-        return view('employe.index', ['users' => $model->paginate(15)]);
+        
+        return view('employe.index', ['users' => $model->whereHas(
+            'roles', function($q){
+                $q->whereIn('role_id',['1','2']);
+            })->paginate(10)]);
     }
    
      /**
