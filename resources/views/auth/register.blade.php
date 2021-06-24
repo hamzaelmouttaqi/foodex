@@ -96,7 +96,10 @@
                 <select name="role_id" class="form-control">
                   <option value="" disabled selected >{{ __('Fontionnalite...') }}</option>
                   @foreach ($roles as $role)
+                    @if (($role->id)!=3)
                     <option value="{{ $role->name }}">{{ $role->name }}</option>
+                    @endif
+                    
                   @endforeach
                  </select>
               </div>

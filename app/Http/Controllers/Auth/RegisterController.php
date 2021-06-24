@@ -65,8 +65,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
 
-    {      
-        if(($data['nom'])){
+    {     
+        $i=0;
+        foreach(array_keys($data) as $dat){
+            if($dat=='nom'){
+                $i=1;
+            }
+        }
+        if($i==1){
           $nom=$data['nom'];
             $prenom=$data['prenom'];
             $email=$data['email'];
@@ -89,6 +95,7 @@ class RegisterController extends Controller
             'name' => $data['nom'].' '.$data['prenom'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            
         ]);
     }
     else{

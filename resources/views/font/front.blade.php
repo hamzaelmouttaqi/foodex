@@ -18,6 +18,8 @@
     <script src="{{ asset("font/style.js") }}"></script>
     <script src="{{ asset('owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js" integrity="sha512-ZKNVEa7gi0Dz4Rq9jXcySgcPiK+5f01CqW+ZoKLLKr9VMXuCsw3RjWiv8ZpIOa0hxO79np7Ec8DDWALM0bDOaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
     @livewireStyles
 </head>
 <body>
@@ -72,14 +74,32 @@
                 <header class="head">
                     <a href="#" class="logo"><img src="{{ asset('img/foodex_blanc.png') }}" alt=""></a>
                     <!-- <div id="menu-bar" class="fas fa-bars"></div> -->
-                    <nav class="navbar">
-                        <a href="#home">HOME</a>
-                        <a href="#about">ABOUT</a>
-                        <a href="#menu">MENU</a>
-                        <a href="#review">REVIEW</a>
-                        <a href="#contact">CONTACT</a>
+                    <div class="wrapper">
+                        <!-- Sidebar -->
+                        <nav id="sidebar" class="active">
+                            
+                    
+                            <ul class="list-unstyled components" class="navbar-nav mr-auto">
+                              <li class="nav-item"><a class="nav-link" href="#home">HOME</a></li>
+                              <li class="nav-item"><a class="nav-link" href="#about">ABOUT</a></li>
+                              <li class="nav-item"><a class="nav-link" href="#menu">MENU</a></li>
+                              <li class="nav-item"><a class="nav-link" href="#ordernow">GALLERY</a></li>
+                              <li class="nav-item"><a class="nav-link" href="#gallery">REVIEW</a></li>
+                              <li class="nav-item"><a class="nav-link" href="#contact">CONTACT</a></li>
+                            </ul>
+                        </nav>
+                    
+                    
+                        <div id="content">
+                            <nav class="navbar navbar-expand-lg ">
                         
-                    </nav>
+                                <button  type="button" id="sidebarCollapse" style="background-color: transparent">
+                                    <span class="navbar-toggler-icon"><i class="fas fa-bars" style="color:#fff; font-size:28px;"></i></span>
+                                </button>
+                                
+                            </nav>
+                        </div>
+                    </div>
                     <div class="left">
                         @livewire('cart-counter')
                         <a href="#"><i class="material-icons">search</i></a>
@@ -270,7 +290,7 @@
             </div>
         </div>
         {{-- ABOUT --}}
-        <div class="about" id="about">
+        <div class="about" id="about" >
             <div class="row to_fade_up">
                 <div class="col-4"></div>
                 <div class="col-md-8">
@@ -287,13 +307,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="contenu">
+            <div class="contenu" >
                 <div class="story data" style="display: none;">
                     <div class="row to_fade_up" >
-                        <div class="col-4 col-md-4" style="margin-top: -100px;"><img  width="100%" height="100%" src="{{ asset('img/chef.jpg') }}" alt=""></div>
-                        <div class="col-md-7">
-                            <table border="0" style="margin-top:30px ; margin-bottom: 30px;">
-                                <tr align="center" height=150px>
+                        <div class="col-4 col-md-4" style="margin-top: -100px;" id="imgS"><img  width="100%" height="100%" src="{{ asset('img/chef.jpg') }}" alt=""></div>
+                        <div class="col-md-7" id="stori">
+                            <table border="0" style="margin-top:30px ; margin-bottom: 30px;" width=100%>
+                                <tr align="center" >
                                     <th colspan="5" style="font-size: 60px;
                                     font-weight: bold; color: #EF5D1D;
                                     font-family: 'Stint Ultra Condensed', cursive;"
@@ -302,30 +322,30 @@
                                 <tr >
                                     <td style="font-family: 'Benne', serif;
                                     font-size: 18px;">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                        Molestiae, animi. Eos quod vero . 
-                                        Vero esse mollitia nam, praesentium labore beatae 
-                                        optio quam consectetur asperiores quidem corporis 
-                                        expedita! Laudantium?
+                                        <strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                            Molestiae, animi. Eos quod vero . 
+                                            Vero esse mollitia nam, praesentium labore beatae 
+                                            optio quam consectetur asperiores quidem corporis 
+                                            expedita! Laudantium?</strong>
                                     </td>
                                     <td width=50px></td>
                                     <td style="font-family: 'Benne', serif;
                                     font-size: 18px;">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                        Molestiae, animi. Eos quod vero . 
-                                        Vero esse mollitia nam, praesentium labore beatae 
-                                        optio quam consectetur asperiores quidem corporis 
-                                        expedita! Laudantium?
+                                        <strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                            Molestiae, animi. Eos quod vero . 
+                                            Vero esse mollitia nam, praesentium labore beatae 
+                                            optio quam consectetur asperiores quidem corporis 
+                                            expedita! Laudantium?</strong>
                                     </td>
                                     <td width=50px></td>
                                     <td style="font-family: 'Benne', serif;
                                     font-size: 18px;">
                                     
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                        Molestiae, animi. Eos quod vero . 
-                                        Vero esse mollitia nam, praesentium labore beatae 
-                                        optio quam consectetur asperiores quidem corporis 
-                                        expedita! Laudantium?
+                                        <strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                            Molestiae, animi. Eos quod vero . 
+                                            Vero esse mollitia nam, praesentium labore beatae 
+                                            optio quam consectetur asperiores quidem corporis 
+                                            expedita! Laudantium?</strong>
                                     </td>
 
                                 </tr>
@@ -335,7 +355,7 @@
                     </div>
                     <div class="images" style="margin-top: 100px;margin-right: 9%;margin-left: 9%;">
                         <table border="0" style="border-collapse: separate;">
-                            <tr>
+                            {{-- <tr>
                                 <td width=20% rowspan="2" valign=top><img src="{{ asset('img/last6-min.jpg') }}"  width="100%" height="390px" alt=""></td>
                                 <td width=30% rowspan="3" valign=top ><img src="{{ asset('img/last1-min.jpg') }}"  width="100%"
                                      height="625px" alt=""></td>
@@ -350,6 +370,25 @@
                                     <img src="{{ asset('img/salade-min.jpeg') }}"  width="49.8%" height="233px" alt="">
                                     <img src="{{ asset('img/last-min.jpg') }}" style="float: right;" width="49.8%" height="233px" alt="">
                                 </td>
+                            </tr> --}}
+                            <tr height=40%>
+                                <td width=20%><img src="{{ asset('img/salade-mexicaine.jpg') }}" alt="" width=100%></td>
+                                <td width=60% rowspan="2" ><img src="{{ asset('img/burger-min.jpg') }}" alt="" width=100%></td>
+                                
+                            </tr>
+                            <tr height=60%>
+                                <td ><img src="{{ asset('img/last2-min.jpeg') }}" alt="" width=100%></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="imagesmall" border="1" style="border-color: black" >
+                        <table width=80% style="border-collapse: separate; margin-left: 10%; margin-right: 10%">
+                            <tr height=40%>
+                                <td width=20%><img src="{{ asset('img/burger3.jpeg') }}" alt="" width=100%></td>
+                                <td width=60% rowspan="2" ><img src="{{ asset('img/burger-min.jpg') }}" alt="" width=100%></td>
+                            </tr>
+                            <tr height=60%>
+                                <td ><img src="{{ asset('img/last2-min.jpeg') }}" alt="" width=100%></td>
                             </tr>
                         </table>
                     </div>
@@ -374,7 +413,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-7" id="team1">
                             <table border="0">
                                 <tr valign=center>
                                     <td style="font-size: 50px;font-weight: bold;
@@ -386,18 +425,18 @@
                                 <tr height="220px">
                                     <td style="padding-left: 20px;font-size: 20px;
                                     font-family: 'Benne', serif;" valign="center">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam labore dolores nesciunt ipsam praesentium minus! Quia nostrum, vitae nesciunt magni, sequi suscipit ea dolorem consectetur, officiis aspernatur minus doloribus hic?
-                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit distinctio ab alias ipsum earum ut itaque explicabo ex quibusdam mollitia, perferendis ratione tempore aliquid id eius dolore ipsam fuga provident!
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis incidunt alias voluptatibus quos dicta rerum, libero iure ex, laudantium nisi corrupti ratione earum iste dolore quam, facere quaerat? Nobis, velit!
+                                        <strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam labore dolores nesciunt ipsam praesentium minus! Quia nostrum, vitae nesciunt magni, sequi suscipit ea dolorem consectetur, officiis aspernatur minus doloribus hic?
+                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit distinctio ab alias ipsum earum ut itaque explicabo ex quibusdam mollitia, perferendis ratione tempore aliquid id eius dolore ipsam fuga provident!
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis incidunt alias voluptatibus quos dicta rerum, libero iure ex, laudantium nisi corrupti ratione earum iste dolore quam, facere quaerat? Nobis, velit!</strong>
                                     </td>
                                 </tr>
                             </table>
-                    </div>
+                        </div>
                     </div>
                     <div class="row">
                     <div class="col-md-1"></div>
-                        <div class="col-md-7">
-                            <table border="0" >
+                        <div class="col-md-7 " id="team" >
+                            <table border="0" width=100% >
                                 <tr valign=center align="right">
                                     <td style="font-size: 50px;font-weight: bold;
                                      padding-bottom: 30px; color: #EF5D1D;
@@ -408,9 +447,9 @@
                                 <tr height="220px" align="right">
                                     <td style="padding-left: 20px;font-size: 20px;
                                     font-family: 'Benne', serif;" valign="center">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam labore dolores nesciunt ipsam praesentium minus! Quia nostrum, vitae nesciunt magni, sequi suscipit ea dolorem consectetur, officiis aspernatur minus doloribus hic?
-                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit distinctio ab alias ipsum earum ut itaque explicabo ex quibusdam mollitia, perferendis ratione tempore aliquid id eius dolore ipsam fuga provident!
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis incidunt alias voluptatibus quos dicta rerum, libero iure ex, laudantium nisi corrupti ratione earum iste dolore quam, facere quaerat? Nobis, velit!
+                                        <strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam labore dolores nesciunt ipsam praesentium minus! Quia nostrum, vitae nesciunt magni, sequi suscipit ea dolorem consectetur, officiis aspernatur minus doloribus hic?
+                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit distinctio ab alias ipsum earum ut itaque explicabo ex quibusdam mollitia, perferendis ratione tempore aliquid id eius dolore ipsam fuga provident!
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis incidunt alias voluptatibus quos dicta rerum, libero iure ex, laudantium nisi corrupti ratione earum iste dolore quam, facere quaerat? Nobis, velit!</strong>
                                     </td>
                                 </tr>
                             </table>
@@ -438,10 +477,10 @@
                 </div>
             </div>         
         </div>
-        <div class="before-foot">
+        <div class="before-foot" >
             <center>
-                <img src="{{ asset('img/dining-table.png') }}" width="258px" height="258px" alt="">
-                <p style="margin-top: 20px;font-size: 40px; font-family: 'Stint Ultra Condensed', cursive;">
+                <img src="{{ asset('img/dining-table.png') }}"  alt="">
+                <p style="margin-top: 5px;font-size: 40px; font-family: 'Stint Ultra Condensed', cursive;">
                     "Good painting is like good cooking-it can be tasted but not explained."
                 </p>
                 <div style="margin-bottom: 30px;">
@@ -477,57 +516,56 @@
         </div>
     </div>
 <footer>
-        <div class="tb">
-            <table class="tab" >
-                <tr>
-                    <th style="text-align: center;">About</th>
-                    <th style="text-align: left;padding-left:250px">Get News & Offers</th>
-                    <th style="text-align: center;">Contacts</th>
-                </tr>
-                <tr></tr>
-                <tr>
-                    <td>
-                        
-                            FOODEX is a restaurant owned and <br> 
-                                run by chef MASSIMO in <br>
-                                  Casablanca Morocco
-                        
-                    </td>
-                    <td>
-                        <div class="input-group mb-3" style="margin-top:30px ">
-                            <input type="text" class="form-control" placeholder="Your email" aria-label="Your email" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="button">subscribe</button>
-                            </div>
-                          </div>
-                    </td>
-                    <td>
-                        
-                                n° 21 <br>
-                           Cite Communale <br>
-                        Casablanca , MOROCCO
-                        
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        
-                            Reservations required for parties <br>
-                                of 6 or more.
-                        
-                    </td>
-                    <td></td>
-                    <td>
-                        
-                            +212655946442
-                        
-                    </td>
-                </tr>
-            </table> 
-            <div class="cp">
-                COPYRIGHT © FOODEX 2021. ALL RIGHT RESERVED
-            </div>
+    <div class="tb">
+        <table class="tab" width=100%  >
+            <tr >
+                <th style="text-align: center;">About</th>
+                <th style="text-align:center ;">Get News & Offers</th>
+                <th style="text-align: center;">Contacts</th>
+            </tr>
+            <tr>
+                <td>
+                    
+                        FOODEX is a restaurant owned and <br> 
+                            run by chef MASSIMO in <br>
+                              Casablanca Morocco
+                    
+                </td>
+                <td>
+                    <div class="input-group mb-3" style="margin-top:30px ">
+                        <input type="text" class="form-control" placeholder="Your email" aria-label="Your email" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" type="button">subscribe</button>
+                        </div>
+                      </div>
+                </td>
+                <td>
+                    
+                            n° 21 <br>
+                       Cite Communale <br>
+                    Casablanca , MOROCCO
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    
+                        Reservations required for parties <br>
+                            of 6 or more.
+                    
+                </td>
+                <td><pre>  </pre></td>
+                <td>
+                    
+                        +212655946442
+                    
+                </td>
+            </tr> 
+        </table> 
+        <div class="cp">
+            COPYRIGHT © FOODEX 2021. ALL RIGHT RESERVED
         </div>
+    </div>
 </footer>
    @livewireScripts
 </body>
