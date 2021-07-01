@@ -74,7 +74,9 @@
                                 <li class="nav-item">
                                     <div class="lien" id="{{ $categorie->nomCat }}">
                                         <div class="car" style="display: none !important;"></div>
-                                        <a  href="#{{ $categorie->nomCat }}" 
+                                        <a  class="nomCat" 
+                                        data-id="{{ $categorie->nomCat }}"
+                                        href="#{{ $categorie->nomCat }}"
                                             style="text-transform: uppercase;">{{ $categorie->nomCat }}</a>
                                     </div>
                                 </li>
@@ -92,7 +94,9 @@
                     <h6 style="margin-bottom: 40px">Our Food Is Made With Love</h6>
                     <div class="row">
                         @foreach ($alimentaires as $alimentaire)
+                        
                         <div class="col-md-4" style="margin-bottom: 20px">
+                            <div class="{{ $alimentaire->categorie }} data" > 
                             <table border="0" width=200px height=300px >
                                 <tr valign='top' height=180px>
                                     <td colspan="2" align="center">
@@ -116,9 +120,10 @@
                                 </tr>
                             </table>
                         </div>
-                        
+                    </div>
                         @endforeach
                 
+                    
                     </div>
                 </center>
             </div>
@@ -202,6 +207,7 @@
             button:"OK",
         }); 
     })
+    
     
 </script>
 </body>

@@ -71,8 +71,8 @@ class ParametreController extends Controller
     {
         $this->validate($request,["titre"=>"required"
         ,"nom_magasin"=>"required","tele"=>"required","text_footer"=>"required",
-        "adresse"=>'required','icon'=>'image|mimes:png,jpg|dimensions:max_width=70,max_height=70',
-        'logo'=>'image|mimes:png,jpg|dimensions:max_width=100,max_height=100']);
+        "adresse"=>'required','icon'=>'image|mimes:png,jpg|dimensions:max_width=200,max_height=200',
+        'logo'=>'image|mimes:png,jpg|dimensions:max_width=200,max_height=200']);
         // dd($request);
         $titre=$request->titre;
         $nom_magasin=$request->nom_magasin;

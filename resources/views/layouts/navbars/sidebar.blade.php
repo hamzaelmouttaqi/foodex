@@ -45,12 +45,18 @@
             <b class="caret"></b>
           </p>
         </a>
-        <div class="panel-collapse collapse {{ ($activePage == 'Commandelist' || $activePage == 'Commandeadd' ) ? 'show' : 'in' }}" id="commande">
+        <div class="panel-collapse collapse {{ ($activePage == 'Commandecomplet' || $activePage == 'Commandelist' || $activePage == 'Commandeadd' ) ? 'show' : 'in' }}" id="commande">
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'Commandelist' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('commande.index') }}">
                 <i class="material-icons">format_list_bulleted</i>
                 <span class="sidebar-normal">{{ __('Commande list') }} </span>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'Commandecomplet' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('complete') }}">
+                <i class="material-icons">format_list_bulleted</i>
+                <span class="sidebar-normal">{{ __('Commande completes') }} </span>
               </a>
             </li>
             <li class="nav-item{{ $activePage == 'Commandeadd' ? ' active' : '' }}">

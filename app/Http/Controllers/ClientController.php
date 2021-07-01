@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Commande;
+use App\Models\Parametre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -128,5 +130,11 @@ class ClientController extends Controller
         $client->delete();
 
       return redirect()->route('clients.index')->with(["succes"=>"client supprimer avec succes"]) ;
+    }
+    public function facture_client($id)
+    {
+        $commande=Commande::with('clients','alimentaires')->where('id',$id)->get();
+        $parametre=Parametre::find(1);
+        return view('clients.facture_client',compact('commande','parametre'));
     }
 }

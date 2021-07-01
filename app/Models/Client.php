@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     use HasFactory;
-    protected $fillable =["nom","Prenom","adresse","date_de_naissance","tele","code_postal","email"] ;
+    protected $fillable =["nom","Prenom","adresse","date_de_naissance","tele","code_postal","email","image"] ;
     public function getRouteKeyName()
     {
         return "id";

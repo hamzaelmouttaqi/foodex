@@ -23,6 +23,102 @@
     @livewireStyles
 </head>
 <body>
+    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ModalLabel">Votre Commande</h5>
+              <button type="button" class="btn btn-dark btn-sm"  data-bs-dismiss="modal" aria-label="Close"><i class="material-icons">close</i></button>
+            </div>
+            <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Status</th>
+                            <th scope="col"><center>Elements de commande</center></th>
+                            <th scope="col">Date commande</th>
+                            <th scope="col">Montant</th>
+                            <th scope="col">Livreur</th>
+                
+                            <th scope="col"><center>action</center></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($commandes as $commande)
+                              <tr>
+                                  <td>
+                                    @if ($commande->status == '1')
+                                        <button class="btn btn-danger">en cours</button> 
+                                    @else
+                                    <button class="btn btn-success">completé</button> 
+                                    @endif
+                                  </td>
+                                  
+                                    <td>
+                                      @foreach ($commande->alimentaires as $alim)
+                                          
+                                          <table class="table" border="0" border-collapse="collapse" >
+                                            <tr>
+                                              <td width=80>{{$alim->titre}}</td>
+                                              <td width=80>({{$alim->pivot->sizeAlimentaire}}) </td> 
+                                              <td width=80>Qte : {{$alim->pivot->quantite}}</td>
+                                                
+                                                  <td>
+                                                    <table class="{{$commande->id}}{{$alim->id}}" style="display: none" >
+                                                      <tr>
+                                                        <th scope="col">Composants</th>
+                                                        <th scope="col">Supplement</th>
+                                                      </tr>
+                                                      <tr>
+                                                        <td width=120>
+                                                          @foreach (json_decode($alim->pivot->composantCommande) as $comp)
+                                                           <li>{{$comp}}</li>
+                                                          @endforeach
+                                                        </td>
+                                                        <td width=85>
+                                                          @foreach (json_decode($alim->pivot->supplementCommande) as $sup)
+                                                          <li>{{$sup}}</li>
+                                                          @endforeach
+                                                        </td>
+                                                      </tr>
+                                                    </table>
+                                                    
+                                                  </td>
+                                                  
+                                                  <td><button type="button" class="sh alim{{$commande->id}}{{$alim->id}}" style="border-radius: 25px" data-id="{{$commande->id}}{{$alim->id}}">+</button></td>
+                                                  <td><button type="button" class="ssh aalim{{$commande->id}}{{$alim->id}}"  data-id="{{$commande->id}}{{$alim->id}}" style="display: none ; border-radius: 25px">-</button></td>
+                                            </tr>
+                                          </table>
+                                      
+                                  @endforeach
+                                  
+                                </td>
+                                
+                              
+                              <td>{{$commande->created_at}}</td>
+                              
+                              
+                              <td>{{$commande->montant }} dh</td>
+                              <td>
+                                {{DB::table('livreurs')->select('nom')->where('id',$commande->id_livreur)->value('nom')}}
+                              </td>
+                              <td class="d-flex flex-row justify-content-center align-items-center">
+                                <a class="btn  btn-light btn-sm ml-2" href="{{ route('facture',$commande->id)}}" ><i class="material-icons">receipt_long</i></a>
+                            </td>
+                                
+                          </tr>
+                          @endforeach
+            
+                        </tbody>
+                    </table>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     <div class="social">
         <ul class="social-media">
             <li class="change">
@@ -94,15 +190,24 @@
                             <nav class="navbar navbar-expand-lg ">
                         
                                 <button  type="button" id="sidebarCollapse" style="background-color: transparent">
-                                    <span class="navbar-toggler-icon"><i class="fas fa-bars" style="color:#fff; font-size:28px;"></i></span>
+                                    <span class="navbar-toggler-icon">
+                                        <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
+                                    </span>
                                 </button>
                                 
                             </nav>
                         </div>
                     </div>
                     <div class="left">
+                        @php
+                            $id=DB::table('users')->select('id_client')->where('id',Auth::id())->value('id_client');
+                            $num=DB::table('commandes')->where('id_client',$id)->where('status',1)->count();
+                        @endphp
+                        <a class="nv" href="#" style="text-decoration: none">
+                            <i class="material-icons" style="font-size: 30px">electric_moped</i>
+                            <label style="font-size:20px">({{ $num }})</label>
+                        </a>
                         @livewire('cart-counter')
-                        <a href="#"><i class="material-icons">search</i></a>
                     </div>
                     @auth()
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -113,8 +218,8 @@
                 <a style="text-decoration: none;color:white" href="{{ route('logout') }}" class="material-icons" onclick="event.preventDefault();document.getElementById('logout-form').submit();">logout</a>
                 <span class="tooltiptext">Logout</span>
             </div>
-            <div class="profil"> 
-                <a style="text-decoration: none;color:white" href="{{ route('profile.edit') }}" class="material-icons">account_circle</a>
+            <div class="profil">
+                <a style="text-decoration: none;color:white" href="{{ route('profile.client',$id) }}" class="material-icons">account_circle</a>
                 <span class="tooltiptextprofil">Profil</span>
             </div>
         @endauth
@@ -219,13 +324,13 @@
                 </div> --}}
                 <div class="owl-carousel owl-theme">
                     <div class="item">
-                    <center>
-                        <img src="{{ asset('img/sushi1.png') }}" style="max-width:170px;margin-bottom:15px" class="img-fluid" alt="">
-                        <h3 style="max-width:150px;margin-bottom:15px">Avocado Malki</h3>
-                        <p style="max-width:150px; ">
-                            Lorem ipsum dolor, sit amet  commodi excepturi in, obcaecati ab delectus maxime.
-                        </p>
-                    </center>
+                        <center>
+                            <img src="{{ asset('img/sushi1.png') }}" style="max-width:170px;margin-bottom:15px" class="img-fluid" alt="">
+                            <h3 style="max-width:150px;margin-bottom:15px">Avocado Malki</h3>
+                            <p style="max-width:150px; ">
+                                Lorem ipsum dolor, sit amet  commodi excepturi in, obcaecati ab delectus maxime.
+                            </p>
+                        </center>
                     </div>
                     <div class="item">
                         
@@ -568,5 +673,28 @@
     </div>
 </footer>
    @livewireScripts
+   <script>
+       $(function() {
+            $(".nv").on('click',function() {
+                $("#Modal").modal('show')
+            })
+        })
+        
+$(function() {
+      $('.sh').on('click',function() {
+        var id = $(this).data('id'); 
+        $("."+id).show();
+        $('.alim'+id).hide();
+        $('.aalim'+id).show();
+    })
+      
+    $('.ssh').on('click',function() {
+        var id = $(this).data('id'); 
+        $("."+id).hide();
+        $('.aalim'+id).hide();
+        $('.alim'+id).show();
+    })
+    })
+   </script>
 </body>
 </html>

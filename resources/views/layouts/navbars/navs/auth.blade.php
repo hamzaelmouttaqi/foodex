@@ -29,7 +29,24 @@
             </p>
           </a>
         </li>
-        
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="material-icons">notifications</i>
+            @php
+                $number=Auth::user()->unreadNotifications()->groupBy('notifiable_type')->count();
+            @endphp
+            <span class="notification">{{$number}}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="notif">
+             @php
+                $user = Auth::user();
+            @endphp
+              
+                @foreach ($user->unreadNotifications as $notif)
+                <a class="dropdown-item" href="{{ route("commande.markAsReads") }}" data-notif-id="{{$notif->id}}" >{{$notif->data['text']}}</a>
+            @endforeach
+          </div>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="material-icons">person</i>

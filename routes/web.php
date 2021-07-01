@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Commande;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +17,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('font.front');
+	$id=DB::table('users')->select('id_client')->where('id',Auth::id())->value('id_client');
+    return view('font.front')->with('commandes',Commande::with('clients')->where('id_client',$id)->where('status',1)->get());
 });
 
-
+Route::post('/changeImage', [App\Http\Controllers\ProfileController::class, 'changeImage'])->name('profile.changeImage');
 Route::resource('menu','App\Http\Controllers\Menu');
-
-
+Route::get('client-profil/{id}',[App\Http\Controllers\ProfileController::class, 'profil_client'])->name('profile.client');
+Route::get('/facture_pdf/{id}',[App\Http\Controllers\CommandeController::class, 'facture_pdf'])->name('facture');
+Route::get('/facture_client/{id}',[App\Http\Controllers\ClientController::class, 'facture_client'])->name('facture_client');
 
 
 Route::group(['middleware' => ['auth','role:administrator,employee']], function () {
@@ -67,6 +72,7 @@ Route::group(['middleware' => ['auth','role:administrator']], function () {
 	Route::get('/categorie/{categorie}/edit', [App\Http\Controllers\CategorieController::class, 'edit'])->name('categorie.edit');
 	Route::delete('/categorie/{categorie}/destroy', [App\Http\Controllers\CategorieController::class, 'destroy'])->name('categorie.destroy');
 	Route::resource('employe','App\Http\Controllers\UserController');
+	Route::get('/markAsReads',[App\Http\Controllers\CommandeController::class, 'markAsReads'])->name('commande.markAsReads');
 });
 
 

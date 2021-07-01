@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Commande;
+use App\Models\User;
+use App\Notifications\notifCommande;
 use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +39,8 @@ class CartAlimentaire extends Component
             'id_client'=>Auth::user()->id_client,
             'nom_client'=> Auth::user()->name ,
         ]);
+        $date_de_naissance=DB::table('clients')->select('date_de_naissance')->where('id',Auth::user()->id_client)->value('date_de_naissance');
+        $date_nai=date('m-d',strtotime($date_de_naissance));
         $commande=Commande::where('id',$commandee->id)->first() ;
         
         foreach($carts as $row){
@@ -54,6 +58,9 @@ class CartAlimentaire extends Component
         foreach($carts as $row){
             $total=$total+$row->weight;
         }
+        if($date_nai==date('m-d')){
+            $total=$total-$total*(0.2);
+         }
         $sum_total=number_format((float)$total, 2, '.', '');
         DB::table('commandes')->where('id',$commandee->id)->update(['montant'=>$total]);
         $code_postal=DB::table('clients')->select('code_postal')->where('id',$commande->id_client)->value('code_postal');
@@ -66,6 +73,14 @@ class CartAlimentaire extends Component
              foreach($carts as $row){
                  $this->removefromCart($row->rowId);
              }
+             $commandess = DB::table('commandes')->where('id',$commandee->id)->first();
+             $users = User::whereHas('roles', function($q)
+                {
+                    $q->where('name', 'administrator');})->get();
+
+                foreach($users as $user ){
+                    $user->notify(new notifCommande($commandess));
+                }
              session()->flash('message', 'order successfully traited.');
              $this->dispatchBrowserEvent('afficher_meassage');
             }

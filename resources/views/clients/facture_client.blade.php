@@ -1,6 +1,13 @@
 
-@extends('layouts.app' ,['activePage' => 'Commandelist', 'titlePage' => __('')])
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
     <div class="content">
         <div class="row">
             <div class="col-md-3">
@@ -228,12 +235,6 @@
        
             </div>
         </div>
-    
-    
-    @endsection
-    
-    @section('scripts')
-        @parent
         <script>
             function printDiv(divName) {
     
@@ -251,4 +252,7 @@
         }
         </script>
 
-@endsection
+
+</body>
+</html>
+   

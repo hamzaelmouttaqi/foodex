@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
+use App\Models\Client;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
@@ -17,7 +20,10 @@ class ProfileController extends Controller
     {
         return view('profile.edit');
     }
-
+    public function profil_client($id){
+        $profile=DB::table('clients')->where('id',$id)->first();
+        return view('profile.client-profil',compact('profile'));
+    }
     /**
      * Update the profile
      *
@@ -42,5 +48,19 @@ class ProfileController extends Controller
         auth()->user()->update(['password' => Hash::make($request->get('password'))]);
 
         return back()->withStatusPassword(__('Password successfully updated.'));
+    }
+    public function changeImage()
+    {   
+        
+        // $client=Client::find($request->id);
+        // $file=$request->myfile;
+        // $filename = time().'.png';
+        // // $file->move('uploads/profil',$filename);
+        // $client->image=$filename;
+        // $client->save();
+        $filename=$_FILES['file']['name'];
+        $location = 'uploads/profil/'.$filename;
+        move_uploaded_file($_FILES['file']['tmp_name'],$location);
+        return response()->json(['success'=>'Status change successfully.']);
     }
 }

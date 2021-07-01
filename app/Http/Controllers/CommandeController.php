@@ -11,8 +11,12 @@ use App\Models\composants;
 use App\Models\Livreur;
 use App\Models\Parametre;
 use App\Models\Supplement;
+use App\Models\User;
+use App\Notifications\notifCommande;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class CommandeController extends Controller
 {
@@ -27,16 +31,16 @@ class CommandeController extends Controller
     
     public function complete()
     {
-        return view('commande.commande-complete')->with(["commandes"=>Commande::with('clients')->where('status',0)->get()]);
+        return view('commande.commande-complete')->with(["commandes"=>Commande::with('clients')->where('status',0)->orderBy('updated_at','DESC')->paginate(10)]);
     }
-    public function noncomplete()
-    {
-        return view('commande.commande-noncomplete')->with(["commandes"=>Commande::with('clients')->where('status',1)->get()]);
-    }
+    // public function noncomplete()
+    // {
+    //     return view('commande.commande-noncomplete')->with(["commandes"=>Commande::with('clients')->where('status',1)->get()]);
+    // }
     public function index()
     {   
         
-        return view('commande.index')->with(["commandes"=>Commande::with('clients')->paginate(10)]);
+        return view('commande.index')->with(["commandes"=>Commande::with('clients')->where('status',1)->orderBy('updated_at','DESC')->paginate(10)]);
     }
 
     /**
@@ -72,6 +76,8 @@ class CommandeController extends Controller
         
         $nom=DB::table('clients')->select('nom')->where('id',$id_client)->value('nom');
         $Prenom=DB::table('clients')->select('Prenom')->where('id',$id_client)->value('Prenom');
+        $date_de_naissance=DB::table('clients')->select('date_de_naissance')->where('id',$id_client)->value('date_de_naissance');
+        $date_nai=date('m-d',strtotime($date_de_naissance));
         $nom_client=$nom.' '.$Prenom;
         $commandee=Commande::create([
             'id_client'=>$id_client,
@@ -116,6 +122,9 @@ class CommandeController extends Controller
              foreach ($commande->alimentaires as $alim){   
                 $total=$total+ $alim->pivot->prixAlimentaire;
              }
+             if($date_nai==date('m-d')){
+                $total=$total-$total*(0.2);
+             }
              DB::table('commandes')->where('id',$commandee->id)->update(['montant'=>$total]);
              $code_postal=DB::table('clients')->select('code_postal')->where('id',$commande->id_client)->value('code_postal');
              $livreur=DB::table('livreurs')->select('id')->where('code_postal',$code_postal)->where('status',1)->inRandomOrder()->value('id');
@@ -126,7 +135,14 @@ class CommandeController extends Controller
                 DB::table('livreurs')->where('id',$livreur)->update(['status'=>0]);
              }
 
-             
+             $commandess = DB::table('commandes')->where('id',$commandee->id)->first();
+             $users = User::whereHas('roles', function($q)
+        {
+            $q->where('name', 'administrator');})->get();
+
+        foreach($users as $user ){
+            $user->notify(new notifCommande($commandess));
+        }
 
            
         // // $composantCommande=$request->composantCommande;
@@ -284,5 +300,20 @@ class CommandeController extends Controller
             "adresse"=>$adresse,
         ]);
         return redirect()->route('commande.create')->with(["succes"=>"clients ajoutee avec succes"]) ;
+    }
+    public function markAsReads(){
+        //$notif= DB::table('notifications')->where('id',$id)->first();
+        $user=Auth::user();
+        foreach ($user->unreadNotifications as $notification) {
+            $notification->markAsRead();
+        }
+        return redirect()->route('commande.index')  ;  
+    }
+    public function facture_pdf($id)
+    {   $commande=Commande::with('clients','alimentaires')->where('id',$id)->get();
+        $parametre=Parametre::find(1);
+        $pdf=PDF::loadView('clients.facture_client',compact('commande','parametre'));
+        return $pdf->download('facture.pdf');
+        
     }
 }

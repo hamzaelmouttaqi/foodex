@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AlimentaireTable extends Component
-{   public array $quantite =[] ;
-    public array $size =[] ;
-    public array $composants_ =[];
-    public array $ingredient_ =[];
-    public array $quantites =[];
-    public array $supplement =[];
+{   
+    public  $quantite = [];
+    public  $size =[] ;
+    public  $composants_ =[];
+    public  $ingredient_ =[];
+    public  $quantites =[];
+    public  $supplement =[];
     public $comp;
     public $alimentaires;
     public $composants;
@@ -64,14 +65,17 @@ class AlimentaireTable extends Component
        
         $alimentaire=alimentaire::findOrFail($alimentaire_id);
         $pri = 0;
+        $cm= array();
         if($this->composants_){
-        $compo=$this->composants_[$alimentaire_id];
+            foreach($this->composants_[$alimentaire_id] as $com){
+            if($com!=false){
+                array_push($cm,$com);
+            }
         }
-        
+    }
         else{
-            $compo=[];
-        }
-        
+            $cm=[];
+        }  
         if($this->ingredient_){
         $ingredi=$this->ingredient_[$alimentaire_id];
         
@@ -90,17 +94,19 @@ class AlimentaireTable extends Component
         else{
             $ingre=[];
         }
-        $mer=array_merge($compo,$ingre);
+        $mer=array_merge($cm,$ingre);
         $compAlim=json_encode($mer);
         list($value1,$value2)=explode('|',$this->size[$alimentaire_id]);
         $prixSupplement = 0;
+        $sp=array();
         if($this->supplement){
         $supplement=$this->supplement[$alimentaire_id]; 
                  
                  foreach($supplement as $sup){
                      if($sup!=false){
                     $prss = DB::table('supplements')->select('prix')->where('titre',$sup)->value('prix') ;
-                    $prixSupplement = $prixSupplement + $prss ; }
+                    $prixSupplement = $prixSupplement + $prss ;
+                array_push($sp,$sup); }
                  }}
         else{
             $supplement=[];
@@ -109,7 +115,7 @@ class AlimentaireTable extends Component
         $cart=Cart::add(['id' => $alimentaire->id, 'name' =>$alimentaire->titre,
          'qty' => $qty, 'price' => $value1+$pri, 'weight' => $prixSupplement+($pri+$value1)*$qty,
          'options' => ['size' => $value2,'composants'=>$compAlim,
-         'supplementCommande'=>$supplement,
+         'supplementCommande'=>$sp,
          'prixSupplement'=>$prixSupplement]]);
         
          $this->dispatchBrowserEvent('closeModal');
@@ -120,7 +126,7 @@ class AlimentaireTable extends Component
          $this->size=[];
          $this->supplement=[];
          $supplement=[];
-         $compo=[];
+         $cm=[];
          $ingre=[];
          
          $this->mount();
