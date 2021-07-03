@@ -38,14 +38,14 @@ $(function () {
       $("#com_"+id).toggle(700);
     });
  })
- $(document).ready(function(){
-  $(".nomCat").on('click',function(){
-    let id = $(this).attr('data-id')
-    $(".data").hide()
-    $("." + id).fadeIn(700)
+//  $(document).ready(function(){
+//   $(".nomCat").on('click',function(){
+//     let id = $(this).attr('data-id')
+//     $(".data").hide()
+//     $("." + id).fadeIn(700)
     
-  });
-})
+//   });
+// })
 // $(document).ready(function(){
 //     $(".increase").on('click',function() {
 //         let id = $(this).attr('data-id');

@@ -11,7 +11,7 @@
         @csrf
 
         <div class="card card-login card-hidden mb-3">
-          <div class="card-header card-header-danger text-center">
+          <div class="card-header card-header-warning text-center">
             <h4 class="card-title"><strong>{{ __('Login') }}</strong></h4>
             <div class="social-line">
               <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
@@ -67,20 +67,20 @@
             </div>
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-danger btn-link btn-lg">{{ __('Lets Go') }}</button>
+            <button type="submit" class="btn btn-warning btn-link btn-lg">{{ __('Lets Go') }}</button>
           </div>
         </div>
       </form>
       <div class="row">
         <div class="col-6">
             @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}" class="btn btn-danger">
+                <a href="{{ route('password.request') }}" class="btn btn-warning">
                     <small>{{ __('Forgot password?') }}</small>
                 </a>
             @endif
         </div>
         <div class="col-6 text-right">
-          <a href="{{ route('register') }}" class="btn btn-danger" style="width:150px">
+          <a href="{{ route('register') }}" class="btn btn-warning" style="width:150px">
               <small><b>{{ __('Create new account') }}</b></small>
           </a>
       </div>

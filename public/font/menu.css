@@ -59,16 +59,18 @@ header .left .material-icons{
 .products{
     position: fixed;
     top: 90px;
-    left: 0%;
-    background-color: #CB6318;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    left: 2%;
+    background-color: rgb(58, 56, 56);
     margin-top: 100px;
     padding-top: 20px;
-    height: 600px;
+    height: 500px;
     width: 20%;
     box-shadow: rgba(0, 0, 0, 0.39) 1.95px 1.95px 2.6px;
+    overflow: scroll;
 }
+.products::-webkit-scrollbar {
+    display: none;
+  }
 .products.scrollen {
     position: absolute;
     top: 790px  !important;
@@ -82,15 +84,19 @@ header .left .material-icons{
 
 .products .productNav ul{
     list-style-type: none;
-   background-color: #CB6318;
+   background-color: rgb(58, 56, 56);
 }
 .products .productNav li{
-    height: 50px;
+    height: 60px;
     margin-bottom: 30px;
+    background-color: whitesmoke;
+    margin-right: 20px;
+    margin-left: -10px;
 }
 .products .productNav li a{
     display: block;
-    color: white;
+    color: black;
+    font-weight: bold;
     font-size: 20px;
     text-decoration: none;
     position: absolute;
@@ -105,8 +111,8 @@ header .left .material-icons{
 
  .car{
     width: 5px;
-    height: 45px;
-    background-color: rgb(82, 79, 79);
+    height: 55px;
+    background-color: rgb(236, 117, 19);
     position: absolute;
     left: 0;
     margin-top:auto;

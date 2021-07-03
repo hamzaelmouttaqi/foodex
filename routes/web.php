@@ -18,11 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 	$id=DB::table('users')->select('id_client')->where('id',Auth::id())->value('id_client');
-    return view('font.front')->with('commandes',Commande::with('clients')->where('id_client',$id)->where('status',1)->get());
+	$alim_favo = DB::table('alimentaire_commande')
+	->select('alimentaire_id', DB::raw('COUNT(id) as alim'))
+	->groupBy('alimentaire_id')
+	->orderBy(DB::raw('COUNT(id)'), 'DESC')
+	->take(7)
+	->get();
+    return view('font.front',compact('alim_favo'))->with('commandes',Commande::with('clients')->where('id_client',$id)->where('status',1)->get());
 });
 
 Route::post('/changeImage', [App\Http\Controllers\ProfileController::class, 'changeImage'])->name('profile.changeImage');
 Route::resource('menu','App\Http\Controllers\Menu');
+Route::get('/cart',[App\Http\Controllers\Menu::class, 'cart_content'])->name('cart_content');
 Route::get('client-profil/{id}',[App\Http\Controllers\ProfileController::class, 'profil_client'])->name('profile.client');
 Route::get('/facture_pdf/{id}',[App\Http\Controllers\CommandeController::class, 'facture_pdf'])->name('facture');
 Route::get('/facture_client/{id}',[App\Http\Controllers\ClientController::class, 'facture_client'])->name('facture_client');

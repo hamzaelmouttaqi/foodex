@@ -260,16 +260,22 @@ class CommandeController extends Controller
     {
 
         $commande = Commande::find($request->id);
-
         $commande->status = $request->status;
-
+        $comm=Commande::select('*')->where('id',$request->id)->get();
+        foreach($comm as $ham){
+            if($ham->id_livreur==null){
+                DB::insert('insert into archives (id_client,status,montant,created_at,updated_at,nom_client) 
+                values (?,?,?,?,?,?)', [$ham->id_client,1,$ham->montant,
+                $ham->created_at,$ham->updated_at,$ham->nom_client]);
+            }
+            else{
+        DB::insert('insert into archives (id_client,id_livreur,status,montant,created_at,updated_at,nom_client) 
+        values (?,?,?,?,?,?,?)', [$ham->id_client,$ham->id_livreur,1,$ham->montant,
+        $ham->created_at,$ham->updated_at,$ham->nom_client]);
+            }
+        }
         $commande->save();
-
-  
-
         return response()->json(['success'=>'Status change successfully.']);
-        
-
     }
    
     public function supprimer(Request $request)

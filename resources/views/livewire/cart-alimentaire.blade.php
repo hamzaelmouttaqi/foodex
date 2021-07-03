@@ -70,7 +70,7 @@
         <tr >
 
             <td colspan="5" align="center">
-                <button class="btn btn-primary" wire:click="PasserCommande()">Order Now</button>
+                <a class="btn btn-primary" href="{{ route('cart_content') }}">Order Now</a>
             </td>
         </tr>
     </table>

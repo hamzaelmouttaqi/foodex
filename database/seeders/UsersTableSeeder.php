@@ -1,6 +1,7 @@
 <?php
 namespace Database\Seeders;
 
+use App\Models\alimentaire;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\DB;
@@ -23,5 +24,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('admin123'),
         ]);
         $user->attachRole(1); 
+       
+           
     }
 }

@@ -13,7 +13,10 @@
                     <div class="row">
                       <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Clients de mois</h5>
+                        @if ($client_agomonth!=null)
                         <span class="h2 font-weight-bold mb-0">{{ $client_agomonth->nom_client }}</span>
+                        @endif
+                        
                       </div>
                       <div class="col-auto">
                         <div class="icon">
@@ -22,10 +25,12 @@
                       </div>
                     </div>
                     <center>
+                      @if ($client_agomonth!=null)
                       <p class="mt-3 mb-0 text-muted text-sm">
                       
                         <span class="text-nowrap">{{ $client_agomonth->sale }} Commandes</span>
                       </p>
+                      @endif
                     </center>
                     
                   </div>
@@ -140,7 +145,7 @@
                       <div class="row">
                         @foreach ($alim as $itm)
                         <div class="col-md-4" style="margin-bottom: 10px">
-                          <img src="{{ asset('uploads/alimentaire/image/'.$itm->image) }}" class="img-fluid" alt="">
+                          <img width="150" height="150" src="{{ asset('uploads/alimentaire/image/'.$itm->image) }}" class="img-fluid" alt="">
                        </div>
                        <div class="col-md-4" style="margin-top: 5%">
                         <center>
@@ -176,7 +181,7 @@
             <div class="row">
               @foreach ($alim as $itm)
               <div class="col-md-4" style="margin-bottom: 10px">
-                <img src="{{ asset('uploads/alimentaire/image/'.$itm->image) }}" class="img-fluid" alt="">
+                <img width="150" height="150" src="{{ asset('uploads/alimentaire/image/'.$itm->image) }}" class="img-fluid" alt="">
              </div>
              <div class="col-md-4" style="margin-top: 5%">
               <center>
@@ -212,7 +217,7 @@
                     @foreach ($clients_thismonth as $clients)
                    <tr>
                      <td>
-                       <img width="100px" height="100px" src="{{ asset('uploads/alimentaire/image/1620812803.jpg') }}" class="rounded-circle" alt="">
+                       <img width="100px" height="100px" src="{{ asset('uploads/profil/default.png') }}" class="rounded-circle" alt="">
                      </td>
                      <td style="font-weight: bold;font-size:20px">
                        {{ $clients->nom_client }}

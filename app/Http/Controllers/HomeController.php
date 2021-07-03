@@ -43,7 +43,7 @@ class HomeController extends Controller
         ->select('alimentaire_id', DB::raw('COUNT(id) as alim'))
         ->groupBy('alimentaire_id')
         ->orderBy(DB::raw('COUNT(id)'), 'DESC')
-        ->take(5)
+        ->take(7)
         ->get();
         // $alim_defavo = DB::table('alimentaire_commande')
         // ->select('alimentaire_id', DB::raw('COUNT(id) as alim'))
@@ -81,6 +81,7 @@ class HomeController extends Controller
         ->whereMonth('created_at','=',date('m',strtotime($agoMonth)))
         ->groupBy('nom_client')->orderBy('sale','DESC')
         ->first();
+        
         $clients_thismonth=Commande::select('nom_client',DB::raw('count(id) as sale'))->
         whereYear('created_at','=',date('Y'))
         ->whereMonth('created_at','=',date('m'))

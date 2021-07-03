@@ -218,10 +218,18 @@
                 <a style="text-decoration: none;color:white" href="{{ route('logout') }}" class="material-icons" onclick="event.preventDefault();document.getElementById('logout-form').submit();">logout</a>
                 <span class="tooltiptext">Logout</span>
             </div>
-            <div class="profil">
-                <a style="text-decoration: none;color:white" href="{{ route('profile.client',$id) }}" class="material-icons">account_circle</a>
+            @if (Auth::user()->hasRole('administrator')||Auth::user()->hasRole('employee'))
+              <div class="profil"> 
+                <a style="text-decoration: none;color:white" href="{{ route('profile.edit') }}" class="material-icons">account_circle</a>
                 <span class="tooltiptextprofil">Profil</span>
             </div>
+            @endif
+            @if (Auth::user()->hasRole('client'))
+            <div class="profil"> 
+              <a style="text-decoration: none;color:white" href="{{ route('profile.client',$id) }}" class="material-icons">account_circle</a>
+              <span class="tooltiptextprofil">Profil</span>
+          </div>
+            @endif
         @endauth
         @guest
         <div class='login'  style='float:right;'>
@@ -323,73 +331,42 @@
                     </div>
                 </div> --}}
                 <div class="owl-carousel owl-theme">
-                    <div class="item">
-                        <center>
-                            <img src="{{ asset('img/sushi1.png') }}" style="max-width:170px;margin-bottom:15px" class="img-fluid" alt="">
-                            <h3 style="max-width:150px;margin-bottom:15px">Avocado Malki</h3>
-                            <p style="max-width:150px; ">
-                                Lorem ipsum dolor, sit amet  commodi excepturi in, obcaecati ab delectus maxime.
-                            </p>
-                        </center>
-                    </div>
-                    <div class="item">
+                    @foreach ($alim_favo as $item)
+                    @php
+                    $alim=DB::table('alimentaires')->select('image','titre','description')->where('id',$item->alimentaire_id)->get();
+                @endphp
+                    @foreach ($alim as $itm)
                         
-                            <center>
-                                <img src="{{ asset('img/margarita.png') }}" style="max-width:200px;margin-bottom:15px" class="img-fluid" alt="">
-                                <h3 style="max-width:150px;margin-bottom:15px">Avocado Malki</h3>
-                                <p style="max-width:150px; ">
-                                    Lorem ipsum dolor, sit amet  commodi excepturi in, obcaecati ab delectus maxime.
-                                </p>
-                            </center>
-                       
-                    </div>
-                    <div class="item">
-                        
-                            <center>
-                                <img src="{{ asset('img/sushi3.png') }}" style="max-width:165px;margin-bottom:15px" class="img-fluid" alt="">
-                                <h3 style="max-width:150px;margin-bottom:15px">Avocado Malki</h3>
-                                <p style="max-width:150px; ">
-                                    Lorem ipsum dolor, sit amet  commodi excepturi in, obcaecati ab delectus maxime.
-                                </p>
-                            </center>
-                        
-                    </div>
+                    @endforeach
                     <div class="item">
                         <center>
-                            <img src="{{ asset('img/burger4.png') }}" style="max-width:177px;margin-bottom:15px" class="img-fluid" alt="">
-                            <h3 style="max-width:150px;margin-bottom:15px">Avocado Malki</h3>
-                            <p style="max-width:150px; ">
-                                Lorem ipsum dolor, sit amet  commodi excepturi in, obcaecati ab delectus maxime.
-                            </p>
+                            <table border="0">
+                                <tr align="center" height=170>
+                                    <td>
+                                        <img src="{{ asset('uploads/alimentaire/image/'.$itm->image) }}" style="max-width:170px;margin-bottom:15px" class="img-fluid" alt="">
+
+                                    </td>
+                                </tr>
+                                <tr align="center">
+                                    <td>
+                                        <h3 style="max-width:300px;margin-bottom:15px">{{ $itm->titre }}</h3>
+                                    </td>
+                                </tr>
+                                <tr align="center">
+                                    <td>
+                                        @php
+                                    $desc=substr( $itm->description ,0,50)
+                                @endphp
+                                        <p style="max-width:200px;">
+                                            {{ $desc }}...
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
                         </center>
                     </div>
-                    <div class="item">
-                        <center>
-                        <img src="{{ asset('img/black-sushi.png') }}" style="max-width:160px;margin-bottom:15px" class="img-fluid" alt="">
-                        <h3 style="max-width:150px;margin-bottom:15px">Avocado Malki</h3>
-                        <p style="max-width:150px; ">
-                            Lorem ipsum dolor, sit amet  commodi excepturi in, obcaecati ab delectus maxime.
-                        </p>
-                        </center>
-                    </div>
-                    <div class="item">
-                        <center>
-                        <img src="{{ asset('img/black-sushi.png') }}" style="max-width:160px;margin-bottom:15px" class="img-fluid" alt="">
-                        <h3 style="max-width:150px;margin-bottom:15px">Avocado Malki</h3>
-                        <p style="max-width:150px; ">
-                            Lorem ipsum dolor, sit amet  commodi excepturi in, obcaecati ab delectus maxime.
-                        </p>
-                        </center>
-                    </div>
-                    <div class="item">
-                        <center>
-                            <img src="{{ asset('img/burger4.png') }}" style="max-width:177px;margin-bottom:15px" class="img-fluid" alt="">
-                            <h3 style="max-width:150px;margin-bottom:15px">Avocado Malki</h3>
-                            <p style="max-width:150px; ">
-                                Lorem ipsum dolor, sit amet  commodi excepturi in, obcaecati ab delectus maxime.
-                            </p>
-                        </center>
-                    </div>
+                    @endforeach
+                    
                 </div>
                 <div style="margin-top: 50px"><center><a href="{{ route('menu.index') }}" class="btn btn-dark" style="border-radius: 20px;width:300px">View All Menu</a></center></div>
             </div>

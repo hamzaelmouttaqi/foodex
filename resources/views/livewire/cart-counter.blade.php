@@ -1,5 +1,5 @@
 
-<a href="#" style="text-decoration: none; color : black;">
+<a href="{{ route('cart_content') }}" style="text-decoration: none; color : black;">
     <i class="material-icons">shopping_bag</i><label style="font-size:20px">({{ $cart }})</label>
 </a>
 
